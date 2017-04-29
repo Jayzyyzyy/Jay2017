@@ -1,4 +1,4 @@
-package com.algo.list;
+package 链表;
 
 /**
  *  两条单链表是否相交

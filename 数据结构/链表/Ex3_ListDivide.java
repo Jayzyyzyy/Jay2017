@@ -1,4 +1,4 @@
-package com.algo.list;
+package 链表;
 
 /**
  *  链表的分化
