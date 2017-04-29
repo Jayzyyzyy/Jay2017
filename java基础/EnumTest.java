@@ -1,0 +1,51 @@
+/**
+ * Created by Jay on 2017/4/23.
+ */
+public class EnumTest {
+
+
+}
+
+enum ColorEnum{
+    RED, GREEN, BLUE;
+}
+
+enum SexEnum{
+    男, 女, FEMALE ,MALE;
+}
+
+
+enum CatEnum{
+    /**
+     * 1、带有构造方法的枚举，构造方法为只能为private(默认可不写private)；
+     * 2、含带参构造方法的枚举，枚举值必须赋值；
+     * 3、枚举中有了其他属性或方法之后，枚举值必须定义在最前面，且需要在最后一个枚举值后面加分号";"
+     */
+    BMW("宝马",1000000),
+    JEEP("吉普",800000),
+    MINI("mini",200000);
+
+    private String name;
+    private int price;
+
+    CatEnum(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+}

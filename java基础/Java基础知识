@@ -1,0 +1,11 @@
+一、try catch finally执行顺序问题
+（1）try catch中只要有finally语句都要执行（有特例：如果try 或 catch 里面有 exit（0）就不会执行finally了）；
+（2）finally语句在try或catch中的return语句执行之后返回之前执行，且finally里的修改语句不能影响try或catch中 return已经确定的返回值；
+        若finally里也有return语句则覆盖try或catch中的return语句直接返回；
+ （3）在遵守第（2）条return的情况下，执行顺序是：try-->catch（如果有异常的话）-->finally；
+
+二、静态代码块、子类、父类初始化顺序
+    上到下（父类到子类）先走完 类级别的（静态的）--> 再依次走完父类的所有实例级别代码 --> 再走子类所有实例级别代码
+三、 volatile
+    volatile修饰符，Volatile修饰的成员变量在每次被线程访问时，都强迫从共享内存中重读该成员变量的值。而且，当成员变量发生变化时，
+    强迫线程将变化值回写到共享内存。这样在任何时刻，两个不同的线程总是看到某个成员变量的同一个值。一个volatile对象引用可能是null。
