@@ -1,15 +1,22 @@
 /**
- * Created by Jay on 2017/4/23.
+ * 枚举类
  */
 public class EnumTest {
 
 
 }
 
+/**
+ * 颜色枚举
+ */
 enum ColorEnum{
     RED, GREEN, BLUE;
 }
 
+/**
+ * 性别枚举
+ * 可用中文字符，不能单独使用数字
+ */
 enum SexEnum{
     男, 女, FEMALE ,MALE;
 }
