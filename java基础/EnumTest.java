@@ -18,7 +18,7 @@ enum ColorEnum{
  * 可用中文字符，不能单独使用数字
  */
 enum SexEnum{
-    男, 女, FEMALE ,MALE;
+    /*男, 女, */FEMALE ,MALE;
 }
 
 

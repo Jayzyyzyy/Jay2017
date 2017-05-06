@@ -1,20 +1,21 @@
-package 树.二叉搜索树;
+package Tree.BinarySearchTree;
 
 /**
- * 二叉树BST结点
+ * 二叉搜索树BST结点
  */
 public class BinarySearchTreeNode<T>{
 	private T data;
 	private BinarySearchTreeNode<T> parent;  //父节点
-	private BinarySearchTreeNode<T> left;
-	private BinarySearchTreeNode<T> right;
-	private int state;  //递归状态(非递归遍历表示一个节点运行到的状态)
+	private BinarySearchTreeNode<T> left;    //左子结点
+	private BinarySearchTreeNode<T> right;   //右子节点
+	private int state;  //递归状态(非递归遍历时表示一个节点运行到的状态)
 
 	public BinarySearchTreeNode(T data) {
 		this.data = data;
 		this.left = null;
 		this.right = null;
 		this.parent = null;
+		this.state = 0;
 	}
 
 	public T getData() {

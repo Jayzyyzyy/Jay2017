@@ -1,4 +1,4 @@
-package 树.二叉搜索树;
+package Tree.BinarySearchTree;
 
 import java.util.LinkedList;
 import java.util.Queue;

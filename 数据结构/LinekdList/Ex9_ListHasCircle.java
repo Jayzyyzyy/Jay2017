@@ -1,4 +1,4 @@
-package 链表;
+package LinekdList;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package 数组;
+package Array;
 
 public interface Iterator {
 	boolean hasNext();

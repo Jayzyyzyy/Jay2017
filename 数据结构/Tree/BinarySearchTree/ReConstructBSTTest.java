@@ -1,9 +1,8 @@
-package 树.二叉搜索树;
+package Tree.BinarySearchTree;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import 树.二叉搜索树.ReConstructBST;
 
 /**
  *  二叉树重建测试

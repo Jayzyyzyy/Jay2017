@@ -1,11 +1,11 @@
-package 树.二叉搜索树;
+package Tree.BinarySearchTree;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
 /**
- 二叉树
+ BinarySearchTree
  	5
    / \
   2   7
@@ -28,9 +28,9 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 	}
 
 	/**
-     * 二叉树插入节点
+     * 二叉搜索树插入节点
      * @param data 节点元素
-     * @return 插入的节点
+     * @return 根节点
      */
     public BinarySearchTreeNode<T> insert(T data){
         if(root == null){
@@ -41,16 +41,16 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         BinarySearchTreeNode<T> current = root;
         while(true){
             //当前节点的数据小于data
-            if(current.getData().compareTo(data) >= 0){
+            if(current.getData().compareTo(data) > 0){
                 if(current.getLeft() != null){
                     current = current.getLeft();
                 }else {
                     BinarySearchTreeNode<T> child = new BinarySearchTreeNode<T>(data);
                     current.setLeft(child);
                     child.setParent(current);
-                    return child;
+                    return root;
                 }
-            }else {//当前节点数据大于root
+            }else if(current.getData().compareTo(data) < 0){//当前节点数据大于root
                 if(current.getRight() != null){
                     current = current.getRight();
                 }else {
@@ -59,6 +59,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                     child.setParent(current);
                     return child;
                 }
+            }else {
+                return root;
             }
         }
     }
@@ -78,7 +80,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                 if(current.getLeft() != null){
                     current = current.getLeft();
                 }else{
-                    return false;
+                    return false; //左边已经无元素
                 }
             }else if(current.getData().compareTo(data) < 0){
                 if(current.getRight() != null){
@@ -87,7 +89,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                     return false;
                 }
             }else {
-                return true;
+                return true; //找到
             }
         }
     }
@@ -220,15 +222,15 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                 if(current.getLeft() != null){
                     stack.push(current.getLeft());
                 }
-                current.setState(1);
+                current.setState(1); //确认是否有左子树
             }else if(current.getState() == 1){
                 if(current.getRight() != null){
                     stack.push(current.getRight());
                 }
-                current.setState(2);  //确认是否有左子树
+                current.setState(2);  //确认是否有右子树
             }else if(current.getState() == 2){
                 System.out.print(current.getData() + " ");  //打印数据
-                current.setState(3);  //确认是否有右子树
+                current.setState(3);
             }else if(current.getState() == 3){
                 stack.pop();          //删除栈顶节点
                 current.setState(0);
@@ -258,6 +260,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     }
 
     //删除某个节点n
+    //https://zhuanlan.zhihu.com/p/24873443
     public void delete(BinarySearchTreeNode<T> n){
         BinarySearchTreeNode<T> p = n.getParent();  //节点的父节点
         BinarySearchTreeNode<T> child;  //节点的子节点
@@ -277,7 +280,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
             }
         }
 
-        // 内部结点，把它的后继的值拷进来，然后递归删除它的后继。
+        // 内部结点，把它的后继的值拷进来，然后递归删除它的后继节点。
         else if(n.getLeft()!=null && n.getRight()!=null){
             BinarySearchTreeNode<T> next = successor(n);  //找到n的中序后继节点
             n.setData(next.getData());
@@ -305,7 +308,6 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                 p.setRight(child);
                 child.setParent(p);
             }
-
         }
     }
 
@@ -313,11 +315,14 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     public BinarySearchTreeNode<T> successor(BinarySearchTreeNode<T> n){
             if( n == null) return null;
             if( n.getRight() == null ) return null;
-            return findMin(n.getRight());
+
+            return findMin(n.getRight()); //找到右子树的最小值
     }
 
     //查找n树的最小值
     public BinarySearchTreeNode<T> findMin(BinarySearchTreeNode<T> n){
+        if(n == null) return null;
+
         BinarySearchTreeNode<T> current = n;
         while(current.getLeft() != null){
             current = current.getLeft();
@@ -327,6 +332,8 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 
     //查找n树的最大值
     public BinarySearchTreeNode<T> findMax(BinarySearchTreeNode<T> n){
+        if(n == null) return null;
+
         BinarySearchTreeNode<T> current = n;
         while(current.getRight() != null){
             current = current.getRight();
@@ -335,7 +342,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
     }
 
     /*
-      求树的高度(利用后序遍历)
+      求树的高度(类似于后序遍历)
      */
     public int postOrderGetHeight(BinarySearchTreeNode<T> n){
         int hL = 0, hR = 0, maxH = 0;
@@ -348,8 +355,5 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         }
         return 0;  //空树返回0
     }
-
-
-
 
 }

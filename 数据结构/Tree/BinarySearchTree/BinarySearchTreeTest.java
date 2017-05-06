@@ -1,9 +1,8 @@
-package Ê÷.¶þ²æËÑË÷Ê÷;
+package Tree.BinarySearchTree;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import Ê÷.¶þ²æËÑË÷Ê÷.BinarySearchTree;
 
 import static org.junit.Assert.assertEquals;
 

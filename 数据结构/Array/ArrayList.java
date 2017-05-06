@@ -1,11 +1,11 @@
-package 数组;
+package Array;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class ArrayList implements List {
 	private int size = 0; //表内现有元素个数
-	private Object[] elementData = new Object[2];  //数据结构--数组
+	private Object[] elementData = new Object[2];  //数据结构--Array
 	
 	public void add(Object o){  //在后面追加
 		if(size == elementData.length) elementData = grow(elementData, 2* elementData.length);  //先扩容

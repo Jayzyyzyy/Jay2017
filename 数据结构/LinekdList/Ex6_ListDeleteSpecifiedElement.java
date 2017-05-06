@@ -1,4 +1,4 @@
-package 链表;
+package LinekdList;
 
 /**
  *  链表删除指定节点

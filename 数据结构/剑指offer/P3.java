@@ -6,7 +6,7 @@ package 剑指offer;
 public class P3 {
     /**
      *  返回结果
-     * @param array 数组
+     * @param array Array
      * @param target 要查找的数
      * @return
      */

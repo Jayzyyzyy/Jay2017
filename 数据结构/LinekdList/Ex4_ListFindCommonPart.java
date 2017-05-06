@@ -1,4 +1,4 @@
-package 链表;
+package LinekdList;
 
 import java.util.ArrayList;
 import java.util.List;
