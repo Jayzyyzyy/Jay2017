@@ -1,8 +1,6 @@
-package 剑指offer;
+package Sword2Offer;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * 二叉树镜像

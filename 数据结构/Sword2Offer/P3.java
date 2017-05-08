@@ -1,4 +1,4 @@
-package 剑指offer;
+package Sword2Offer;
 
 /**
  *  二维数组查找（从右上角开始寻找）

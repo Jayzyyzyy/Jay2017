@@ -1,4 +1,4 @@
-package 剑指offer;
+package Sword2Offer;
 
 /**
  * Created by Jay on 2017/3/24.

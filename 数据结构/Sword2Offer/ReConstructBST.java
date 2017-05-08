@@ -1,4 +1,4 @@
-package 剑指offer;
+package Sword2Offer;
 
 import java.util.LinkedList;
 import java.util.Queue;

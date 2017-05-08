@@ -20,14 +20,13 @@ public class ReConstructBST{
     }
 
     /**
-     *
      * @param preOrder 前序序列
      * @param ps 前序序列开始索引
      * @param pe 前序序列结束索引
      * @param inOrder 中序序列
      * @param is 中序序列开始索引
      * @param ie 中序序列结束索引
-     * @return 本次的根节点
+     * @return 本次重建的根节点
      */
     private static Node reConstruct(int[] preOrder, int ps, int pe, int[] inOrder, int is, int ie){
         int rootValue = preOrder[ps];
@@ -51,25 +50,14 @@ public class ReConstructBST{
             root.left = reConstruct(preOrder, ps+1, lCTEndIndexPreOrder, inOrder, is, rootIndexInOrder-1);
         }
         if(lCTLengthInOrder < (pe-ps)){
-            //有字数有元素，构建右子树
+            //右子树有元素，构建右子树
             root.right = reConstruct(preOrder, lCTEndIndexPreOrder+1, pe, inOrder, rootIndexInOrder+1, ie);
         }
 
         return root;
     }
 
-    public static void printInPostOrder(Node n){
-        if(n.left != null){
-            printInPostOrder(n.left);
-        }
-
-        if(n.right != null){
-            printInPostOrder(n.right);
-        }
-
-        System.out.print(n.data+" ");
-    }
-
+    //层次遍历
     public static void traveralByLevel(Node n){
         if(n == null) return;
 
@@ -83,7 +71,6 @@ public class ReConstructBST{
             if(node.right != null) queue.offer(node.right);
         }
     }
-
 
     //节点
     public static class Node{

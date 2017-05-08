@@ -1,10 +1,8 @@
-package 剑指offer;
+package Sword2Offer;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  *  二叉树重建测试

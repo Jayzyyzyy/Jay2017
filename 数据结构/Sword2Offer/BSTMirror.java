@@ -1,7 +1,7 @@
-package 剑指offer;
+package Sword2Offer;
 
 /**
- * Created by Jay on 2017/3/24.
+ *  二叉树的镜像
  */
 public class BSTMirror {
     public void Mirror(TreeNode root) {
@@ -14,5 +14,15 @@ public class BSTMirror {
 
         Mirror(root.left);
         Mirror(root.right);
+    }
+
+    static class TreeNode {
+        int val = 0;
+        TreeNode left = null;
+        TreeNode right = null;
+
+        public TreeNode(int val) {
+            this.val = val;
+        }
     }
 }
