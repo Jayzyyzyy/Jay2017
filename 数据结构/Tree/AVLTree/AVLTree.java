@@ -27,8 +27,8 @@ public class AVLTree<T extends Comparable<? super T>> {
 
     /**
      * 某个节点的高度
-     * @param node
-     * @return
+     * @param node 某个节点
+     * @return 高度
      */
     public int height(AVLNode<T> node){
         return node==null ? 0 : node.height;
@@ -54,11 +54,11 @@ public class AVLTree<T extends Comparable<? super T>> {
 
     /**
      * 前序遍历
-     * @param node
+     * @param node 节点
      */
     public void preOrder(AVLNode<T> node){
         if(node != null){
-            System.out.println(node.key + " ");
+            System.out.print(node.key + " ");
             preOrder(node.left);
             preOrder(node.right);
         }
@@ -74,12 +74,12 @@ public class AVLTree<T extends Comparable<? super T>> {
 
     /**
      * 中序遍历
-     * @param node
+     * @param node 节点
      */
     public void inOrder(AVLNode<T> node){
         if(node != null){
             inOrder(node.left);
-            System.out.println(node.key + " ");
+            System.out.print(node.key + " ");
             inOrder(node.right);
         }
     }
@@ -93,13 +93,13 @@ public class AVLTree<T extends Comparable<? super T>> {
 
     /**
      * 后序遍历
-     * @param node
+     * @param node 节点
      */
     public void postOrder(AVLNode<T> node){
         if(node != null){
             postOrder(node.left);
             postOrder(node.right);
-            System.out.println(node.key + " ");
+            System.out.print(node.key + " ");
         }
     }
 
@@ -112,12 +112,12 @@ public class AVLTree<T extends Comparable<? super T>> {
 
     /**
      * 查找(递归实现)
-     * @param node 要查找的树
+     * @param node 被查找的树
      * @param key 键值
      * @return 返回包含该值的AVLNode
      */
     public AVLNode<T> find(AVLNode<T> node, T key){
-        if(node == null) return null;
+        if(node == null || key == null) return null; //返回条件1，没找到
 
         int cmp = key.compareTo(node.key);
 
@@ -126,7 +126,7 @@ public class AVLTree<T extends Comparable<? super T>> {
         }else if(cmp > 0){
             return find(node.right, key);
         }else {
-            return node;
+            return node; //返回条件2，找到
         }
     }
 
@@ -147,10 +147,10 @@ public class AVLTree<T extends Comparable<? super T>> {
             }else if(cmp > 0){
                 current = current.right;
             }else {
-                return current;
+                return current; //找到
             }
         }
-        return null;
+        return null; //没找到
     }
 
     /**
@@ -193,7 +193,7 @@ public class AVLTree<T extends Comparable<? super T>> {
      * @param node 被破坏者节点，需要调整
      * @return 返回调整后的根节点
      */
-    private AVLNode<T> LLRotatin(AVLNode<T> node){
+    private AVLNode<T> LLRotation(AVLNode<T> node){
         AVLNode<T> finalRoot = node.left; //左子为父
         node.left = finalRoot.right; //右孙变左孙
         finalRoot.right = node;  //父为右子
@@ -210,7 +210,7 @@ public class AVLTree<T extends Comparable<? super T>> {
      * @param node 被破坏者节点，需要调整
      * @return 返回调整后的根节点
      */
-    private AVLNode<T> RRRotatin(AVLNode<T> node){
+    private AVLNode<T> RRRotation(AVLNode<T> node){
         AVLNode<T> finalRoot = node.right; //右子为父
         node.right = finalRoot.left; //左孙变右孙
         finalRoot.left = node;  //父为左子
@@ -228,9 +228,9 @@ public class AVLTree<T extends Comparable<? super T>> {
      * @return 返回调整后的根节点
      */
     private AVLNode<T> LRRotation(AVLNode<T> node){
-        node.left = RRRotatin(node.left); //先右旋RR
+        node.left = RRRotation(node.left); //先右旋RR
 
-        return LLRotatin(node); //再左旋LL
+        return LLRotation(node); //再左旋LL
     }
 
     /**
@@ -239,18 +239,19 @@ public class AVLTree<T extends Comparable<? super T>> {
      * @return 返回调整后的根节点
      */
     private AVLNode<T> RLRotation(AVLNode<T> node){
-        node.right = LLRotatin(node.right); //先左旋LL
+        node.right = LLRotation(node.right); //先左旋LL
 
-        return RRRotatin(node); //再右旋RR
+        return RRRotation(node); //再右旋RR
     }
 
     /**
      * AVL树插入key
-     * @param key
+     * @param key 插入的键值
      */
     public void insert(T key){
         root = insert(root, key);
     }
+
     /**
      * 节点插入AVL树，返回根节点
      * @param tree 根节点
@@ -269,7 +270,7 @@ public class AVLTree<T extends Comparable<? super T>> {
                 //插入节点后，如AVL树失去平衡，则进行相应的调节
                 if((height(tree.left)- height(tree.right)) == 2){
                     if(key.compareTo(tree.left.key) < 0){
-                        tree = LLRotatin(tree); //LL旋转
+                        tree = LLRotation(tree); //LL旋转   //每次插入，旋转最多执行一次
                     }else {
                         tree = LRRotation(tree); //LR旋转
                     }
@@ -278,13 +279,13 @@ public class AVLTree<T extends Comparable<? super T>> {
                 tree.right = insert(tree.right, key);
                 if((height(tree.right)-height(tree.left)) == 2){
                    if(key.compareTo(tree.right.key) < 0){
-                       tree = RLRotation(tree);
+                       tree = RLRotation(tree);    //每次插入，旋转最多执行一次
                    }else {
-                       tree = RRRotatin(tree);
+                       tree = RRRotation(tree);
                    }
                 }
             }else {
-                System.out.println("键key已存在!!!");
+                System.out.println("键key已存在!!!"); //递归返回条件
             }
         }
 
@@ -292,7 +293,10 @@ public class AVLTree<T extends Comparable<? super T>> {
         return tree;
     }
 
-    //删除Key节点
+    /**
+     * 删除Key节点
+     * @param key 待删除节点key
+     */
     public void delete(T key){
         AVLNode<T> toBeDelete = null;
         if((toBeDelete=find(root, key)) != null){
@@ -304,11 +308,11 @@ public class AVLTree<T extends Comparable<? super T>> {
      * 删除节点，返回根节点
      * @param tree 根节点
      * @param toBeDelete 要删除的节点
-     * @return 根节点
+     * @return 返回根节点
      */
     private AVLNode<T> delete(AVLNode<T> tree, AVLNode<T> toBeDelete){
         //根结点为空或者要删除的节点为空
-        if(tree == null || toBeDelete == null) return null;
+        if(tree == null || toBeDelete == null) return tree;
 
         int cmp = toBeDelete.key.compareTo(tree.key);
         if(cmp < 0){ //待删除节点在左子树中
@@ -316,19 +320,19 @@ public class AVLTree<T extends Comparable<? super T>> {
             //删除节点后，AVL树可能失去平衡
             if((height(tree.right) - height(tree.left)) == 2){
                 AVLNode<T> right = tree.right;
-                if(height(right.left) > height(right.right)){
+                if(height(right.left) > height(right.right)){  //每次删除，旋转最多执行一次
                     tree = RLRotation(tree);
                 }else {
-                    tree = RRRotatin(tree);
+                    tree = RRRotation(tree);
                 }
             }
         }else if(cmp > 0){ //待删除节点在右子树中
             tree.right = delete(tree.right, toBeDelete);
             //AVL树在删除之后不平衡,调整
-            if(height(tree.left) - height(tree.right) == 2){
+            if(height(tree.left) - height(tree.right) == 2){ //每次删除，旋转最多执行一次
                 AVLNode<T> left = tree.left;
                 if(height(left.left) > height(left.right)){
-                    tree = LLRotatin(tree);
+                    tree = LLRotation(tree);
                 }else {
                     tree = LRRotation(tree);
                 }
@@ -344,7 +348,7 @@ public class AVLTree<T extends Comparable<? super T>> {
                    采用这种方式的好处是：删除"tree的左子树中最大节点"之后，AVL树仍然是平衡的。
                  */
                 if(height(tree.left) > height(tree.right)){
-                    AVLNode<T> leftMax = maximum(tree.right);
+                    AVLNode<T> leftMax = maximum(tree.right); //左子树最右边
                     tree.key = leftMax.key;
                     tree.left = delete(tree.left, leftMax);
                 }else {
@@ -354,17 +358,44 @@ public class AVLTree<T extends Comparable<? super T>> {
                     //   (03)删除该最小节点。
                     // 这类似于用"tree的右子树中最小节点"做"tree"的替身；
                     // 采用这种方式的好处是：删除"tree的右子树中最小节点"之后，AVL树仍然是平衡的。
-                    AVLNode<T> rightMin = minimum(tree.right);
+                    AVLNode<T> rightMin = minimum(tree.right);  //右子树最左边
                     tree.key = rightMin.key;
                     tree.right = delete(tree.right, rightMin);
                 }
             }else {
-                tree = tree.left!=null? tree.left : tree.right;
+                tree = tree.left!=null? tree.left : tree.right; //tree可能为null
             }
         }
-        //可能为null
+
+        //tree可能为null
         if(tree != null) tree.height = max(height(tree.left), height(tree.right)) + 1; //更新树高
+
         return tree;
+    }
+
+    /*
+     * 打印"二叉查找树"
+     *
+     * key        -- 节点的键值
+     * direction  --  0，表示该节点是根节点;
+     *               -1，表示该节点是它的父结点的左孩子;
+     *                1，表示该节点是它的父结点的右孩子。
+     */
+    private void print(AVLNode<T> tree, T key, int direction) {
+        if(tree != null) {
+            if(direction==0)    // tree是根节点
+                System.out.printf("%2d is root\n", tree.key, key);
+            else                // tree是分支节点
+                System.out.printf("%2d is %2d's %6s child\n", tree.key, key, direction==1?"right" : "left");
+
+            print(tree.left, tree.key, -1);
+            print(tree.right,tree.key,  1);
+        }
+    }
+
+    public void print() {
+        if (root != null)
+            print(root, root.key, 0);
     }
 
 }
