@@ -284,7 +284,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         else if(n.getLeft()!=null && n.getRight()!=null){
             BinarySearchTreeNode<T> next = successor(n);  //找到n的中序后继节点
             n.setData(next.getData());
-            delete(next);  //中序后继节点
+            delete(next);  //中序后继节点,两种情况 1种next为叶子结点，另1中next有一个右子节点
         }
 
         //只有一个孩子的结点，把它的孩子交给它的父结点即可

@@ -189,7 +189,7 @@ public class AVLTree<T extends Comparable<? super T>> {
     }
 
     /**
-     * 左左旋转LL
+     * 左左旋转LL（从左往右旋转，顺时针）
      * @param node 被破坏者节点，需要调整
      * @return 返回调整后的根节点
      */
@@ -206,7 +206,7 @@ public class AVLTree<T extends Comparable<? super T>> {
     }
 
     /**
-     * 右右旋转RR
+     * 右右旋转RR（从右往左旋转，逆时针）
      * @param node 被破坏者节点，需要调整
      * @return 返回调整后的根节点
      */
@@ -267,7 +267,7 @@ public class AVLTree<T extends Comparable<? super T>> {
 
             if(cmp < 0){ //插入左子树
                 tree.left = insert(tree.left, key);
-                //插入节点后，如AVL树失去平衡，则进行相应的调节
+                //插入节点后，如AVL树失去平衡，则进行相应的调节 二、
                 if((height(tree.left)- height(tree.right)) == 2){
                     if(key.compareTo(tree.left.key) < 0){
                         tree = LLRotation(tree); //LL旋转   //每次插入，旋转最多执行一次
@@ -277,7 +277,7 @@ public class AVLTree<T extends Comparable<? super T>> {
                 }
             }else if(cmp > 0){ //插入右子树
                 tree.right = insert(tree.right, key);
-                if((height(tree.right)-height(tree.left)) == 2){
+                if((height(tree.right)-height(tree.left)) == 2){ //二、
                    if(key.compareTo(tree.right.key) < 0){
                        tree = RLRotation(tree);    //每次插入，旋转最多执行一次
                    }else {
@@ -289,7 +289,7 @@ public class AVLTree<T extends Comparable<? super T>> {
             }
         }
 
-        tree.height = max(height(tree.left), height(tree.right)) + 1; //更新树高
+        tree.height = max(height(tree.left), height(tree.right)) + 1; //更新树高 一、
         return tree;
     }
 
@@ -297,7 +297,7 @@ public class AVLTree<T extends Comparable<? super T>> {
      * 删除Key节点
      * @param key 待删除节点key
      */
-    public void delete(T key){
+    public void delete(T key){ //先找，再删
         AVLNode<T> toBeDelete = null;
         if((toBeDelete=find(root, key)) != null){
             root = delete(root, toBeDelete);
