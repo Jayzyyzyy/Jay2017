@@ -339,7 +339,7 @@ public class AVLTree<T extends Comparable<? super T>> {
             }
         }else {  //找到要删除的节点tree
             //tree左右孩子均非空
-            if(tree.left != null & tree.right != null){
+            if(tree.left != null && tree.right != null){
                 /*
                  * 如果tree左子树比右子树高，则第一步先找出左子树中最大节点
                  * 第二步 将该节点的值赋给tree
@@ -362,7 +362,7 @@ public class AVLTree<T extends Comparable<? super T>> {
                     tree.key = rightMin.key;
                     tree.right = delete(tree.right, rightMin);
                 }
-            }else {
+            }else { //只有一个子节点或者都为空
                 tree = tree.left!=null? tree.left : tree.right; //tree可能为null
             }
         }
