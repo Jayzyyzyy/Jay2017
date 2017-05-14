@@ -5,6 +5,10 @@ import java.util.Queue;
 
 /**
  * 由两种遍历结果确定二叉树（其中一个结果必须是中序遍历的结果）
+ *
+ * 前序: 1 2 4 7 3 5 6 8
+ * 中序: 4 7 2 1 5 3 6 8
+ *
  */
 public class ReConstructBST{
     /**
@@ -31,7 +35,7 @@ public class ReConstructBST{
     private static Node reConstruct(int[] preOrder, int ps, int pe, int[] inOrder, int is, int ie){
         int rootValue = preOrder[ps];
         Node root = new Node(rootValue);
-        //只有一个元素
+        //只有一个元素，递归返回
         if(ps == pe){
             if(is == ie && preOrder[ps] == inOrder[is]){
                 return root;
@@ -54,7 +58,7 @@ public class ReConstructBST{
             root.right = reConstruct(preOrder, lCTEndIndexPreOrder+1, pe, inOrder, rootIndexInOrder+1, ie);
         }
 
-        return root;
+        return root; //递归返回
     }
 
     //层次遍历
