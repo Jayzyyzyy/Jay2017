@@ -4,6 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 /**
  *  树的子结构
+
+ 思路：1.从A树根节点开始遍历，如果碰到节点值与要判断的子树B根节点值相同，那么递归判断此时A树的子树与B树是否相同，相同则结束，返回true
+      2.否则，递归的遍历A树的左右子树，直到结束，返回结果值。
+
  */
 public class HasSubTree {
 
@@ -23,17 +27,18 @@ public class HasSubTree {
 
     private static boolean doesTree1HaveTree2(Node tree1, Node tree2){
         if(tree2 == null){
-            return true;  //tree2先遍历完了
+            return true;  //tree2先遍历完了，不管tree1如何，都应该返回true
         }
 
         if(tree1 == null){
-            return false; //tree1先没了
+            return false; //tree1先没了，则应该返回false
         }
 
-        if(tree1.val != tree2.val){
+        if(tree1.val != tree2.val){  //第四种情况，都存在，但不相等，返回false
             return false;
         }
 
+        //相等，此轮判断结束，继续递归遍历
         return doesTree1HaveTree2(tree1.left, tree2.left) && doesTree1HaveTree2(tree1.right, tree2.right);
     }
 
@@ -68,6 +73,7 @@ public class HasSubTree {
         root2.right = new Node(2);
 
         boolean result = HasSubTree.hasSubTree(root1,root2);
+        System.out.println(result);
         assertEquals(true, result);
     }
 }

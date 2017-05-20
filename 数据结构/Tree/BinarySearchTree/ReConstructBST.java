@@ -15,7 +15,7 @@ public class ReConstructBST{
      * 前序遍历与中序遍历序列重建二叉树
      * @param preOrder 前序结果
      * @param inOrder  中序结果
-     * @return root元素
+     * @return root根元素
      */
     public static Node construct(int[] preOrder, int[] inOrder){
         if(preOrder == null || inOrder == null || preOrder.length<=0||inOrder.length<=0) return null;
@@ -76,7 +76,7 @@ public class ReConstructBST{
         }
     }
 
-    //节点
+    //Node节点
     public static class Node{
         int data;
         Node left;
