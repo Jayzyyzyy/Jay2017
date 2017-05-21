@@ -17,7 +17,7 @@ public class FindPathInBST {
     private static void findPath(Node node, int expectedSum, Stack<Integer> path, int currentSum){
         path.push(node.val);
         currentSum += node.val;
-
+        //功能
         boolean isLeafNode = (node.left == null) && (node.right == null);
         if(currentSum == expectedSum && isLeafNode){ //找到
             System.out.println("A path is found: ");
