@@ -45,7 +45,7 @@ public class SeparateChainingHashST<Key, Value> {
         this.st = temp.st;
     }
 
-    //hash函数,决定用哪个st[i]
+    //hash函数,决定用哪个st[i],重要
     private int hash(Key key){
         return (key.hashCode() & 0x7fffffff) % m;
     }
@@ -114,6 +114,7 @@ public class SeparateChainingHashST<Key, Value> {
         return queue;
     }
 
+    //*****************test*******************
     public static void main(String[] args) {
         SeparateChainingHashST<String, Integer> st = new SeparateChainingHashST<String, Integer>();
         for (int i = 0; !StdIn.isEmpty(); i++) {
