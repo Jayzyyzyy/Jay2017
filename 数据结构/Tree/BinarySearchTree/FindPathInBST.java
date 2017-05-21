@@ -34,7 +34,7 @@ public class FindPathInBST {
             findPath(node.right, expectedSum, path, currentSum);
         }
 
-        path.pop();//path删除节点值，currentSum不用减去，因为currentSum是局部变量，只在这个函数内有效
+        path.pop();//path删除当前节点值，currentSum不用减去，因为currentSum是局部变量，只在这个函数内有效
     }
 
     public static void main(String[] args) {
