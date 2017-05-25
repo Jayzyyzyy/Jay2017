@@ -70,13 +70,13 @@ public class Graph {
 
     //toString()方法
     public String toString(){
-        StringBuilder s = new StringBuilder(V + " vertices, " + E + " edges\n");
+        StringBuilder s = new StringBuilder(V + " vertices, " + E + " edges\r\n");
         for (int v = 0; v < V; v++) {
             s.append(v).append(": ");
             for(int w : this.adj(v)){
                 s.append(w).append(" ");
             }
-            s.append("\n");
+            s.append("\r\n");
         }
         return s.toString();
     }
