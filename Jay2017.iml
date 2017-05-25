@@ -11,6 +11,7 @@
       <sourceFolder url="file://$MODULE_DIR$/数据库原理" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/java基础" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Java多线程" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Algorithms" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
