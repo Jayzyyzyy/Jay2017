@@ -1,7 +1,7 @@
-package Grapth.UndirectedGrapths;
+package Graph.UndirectedGraphs;
 
 /**
- * 深度优先搜索
+ * 深度优先搜索 DFS
  */
 public class DepthFirstSearch implements Search{
     private boolean[] marked;  //是否连通标记，s-v

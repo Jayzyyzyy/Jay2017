@@ -1,15 +1,15 @@
-package Grapth.UndirectedGrapths;
+package Graph.UndirectedGraphs;
 
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.In;
 
 /**
- *  无向图
+ *  无向图(邻接表结构)
  */
 public class Graph {
     private final int V;  //顶点数
     private int E;  //边数
-    private Bag<Integer>[] adj; //邻接表
+    private Bag<Integer>[] adj; //邻接表,头插法
 
     public Graph(int V){
         if (V < 0) throw new IllegalArgumentException("Number of vertices must be nonnegative");
