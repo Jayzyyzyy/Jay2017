@@ -1,6 +1,6 @@
 package Graph.UndirectedGraphs;
 
-import java.util.Stack;
+import edu.princeton.cs.algs4.Stack;
 
 /**
  *  利用深度优先搜索查找路径（从起点s到达任意连通顶点的路径）
