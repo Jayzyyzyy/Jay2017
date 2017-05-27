@@ -9,9 +9,9 @@ import edu.princeton.cs.algs4.StdOut;
  * 广度优先搜索（队列）
  */
 public class BreadthFirstPaths {
-    private boolean[] marked;
-    private int[] edgeTo;
-    private final int s;
+    private boolean[] marked;  //到达该顶点的最短路径已知吗？或者是否连通
+    private int[] edgeTo;   //到达该顶点最短路径上的最后一个顶点
+    private final int s;   //起点
 
     public BreadthFirstPaths(Graph G, int s){
         marked = new boolean[G.V()];
@@ -23,17 +23,17 @@ public class BreadthFirstPaths {
 
     private void bfs(Graph G, int s){
         Queue<Integer> queue = new Queue<Integer>();
-        marked[s] = true;
-        edgeTo[s] = s;
-        queue.enqueue(s);
+        marked[s] = true;   //标记起点
+        edgeTo[s] = s;   //
+        queue.enqueue(s);  //起点入队列
 
         while(!queue.isEmpty()){
-            int v = queue.dequeue();
+            int v = queue.dequeue();  //出队列
             for (int w : G.adj(v)) {
-                if(!marked[w]){
-                    edgeTo[w] = v;
-                    marked[w] = true;
-                    queue.enqueue(w);
+                if(!marked[w]){    //如果相邻的顶点未被标记
+                    edgeTo[w] = v;   //保存最短路径的最后一条边
+                    marked[w] = true; //标记连通
+                    queue.enqueue(w); //入队列
                 }
             }
         }
