@@ -8,4 +8,5 @@ public class SuperClass {
         System.out.println("SuperClass init!");
     }
     public static int value = 123;
+    private String name = "ssss";
 }
