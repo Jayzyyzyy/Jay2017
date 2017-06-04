@@ -2,21 +2,22 @@ package Graph.UndirectedGraphs;
 
 /**
  * 深度优先搜索 DFS
+ * 注意：算法遍历边和访问顶点的顺序与图的表示(邻接表)有关，而不只是与图的结构或是算法有关
  */
 public class DepthFirstSearch implements Search{
-    private boolean[] marked;  //是否连通标记，s-v
-    private int count; //连通总数
+    private boolean[] marked;  //是否连通的标记，s-v
+    private int count; //与s连通的顶点总数
 
     public DepthFirstSearch(Graph G, int s) {
         marked = new boolean[G.V()];
         validateVertex(s); //验证s
-        dfs(G, s);
+        dfs(G, s);  //找到和s连通的所有顶点
     }
 
     private void dfs(Graph G, int v){
-        marked[v] = true;
-        count ++;
-        for (int w : G.adj(v)) {
+        marked[v] = true;  //连通
+        count ++;  //总数+1
+        for (int w : G.adj(v)) { //v的所有相邻顶点
             if(!marked[w]) dfs(G, w);
         }
     }

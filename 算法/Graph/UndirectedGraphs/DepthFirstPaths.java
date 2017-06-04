@@ -7,7 +7,7 @@ import edu.princeton.cs.algs4.Stack;
  */
 public class DepthFirstPaths {
     private boolean[] marked;  //s与任意顶点的连通性
-    private int[] edgeTo; //所有从s连通的顶点构成的树，每个元素值代表从起点到达索引顶点的路径上的之前一个顶点
+    private int[] edgeTo; //所有从s连通的顶点构成的树，每个数组元素值代表从起点到达索引顶点的路径上的之前一个顶点
     private final int s;     //起点
 
     public DepthFirstPaths(Graph G, int s){
@@ -49,7 +49,7 @@ public class DepthFirstPaths {
         if(!marked[v]) return null; //不连通
 
         Stack<Integer> path = new Stack<Integer>();
-        for (int x = v; x != s; x = edgeTo[x]) {
+        for (int x = v; x != s; x = edgeTo[x]) { //退出条件
             path.push(x);
         }
         path.push(s);

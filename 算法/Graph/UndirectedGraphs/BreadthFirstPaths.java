@@ -6,10 +6,10 @@ import edu.princeton.cs.algs4.Stack;
 import edu.princeton.cs.algs4.StdOut;
 
 /**
- * 广度优先搜索（队列）
+ * 广度优先搜索（队列），求最短路径
  */
 public class BreadthFirstPaths {
-    private boolean[] marked;  //到达该顶点的最短路径已知吗？或者是否连通
+    private boolean[] marked;  //到达该顶点的最短路径已知吗？或者是否连通，最短路尽已知
     private int[] edgeTo;   //到达该顶点最短路径上的最后一个顶点
     private final int s;   //起点
 
@@ -24,7 +24,6 @@ public class BreadthFirstPaths {
     private void bfs(Graph G, int s){
         Queue<Integer> queue = new Queue<Integer>();
         marked[s] = true;   //标记起点
-        edgeTo[s] = s;   //
         queue.enqueue(s);  //起点入队列
 
         while(!queue.isEmpty()){

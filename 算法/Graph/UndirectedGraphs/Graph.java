@@ -11,6 +11,7 @@ public class Graph {
     private int E;  //边数
     private Bag<Integer>[] adj; //邻接表,头插法
 
+    //创建一个含有V个顶点但不含有任何边的图
     public Graph(int V){
         if (V < 0) throw new IllegalArgumentException("Number of vertices must be nonnegative");
 
@@ -21,6 +22,7 @@ public class Graph {
         }
     }
 
+    //从标准输入流in读入一幅图
     public Graph(In in){
         this(in.readInt());
         this.E = in.readInt();
