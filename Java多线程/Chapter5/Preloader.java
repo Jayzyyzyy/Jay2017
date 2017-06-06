@@ -27,7 +27,7 @@ public class Preloader {
 
     public ProductInfo get(){
         try {
-            return future.get();
+            return future.get();  //获取结果
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

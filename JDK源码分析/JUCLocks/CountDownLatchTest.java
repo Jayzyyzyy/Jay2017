@@ -4,10 +4,12 @@ import java.util.concurrent.CountDownLatch;
 
 /**
  *  锁存器（共享锁）
+ *  1.一组线程等待另一组线程执行任务完成之后再执行
+ *  2.不可重用
  */
 public class CountDownLatchTest {
-    private static final int LATCH_SIZE = 5;
-    public static CountDownLatch doneSignal;
+    private static final int LATCH_SIZE = 5;  //5个
+    public static CountDownLatch doneSignal;  //完成信号
 
     public static void main(String[] args) {
         try {
@@ -19,7 +21,7 @@ public class CountDownLatchTest {
 
             System.out.println("main thread wait");
             //主线程main等待其余5个线程执行完成
-            doneSignal.await();  //1s
+            doneSignal.await();  //等待1s
 
             System.out.println("main thread start");
         } catch (InterruptedException e) {
@@ -33,10 +35,10 @@ public class CountDownLatchTest {
         public void run() {
             try {
                 Thread.sleep(1000);
-                System.out.println(Thread.currentThread().getName() + "1000 ms");
+                System.out.println(Thread.currentThread().getName() + " 1000 ms");
 
                 //count -1
-                doneSignal.countDown();
+                doneSignal.countDown(); //减到0时，主线程开始继续执行
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
