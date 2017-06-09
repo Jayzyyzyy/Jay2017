@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * 串行渲染页面元素
  */
 public abstract class SingleThreadRenderer {
     void renderPage(CharSequence source){
