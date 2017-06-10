@@ -1,4 +1,4 @@
-package JUCCollection.lock;
+package JUCLocks;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -15,7 +15,7 @@ public class ReentrantLockTest1 {
 
         public Depot() {
             this.size = 0;
-            this.lock = new ReentrantLock();
+            this.lock = new ReentrantLock(); //互斥锁
         }
 
         public void produce(int val) {

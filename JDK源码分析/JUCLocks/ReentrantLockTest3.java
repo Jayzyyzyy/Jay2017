@@ -1,40 +1,38 @@
-package JUCCollection.lock;
+package JUCLocks;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Created by Jay on 2017/5/30.
+ *  Lock与Condition联合使用
  */
 public class ReentrantLockTest3 {
-
-    // LockTest3.java
     // 仓库
     private  static class Depot {
         private int capacity;    // 仓库的容量
         private int size;        // 仓库的实际数量
         private Lock lock;        // 独占锁
-        private Condition fullCondtion;            // 生产条件
-        private Condition emptyCondtion;        // 消费条件
+        private Condition notFull;            // 生产条件
+        private Condition notEmpty;        // 消费条件
 
         public Depot(int capacity) {
             this.capacity = capacity;
             this.size = 0;
             this.lock = new ReentrantLock();
-            this.fullCondtion = lock.newCondition();
-            this.emptyCondtion = lock.newCondition();
+            this.notFull = lock.newCondition();
+            this.notEmpty = lock.newCondition();
         }
 
         public void produce(int val) {
             lock.lock();
             try {
-                // left 表示“想要生产的数量”(有可能生产量太多，需多此生产)
+                // left 表示“想要生产的数量”(有可能生产量太多，需多次生产)
                 int left = val;
                 while (left > 0) {
                     // 库存已满时，等待“消费者”消费产品。
                     while (size >= capacity)
-                        fullCondtion.await();
+                        notFull.await();
                     // 获取“实际生产的数量”(即库存中新增的数量)
                     // 如果“库存”+“想要生产的数量”>“总的容量”，则“实际增量”=“总的容量”-“当前容量”。(此时填满仓库)
                     // 否则“实际增量”=“想要生产的数量”
@@ -44,9 +42,10 @@ public class ReentrantLockTest3 {
                     System.out.printf("%s produce(%3d) --> left=%3d, inc=%3d, size=%3d\n",
                             Thread.currentThread().getName(), val, left, inc, size);
                     // 通知“消费者”可以消费了。
-                    emptyCondtion.signal();
+                    notEmpty.signal();
                 }
             } catch (InterruptedException e) {
+
             } finally {
                 lock.unlock();
             }
@@ -60,7 +59,7 @@ public class ReentrantLockTest3 {
                 while (left > 0) {
                     // 库存为0时，等待“生产者”生产产品。
                     while (size <= 0)
-                        emptyCondtion.await();
+                        notEmpty.await();
                     // 获取“实际消费的数量”(即库存中实际减少的数量)
                     // 如果“库存”<“客户要消费的数量”，则“实际消费量”=“库存”；
                     // 否则，“实际消费量”=“客户要消费的数量”。
@@ -69,9 +68,10 @@ public class ReentrantLockTest3 {
                     left -= dec;
                     System.out.printf("%s consume(%3d) <-- left=%3d, dec=%3d, size=%3d\n",
                             Thread.currentThread().getName(), val, left, dec, size);
-                    fullCondtion.signal();
+                    notFull.signal();
                 }
             } catch (InterruptedException e) {
+
             } finally {
                 lock.unlock();
             }
