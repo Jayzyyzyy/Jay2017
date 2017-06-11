@@ -1,50 +1,48 @@
-package JUCLocks;
+package JUCLocks.ReentrantLock;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- *  重入锁测试2
+ * 可重入的互斥锁(独占锁),测试
+ *
  */
-public class ReentrantLockTest2 {
-
-    // LockTest2.java
+public class ReentrantLockTest1 {
     // 仓库
-    private  static class Depot {
+    private static class Depot {
         private int size;        // 仓库的实际数量
         private Lock lock;        // 独占锁
 
         public Depot() {
             this.size = 0;
-            this.lock = new ReentrantLock();
+            this.lock = new ReentrantLock(); //互斥锁
         }
 
         public void produce(int val) {
-//        lock.lock();
-//        try {
-            size += val;
-            System.out.printf("%s produce(%d) --> size=%d\n",
-                    Thread.currentThread().getName(), val, size);
-//        } catch (InterruptedException e) {
-//        } finally {
-//            lock.unlock();
-//        }
+            lock.lock();
+            try {
+                size += val;
+                System.out.printf("%s produce(%d) --> size=%d\n",
+                        Thread.currentThread().getName(), val, size);
+            } finally {
+                lock.unlock();
+            }
         }
 
         public void consume(int val) {
-//        lock.lock();
-//        try {
-            size -= val;
-            System.out.printf("%s consume(%d) <-- size=%d\n",
-                    Thread.currentThread().getName(), val, size);
-//        } finally {
-//            lock.unlock();
-//        }
+            lock.lock();
+            try {
+                size -= val;
+                System.out.printf("%s consume(%d) <-- size=%d\n",
+                        Thread.currentThread().getName(), val, size);
+            } finally {
+                lock.unlock();
+            }
         }
     };
 
     // 生产者
-    private static  class Producer {
+    private static class Producer {
         private Depot depot;
 
         public Producer(Depot depot) {
@@ -90,5 +88,4 @@ public class ReentrantLockTest2 {
         mCus.consume(150);
         mPro.produce(110);
     }
-
 }

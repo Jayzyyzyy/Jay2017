@@ -1,4 +1,4 @@
-package JUCLocks;
+package JUCLocks.ReentrantLock;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
