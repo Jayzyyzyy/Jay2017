@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 /**
  * 线程池实例
  */
-public class ThreadPoolDemo {
+public class ThreadPoolTest1 {
     public static void main(String[] args) {
         ExecutorService pool = Executors.newFixedThreadPool(2); //创建线程池
         for (int i = 0; i < 5; i++) {

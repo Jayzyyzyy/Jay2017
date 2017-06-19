@@ -3,9 +3,9 @@ package ThreadPool;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by Jay on 2017/6/9.
+ *  ThreadPoolExecutor 状态字段
  */
-public class ThreadPoolDemo02 {
+public class ThreadPoolTest2 {
     private static final int COUNT_BITS = Integer.SIZE - 3;  //29
     private static final int CAPACITY   = (1 << COUNT_BITS) - 1; //00011111111111111111111111111
 
