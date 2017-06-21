@@ -626,7 +626,69 @@ processWorkerExit方法中会尝试调用tryTerminate来终止线程池。这个
 
 ## 六、其他方法 ##
 
+1.interruptIdleWorkers()
 
+中断空闲的Worker，判断条件是**没被中断的线程且worker没有再执行**。
+
+	private void interruptIdleWorkers() {
+        interruptIdleWorkers(false);
+    }
+
+	private void interruptIdleWorkers(boolean onlyOne) {
+        final ReentrantLock mainLock = this.mainLock;
+        mainLock.lock();
+        try {
+            for (Worker w : workers) {
+                Thread t = w.thread;
+				//w.tryLock能获取到锁，说明该线程没有在运行，因为runWorker中执行任务会先lock
+            	// 因此保证了中断的肯定是空闲的线程。
+                if (!t.isInterrupted() && w.tryLock()) {
+                    try {
+                        t.interrupt();
+                    } catch (SecurityException ignore) {
+                    } finally {
+                        w.unlock();
+                    }
+                }
+                if (onlyOne)
+                    break;
+            }
+        } finally {
+            mainLock.unlock();
+        }
+    }
+
+2.interruptWorkers()  //中断所有线程
+
+	private void interruptWorkers() {
+        final ReentrantLock mainLock = this.mainLock;
+        mainLock.lock();
+        try {
+            for (Worker w : workers)
+                w.interruptIfStarted(); // 中断Worker的执行
+        } finally {
+            mainLock.unlock();
+        }
+    }
+
+	void interruptIfStarted() {
+        Thread t;
+		// Worker无论是否被持有锁，只要还没被中断，那就中断Worker
+        if (getState() >= 0 && (t = thread) != null && !t.isInterrupted()) {
+            try {
+                t.interrupt();
+            } catch (SecurityException ignore) {
+            }
+        }
+    }
+
+## 七、配置线程池的大小 ##
+
+一般需要根据**任务的类型**来配置线程池大小：
+
+　　如果是CPU密集型任务，就需要尽量压榨CPU，参考值可以设为 **NCPU+1**
+
+　　如果是IO密集型任务，参考值可以设置为**2*NCPU**
 
 参考文献：
 
