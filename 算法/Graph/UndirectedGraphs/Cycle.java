@@ -1,10 +1,10 @@
 package Graph.UndirectedGraphs;
 
 /**
- *  无环图判断，假设不存在自环或者平行边
+ *  是否为无环图判断，假设不存在自环或者平行边
  */
 public class Cycle {
-    private boolean[] marked;
+    private boolean[] marked;  //标记过了吗
     private boolean hasCycle; //是否有环
 
     public Cycle(Graph G){
@@ -20,7 +20,7 @@ public class Cycle {
      * dfs
      * @param G 图
      * @param v 现在的点
-     * @param u 原来的点  u-->v
+     * @param u 前面的点  u-->v
      */
     private void dfs(Graph G, int v, int u){
         marked[v] = true;
