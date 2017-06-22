@@ -25,7 +25,7 @@ public class Graph {
     //从标准输入流in读入一幅图
     public Graph(In in){
         this(in.readInt());
-        this.E = in.readInt();
+        int E = in.readInt();
         if (E < 0) throw new IllegalArgumentException("number of edges in a Graph must be nonnegative");
         for (int i = 0; i < E; i++) {  //添加边
             if(in.hasNextLine()){
