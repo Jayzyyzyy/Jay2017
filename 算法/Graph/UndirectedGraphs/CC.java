@@ -1,10 +1,10 @@
 package Graph.UndirectedGraphs;
 
 /**
- * 连通分量（统计连通子图数量）
+ * 连通分量（统计连通子图数量） CC
  */
 public class CC {
-    private boolean[] marked;
+    private boolean[] marked; //标记过了吗
     private int[] id; //顶点所在连通分量的标识符（0到count()-1）
     private int count; //连通分量总个数
 
