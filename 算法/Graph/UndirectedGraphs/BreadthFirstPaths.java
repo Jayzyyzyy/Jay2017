@@ -12,10 +12,16 @@ public class BreadthFirstPaths {
     private boolean[] marked;  //到达该顶点的最短路径已知吗？或者是否连通，最短路径已知
     private int[] edgeTo;   //到达该顶点最短路径上的最后一个顶点
     private final int s;   //起点
+    private static final int INFINITY = Integer.MAX_VALUE;
+    private int[] distTo; //s到v的最短路径边数
 
     public BreadthFirstPaths(Graph G, int s){
         marked = new boolean[G.V()];
         edgeTo = new int[G.V()];
+        distTo = new int[G.V()];
+        for (int i = 0; i < distTo.length; i++) {
+            distTo[i] = INFINITY;
+        }
         validateVertex(s);
         this.s = s;
         bfs(G, s);
@@ -24,6 +30,8 @@ public class BreadthFirstPaths {
     private void bfs(Graph G, int s){
         Queue<Integer> queue = new Queue<Integer>();
         marked[s] = true;   //标记起点
+        distTo[s] = 0; //起点边数为0
+
         queue.enqueue(s);  //起点入队列
 
         while(!queue.isEmpty()){
@@ -32,6 +40,7 @@ public class BreadthFirstPaths {
                 if(!marked[w]){    //如果相邻的顶点未被标记
                     edgeTo[w] = v;   //保存最短路径的最后一条边
                     marked[w] = true; //标记连通
+                    distTo[w] = distTo[v] + 1; //到达w的边数为到达v的边数+1
                     queue.enqueue(w); //入队列
                 }
             }
@@ -53,6 +62,12 @@ public class BreadthFirstPaths {
         }
         path.push(s);
         return path;
+    }
+
+    public int distTo(int v){
+        validateVertex(v);
+
+        return distTo[v];
     }
 
     private void validateVertex(int v) {
