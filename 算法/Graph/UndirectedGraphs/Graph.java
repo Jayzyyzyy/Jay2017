@@ -2,6 +2,7 @@ package Graph.UndirectedGraphs;
 
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Stack;
 
 /**
  *  无向图(邻接表结构)
@@ -34,6 +35,22 @@ public class Graph {
                 validateVertex(v);  //对输入的顶点做验证
                 validateVertex(w);
                 addEdge(v, w);
+            }
+        }
+    }
+
+    //生成G的副本
+    public Graph(Graph G){
+        this(G.V());
+        this.E = G.E();
+        //与原图保持邻接表顺序的一致性
+        for (int v = 0; v < V; v++) {
+            Stack<Integer> s = new Stack<Integer>();
+            for (int w : G.adj(v)) {
+                s.push(w);
+            }
+            for (int n : s) {
+                adj[v].add(n);
             }
         }
     }
