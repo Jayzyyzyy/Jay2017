@@ -1,4 +1,4 @@
-package LinekdList;
+package LinkedList;
 
 /**
  *  只能访问单个节点的删除，给定当前待删除的节点引用（采用覆盖的方法进行删除）

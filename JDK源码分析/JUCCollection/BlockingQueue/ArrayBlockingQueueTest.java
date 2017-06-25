@@ -14,7 +14,7 @@ import java.util.concurrent.*;
 public class ArrayBlockingQueueTest{
 
     // TODO: queue是LinkedList对象时，程序会出错。
-    //private static Queue<String> queue = new LinkedList<String>();
+    //private static Queue<String> queue = new LeetCode.LinkedList<String>();
     private static Queue<String> queue = new ArrayBlockingQueue<String>(20);
     public static void main(String[] args) {
 

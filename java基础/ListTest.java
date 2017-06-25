@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 /**
- * ArrayList LinkedList Vector 存放null值
+ * ArrayList LeetCode.LinkedList Vector 存放null值
  */
 public class ListTest {
 

@@ -1,4 +1,4 @@
-package LinekdList;
+package LinkedList;
 
 import java.util.Stack;
 

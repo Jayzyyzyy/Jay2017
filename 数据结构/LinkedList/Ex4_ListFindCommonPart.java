@@ -1,4 +1,4 @@
-package LinekdList;
+package LinkedList;
 
 import java.util.ArrayList;
 import java.util.List;

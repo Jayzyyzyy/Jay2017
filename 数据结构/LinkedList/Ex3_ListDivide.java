@@ -1,4 +1,4 @@
-package LinekdList;
+package LinkedList;
 
 /**
  *  链表的分化
