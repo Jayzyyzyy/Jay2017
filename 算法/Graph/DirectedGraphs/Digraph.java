@@ -2,6 +2,7 @@ package Graph.DirectedGraphs;
 
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Stack;
 
 /**
  * 有向图
@@ -35,6 +36,27 @@ public class Digraph {
                 validateVertex(v);  //对输入的顶点做验证
                 validateVertex(w);
                 addEdge(v, w);
+            }
+        }
+    }
+
+    /**
+     * G的复制，副本
+     * @param G 有向图
+     */
+    public Digraph(Digraph G){
+        this(G.V());  //初始化及顶点数
+        this.E = G.E(); //边数
+        for (int v = 0; v < this.V; v++) {
+            this.indegree[v] = G.indegree(v); //入度
+        }
+        for (int v = 0; v < V; v++) { //添加邻接表
+            Stack<Integer> temp = new Stack<Integer>();
+            for (int w : G.adj(v)) {
+                temp.push(w);
+            }
+            for (int w : temp) { //顺序要一致
+                adj[v].add(w);
             }
         }
     }
