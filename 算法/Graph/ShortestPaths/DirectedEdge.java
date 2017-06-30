@@ -23,7 +23,7 @@ public class DirectedEdge {
     }
 
     public int to(){
-        return v;
+        return w;
     }
 
     public String  toString(){
