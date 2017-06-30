@@ -1,9 +1,18 @@
 package Sword2Offer;
 
 /**
- *  二维数组查找（从右上角开始寻找）
+ *  二维数组查找（从右上角或者左下角开始寻找）
+ *
+缩小查找范围
+
+ 1  2  8  9
+ 2  4  9  12
+ 4  7  10  13
+ 6  8  11  15
+
  */
-public class P3 {
+public class P3_Two_dimensional_array_of_search {
+    //O(n)的时间复杂度，O(1)的空间复杂度
     /**
      *  返回结果
      * @param array Array
