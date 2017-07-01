@@ -22,6 +22,8 @@ public class AcyclicLP {
         distTo[s] = 0.0;
 
         Topological top = new Topological(G);
+        if (!top.hasOrder())
+            throw new IllegalArgumentException("Digraph is not acyclic.");
         for (int v : top.order()) { //按照逆后序（拓扑排序）进行放松
             relax(G, v);
         }
