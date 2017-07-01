@@ -1,0 +1,1 @@
+![](http://www.nathanyan.com/img/innodb_56_architecture.png)
