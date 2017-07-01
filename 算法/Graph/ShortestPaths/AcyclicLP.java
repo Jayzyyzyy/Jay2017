@@ -16,7 +16,7 @@ public class AcyclicLP {
         edgeTo = new DirectedEdge[G.V()];
         distTo = new double[G.V()];
         for (int v = 0; v < G.V(); v++) { //初始化
-            distTo[v] = Double.NEGATIVE_INFINITY;
+            distTo[v] = Double.NEGATIVE_INFINITY;  //初始化为负无穷
         }
         edgeTo[s] = null;
         distTo[s] = 0.0;
@@ -32,7 +32,7 @@ public class AcyclicLP {
     private void relax(EdgeWeightedDigraph G, int v){
         for (DirectedEdge e : G.adj(v)) {
             int w = e.to();
-            if(distTo[w] < distTo[v] + e.weight()){
+            if(distTo[w] < distTo[v] + e.weight()){ //小于
                 distTo[w] = distTo[v]  + e.weight();
                 edgeTo[w] = e;
             }
