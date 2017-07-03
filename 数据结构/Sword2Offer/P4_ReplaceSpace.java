@@ -3,8 +3,8 @@ package Sword2Offer;
 /**
  *  替换空格
  */
-public class P4 {
-    public static String replaceSpace(String str) {
+public class P4_ReplaceSpace {
+    public static String replaceSpace(StringBuffer str) {
         /*String temp = str.toString();
         return temp.replaceAll("\\s","%20");  //正则表达式匹配*/
 
@@ -22,8 +22,9 @@ public class P4 {
     }
 
     public static void main(String[] args) {
-        String str = "We Are Happy.";
-        System.out.println(replaceSpace(str));
+        String str = " We Are Happy. ";
+        StringBuffer sb = new StringBuffer(str);
+        System.out.println(replaceSpace(sb));
 
     }
 }

@@ -5,7 +5,7 @@ import java.util.Stack;
 /**
  * 从尾到头打印链表
  */
-public class P5 {
+public class P5_PrintListFromTailToHead {
     public static void main(String[] args) {
         ListNode node1 = new ListNode();
         ListNode node2 = new ListNode();

@@ -6,7 +6,7 @@ import java.util.Queue;
 /**
  * 由两种遍历结果确定二叉树（其中一个结果必须是中序遍历的结果）
  */
-public class ReConstructBST{
+public class P6_ReConstructBST {
     /**
      * 前序遍历与中序遍历序列重建二叉树
      * @param preOrder 前序结果
@@ -75,7 +75,7 @@ public class ReConstructBST{
 
         Queue<Node> queue = new LinkedList<Node>();
         queue.offer(n);
-
+        System.out.println("按层遍历: ");
         while(!queue.isEmpty()){
             Node node = queue.poll();
             System.out.print(node.data + " ");
