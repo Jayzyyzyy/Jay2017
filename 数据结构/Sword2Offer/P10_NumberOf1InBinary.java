@@ -4,15 +4,23 @@ package Sword2Offer;
  * 二进制中1的个数
  */
 public class P10_NumberOf1InBinary {
+    //n二进制整数中有多少个1就只需循环几次
+    public int NumberOf1_3(int n){
+        int count = 0;
+        while(n != 0){ //二进制中还有位为1
+            count ++;
+            n = n & (n-1);  //二进制靠近右边第一个为1的位从1变为0，再与原数与，将原数n减去了一个1位
+        }
+        return count;
+    }
 
 
-
-    //位运算
+    //位运算，n二进制有几位flag就移动几次
     public int NumberOf1_2(int n){
         int count = 0;
         int flag = 1;
         while(flag != 0){  //从最左边高位移除，变为0
-            if((n & flag) == flag){ //与运算结果为flag，说明该位为1
+            if((n & flag) != 0){ //与运算结果不为0，说明该位为1
                 count ++;
             }
             flag = flag << 1; //flag一直右移，与n进行与运算
@@ -20,7 +28,7 @@ public class P10_NumberOf1InBinary {
         return count;
     }
 
-    //O(n) O(n)
+    //O(n) O(n)时间、空间复杂度
     public int NumberOf1(int n) {
         String s = Integer.toBinaryString( n );
 
