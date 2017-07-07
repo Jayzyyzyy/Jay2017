@@ -5,14 +5,14 @@ package Sword2Offer;
  * （保证奇数和奇数，偶数和偶数之间的相对位置不变）
  */
 public class P14_ReOrderArray {
-    //可以保证奇数位于偶数之前，但无法保证相对位置顺序
+    //可以保证奇数位于偶数之前，但无法保证相对位置顺序(双指针)
     public void reOrderArray(int [] array) {
-        int len = array.length;
-        if(array == null || len == 0){
+        if(array == null || array.length == 0){
             return;
         }
-        int ps = 0;
-        int pe = len-1;
+        int len = array.length;
+        int ps = 0;  //偶数指针
+        int pe = len-1; //计数指针
         while(ps < pe){
             while(ps < pe && (array[ps] & 1)!=0){//找到偶数
                 ps ++;
