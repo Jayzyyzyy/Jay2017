@@ -218,4 +218,229 @@ mysql5.6之后，也就是Innodb1.2.x开始，这个检查放在了单独的进�
 
 ## 四、Master Thread工作方式 ##
 
+###1.InnoDB1.0.x版本之前的Master Thread
+InnoDB存储引擎的主要工作是在Master Thread线程中完成的。Master Thread 具有最高的线程优先级，内部有多个循环(loop)组成：
+
+- 主循环(loop)
+- 后台循环(background loop)
+- 刷新循环(flush loop)
+- 暂停循环(suspend loop)
+
+Master Thread会根据数据库运行的状态在loop、backgroup loop、flush loop和suspend loop四个循环之间切换。
+
+####(1)loop<br>
+主循环，大多数的操作都在这个循环中，主要有两大部分的操作——**每秒钟的操作和每10秒钟的操作**.
+
+    void master_thread(){
+	    loop:
+	    for(int i = 0; i < 10; ++i){
+	        do thing once per second; //每1s做的事
+	        sleep 1 second if necessary; //线程睡眠在负载很大时会有延迟
+	    }
+	    do things once per ten seconds; //每10s做的事
+	    goto loop;
+	}
+
+**每秒一次的操作**包括： <br>
+1)日志缓冲刷新到磁盘，即使这个事务还没有提交（总是）； <br>
+2)合并插入缓冲（可能）； <br>
+3)至多刷新100个InnoDB的缓冲池中的脏页到磁盘（可能）； <br>
+4)如果当前没有用户活动，则切换到background loop(可能)；
+
+**考虑1s做的事，具体化代码**，可以得到
+
+    void master_thread(){
+	    loop:
+	    for(int i = 0; i < 10; ++i){
+	        thread_sleep(1); //睡一秒
+	        do log buffer flush to disk; //重做日志缓冲刷新到磁盘
+	        if(last_one_second_ios < 5)  //前一秒发生IO数小于5
+	            do merge at most 5 insert buffer; //合并辅助索引插入缓冲
+			//如果缓冲池中脏页比例大于配置值innodb_max_dirty_pages_pct(90%)
+	        if(buf_get_modified_ratio_pct > innodb_max_dirty_pages_pct)
+	            do buffer pool flush 100 dirty page; //刷新脏页
+	        if(no user activity)  //如果没有用户活动，进入后台循环
+	            goto backgroud loop;
+	    }
+	    do things once per ten seconds;
+	    backgroud loop;
+	    do something;
+	    goto loop;
+	}
+
+**每10秒的操作**主要是下面几个方面： <br>
+1)刷新100个脏页到磁盘（可能） <br>
+2)合并至多5个插入缓冲（总是） <br>
+3)将日志缓冲刷新到磁盘（总是） <br>
+4)删除无用的Undo页（总是） <br>
+5)刷新100个或者10个脏页到磁盘（总是）<br>
+
+**考虑10s的操作**，得到如下代码：
+
+    void master_thread(){
+	    loop:
+	    for(int i = 0; i < 10; ++i){
+	        thread_sleep(1); //睡一秒
+	        do log buffer flush to disk; //重做日志缓冲刷新到磁盘
+	        if(last_one_second_ios < 5)  //前一秒发生IO数小于5
+	            do merge at most 5 insert buffer; //合并辅助索引插入缓冲
+			//如果缓冲池中脏页比例大于配置值innodb_max_dirty_pages_pct(90%)
+	        if(buf_get_modified_ratio_pct > innodb_max_dirty_pages_pct)
+	            do buffer pool flush 100 dirty page; //刷新脏页
+	        if(no user activity)  //如果没有用户活动，进入后台循环
+	            goto backgroud loop;
+	    }
+	    if(last_ten_second_ios < 200) //过去10sIO小于200次
+	        do buffer pool flush 100 dirty page; //刷新100个脏页到磁盘
+	
+	    do merge at most 5 insert buffer;  //合并至多5个插入缓冲
+	    do log buffer flush to disk; //将重做日志刷新到磁盘
+	    do full purge; //删除无用的undo页
+	    if(buf_get_modified_ratio_pct > 70%) //查看脏页比例，如果大于70%
+	        do buffer pool flush 100 dirty page; //刷新100个脏页
+	    else
+	        buffer pool flush 10 dirty page; //刷新10个脏页
+	    goto loop;
+	    backgroud loop;
+	    do something;
+	    goto loop;
+	}
+
+####(2)background loop
+
+如果当前没有用户活动（数据库空闲）或者数据库关闭，就会切换到backgroud loop这个循环。
+
+backgroud loop会执行以下操作： <br>
+1)删除无用的Undo页（总是） <br>
+2)合并20个插入缓冲（总是） <br>
+3)跳回到主循环（总是） <br>
+4)不断刷新100个页直到符合条件（可能，需要跳转到flush loop中完成）<br>
+
+**考虑background loop和flush loop**之后的代码：
+
+	void master_thread()
+	{
+	    loop:
+	    for(int i = 0; i < 10; ++i){
+	        thread_sleep(1); //睡一秒
+	        do log buffer flush to disk; //重做日志缓冲刷新到磁盘
+	        if(last_one_second_ios < 5)  //前一秒发生IO数小于5
+	            do merge at most 5 insert buffer; //合并辅助索引插入缓冲
+			//如果缓冲池中脏页比例大于配置值innodb_max_dirty_pages_pct(90%)
+	        if(buf_get_modified_ratio_pct > innodb_max_dirty_pages_pct)
+	            do buffer pool flush 100 dirty page; //刷新脏页
+	        if(no user activity)  //如果没有用户活动，进入后台循环
+	            goto backgroud loop;
+	    }
+	    if(last_ten_second_ios < 200) //过去10sIO小于200次
+	        do buffer pool flush 100 dirty page; //刷新100个脏页到磁盘
+	
+	    do merge at most 5 insert buffer;  //合并至多5个插入缓冲
+	    do log buffer flush to disk; //将重做日志刷新到磁盘
+	    do full purge; //删除无用的undo页
+	    if(buf_get_modified_ratio_pct > 70%) //查看脏页比例，如果大于70%
+	        do buffer pool flush 100 dirty page; //刷新100个脏页
+	    else
+	        buffer pool flush 10 dirty page; //刷新10个脏页
+		goto loop; //跳转回loop
+		
+	    backgroud loop：
+	    do full purge  //删除无用的undo页
+	    do merge 20 insert buffer; //合并插入缓冲
+	    if not idle  //不空闲
+	        goto loop: //跳转到loop
+	    else
+	        goto flush loop //跳转到flush loop
+	
+	    flush loop:
+	    do buffer pool flush 100 dirty page; //刷新脏页到磁盘
+		//查看脏页比例是否大于最大值，则一直刷新，直到小于为止
+	    if(buf_get_modified_ratio_pct > innodb_max_dirty_pages_pct)
+	        goto flush loop;
+	
+	    goto suspend loop; //暂停循环
+	
+		//flush loop也没什么事可做了，切换到suspend loop
+	    suspend loop:
+	    suspend_thread(); //挂起Maste Thread，等待事件发生
+	    waiting event; //等待事件
+	    goto loop;
+	}
+
+###2.InnoDB1.2.x版本之前的Master Thread
+
+####1.改进1
+
+提供了`innodb_io_capacity`，用来表示磁盘IO的吞吐率，默认值是200.对于刷新到磁盘页的数量，会按照`innodb_io_capacity`的百分比进行控制。<br>
+
+1)在合并插入缓冲时，合并插入缓冲的数量为`innodb_io_capacity`值的5%;<br> 
+2)在从缓冲区刷新脏页时，刷新脏页的数量为`innodb_io_capacity`;<br>
+
+####2.改进2
+
+参数`innodb_max_dirty_pages_pct`的默认值改为了75。这样既可以加快刷新脏页的频率，又能够保证磁盘IO的负载。
+
+####3.改进3
+
+`innodb_adaptive_flushing`(自适应地刷新)，该值影响每秒刷新脏页的数量。原来的刷新规则是：脏页在缓冲池所占的比例小于`innodb_max_dirty_pages_pct`时，不刷新脏页；大于`innodb_max_dirty_pages_pct`时，刷新100个脏页。随着`innodb_adaptive_flushing`参数的引入，InnoDB通过一个名为`buf_flush_get_desired_flush_rate`的函数来判断需要刷新脏页最合适的数量。`buf_flush_get_desired_flush_rate`函数通过判断产生重做日志的速率来决定最合适的刷新脏页数量。
+
+####4.改进4
+
+引入了参数`innodb_purge_batch_size`,该参数可以控制每次`full purge`回收的Undo页的数量。该参数的默认值为20，并可以动态地对其进行修改。
+
+    void master_thread(){
+    goto loop;
+	loop:
+	for (int i=0;i<10;i++){
+	    thread_sleep(1) //sleep 1 second-->每秒执行操作(负载在情况下会延迟)
+	    do log buffer flush to disk  //重做日志缓冲刷新到磁盘，即使这个事务没有提交(总是)
+	    if ( last_ten_second_ios < 5% innodb_io_capacity) //如果当前的10次数小于(5% * 200=10)(innodb_io_capacity默认值是200)
+	        do merger 5% innodb_io_capacity insert buffer //执行10个合并插入缓冲的操作(5% * 200=10)
+	    if ( buf_get_modified_ratio_pct > innodb_max_dirty_pages_pct ) //如果缓冲池中的脏页比例大于innodb_max_dirty_pages_pct(默认是75时)
+	        do buffer pool plush 100% innodb_io_capacity dirty page //刷新200个脏页到磁盘
+	    else if enable adaptive flush  //如果开户了自适应刷新
+	        do buffer pool flush desired amount dirty page //通过判断产生redo log的速度决定最合适的刷新脏页的数量
+	    if ( no user activity ) //如果当前没有用户活动
+	        goto backgroud loop  //跳到后台循环
+	}
+	
+	//每10秒执行的操作
+	if ( last_ten_second_ios < innodb_io_capacity)  //如果过去10内磁盘IO次数小于设置的innodb_io_capacity的值（默认是200）
+	    do buffer pool flush 100% innodb_io_capacity dirty page //刷新脏页的数量为innodb_io_capacity的值（默认是200）
+	do merger 5% innodb_io_capacity insert buffer  //合并插入缓冲是innodb_io_capacity的5%（10）（总是）
+	do log buffer flush to disk                    //重做日志缓冲刷新到磁盘，即使这个事务没有提交（总是）
+	do full purge       //删除无用的undo页 （总是）
+	if (buf_get_modified_ratio_pct > 70%)          //如果缓冲池中的胜页比例大于70%
+	    do buffer pool flush 100% innodb_io_capacity dirty page  //刷新200个脏页到磁盘
+	else
+	    do buffer pool flush 10% innodb_io_capacity dirty page   //否则刷新20个脏页到磁盘
+	goto loop
+	backgroud loop:   //后台循环
+	do full purge     //删除无用的undo页 （总是）
+	do merger 5% innodb_io_capacity insert buffer  //合并插入缓冲是innodb_io_capacity的5%（10）（总是）
+	if not idle:      //如果不空闲，就跳回主循环，如果空闲就跳入flush loop
+	goto loop:    //跳到主循环
+	else:
+	    goto flush loop
+	flush loop:  //刷新循环
+	do buf_get_modified_ratio_pct pool flush 100% innodb_io_capacity dirty page //刷新200个脏页到磁盘
+	if ( buf_get_modified_ratio_pct > innodb_max_dirty_pages_pct ) //如果缓冲池中的脏页比例大于innodb_max_dirty_pages_pct的值（默认75%）
+	    goto flush loop            //跳到刷新循环，不断刷新脏页，直到符合条件
+	    goto suspend loop          //完成刷新脏页的任务后，跳入suspend loop
+	suspend loop:
+	suspend_thread()               //master线程挂起，等待事件发生
+	waiting event
+	goto loop;
+	}
+
+###3.InnoDB1.2.x版本中的Master Thread
+
+该版本中对Master Thread再次进行了优化。
+
+	if InnoDB is idle //存储引擎空闲时
+	    srv_master_do_idle_tasks(); //每10s的操作
+	else  //负载大
+	    srv_master_do_active_tasks(); //没1s的操作
+
+其中`srv_master_do_idle_tasks()`就是之前版本中每10秒的操作，`srv_master_do_active_tasks()`处理的是之前每秒中的操作。同时，对于刷新脏页的操作，从`Master Thread`线程分离到一个单独的`Page Cleaner Thread`，从而减轻了`Master Thread`的工作，同时进一步提高了系统的并发性。
 
