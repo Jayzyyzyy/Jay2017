@@ -30,7 +30,7 @@ public class P12_Print1ToMaxOfNDigits {
             if(i == length-1){
                 sum ++;
             }
-            if(sum >= 10){
+            if(sum >= 10){ //进位，循环
                 if(i == 0){
                     isOverflow = true;
                 }else {
@@ -38,7 +38,7 @@ public class P12_Print1ToMaxOfNDigits {
                     takeOver = 1;
                     number[i] = (char) ('0' + sum);
                 }
-            }else {
+            }else { //没进位，退出循环
                 number[i] = (char) ('0' + sum);
                 break;
             }
