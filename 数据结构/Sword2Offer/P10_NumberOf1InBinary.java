@@ -1,7 +1,7 @@
 package Sword2Offer;
 
 /**
- * 二进制中1的个数
+ * 二进制中1的个数（位运算）
  */
 public class P10_NumberOf1InBinary {
     //n二进制整数中有多少个1就只需循环几次

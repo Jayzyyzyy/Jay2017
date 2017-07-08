@@ -1,7 +1,7 @@
 package Sword2Offer;
 
 /**
- * 数值的整数次方
+ * 数值的整数次方（多种边界情况）
  */
 public class P11_Power {
     public double Power(double base, int exponent) {
