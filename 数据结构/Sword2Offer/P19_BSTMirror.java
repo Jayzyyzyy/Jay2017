@@ -1,9 +1,9 @@
 package Sword2Offer;
 
 /**
- *  二叉树的镜像
+ *  二叉树的镜像(前序遍历+递归)
  */
-public class BSTMirror {
+public class P19_BSTMirror {
     public void Mirror(TreeNode root) {
         if(root == null) return;
         if(root.left == null && root.right == null) return;

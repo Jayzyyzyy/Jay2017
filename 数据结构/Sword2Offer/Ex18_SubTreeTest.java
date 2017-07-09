@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Jay on 2017/3/17.
+ * 树的子结构测试
  */
 public class Ex18_SubTreeTest {
     @Before
