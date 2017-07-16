@@ -40,7 +40,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         //root非空
         BinarySearchTreeNode<T> current = root;
         while(true){
-            //当前节点的数据小于data
+            //当前节点的数据大于data
             if(current.getData().compareTo(data) > 0){
                 if(current.getLeft() != null){
                     current = current.getLeft();
@@ -50,14 +50,14 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
                     child.setParent(current);
                     return root;
                 }
-            }else if(current.getData().compareTo(data) < 0){//当前节点数据大于root
+            }else if(current.getData().compareTo(data) < 0){//当前节点数据小于data
                 if(current.getRight() != null){
                     current = current.getRight();
                 }else {
                     BinarySearchTreeNode<T> child = new BinarySearchTreeNode<T>(data);
                     current.setRight(child );
                     child.setParent(current);
-                    return child;
+                    return root;
                 }
             }else {
                 return root;
@@ -284,7 +284,7 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
         else if(n.getLeft()!=null && n.getRight()!=null){
             BinarySearchTreeNode<T> next = successor(n);  //找到n的中序后继节点
             n.setData(next.getData());
-            delete(next);  //中序后继节点,两种情况 1种next为叶子结点，另1中next有一个右子节点
+            delete(next);  //中序后继节点,两种情况 1种next为叶子结点，另1种next有一个右子节点
         }
 
         //只有一个孩子的结点，把它的孩子交给它的父结点即可
