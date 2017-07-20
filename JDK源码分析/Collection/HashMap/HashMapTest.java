@@ -1,6 +1,7 @@
 package Collection.HashMap;
 
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 /**
@@ -12,10 +13,15 @@ public class HashMapTest {
         map.put(null, "123");
         map.put("123", null);
 
-/*        System.out.println(map.get(null));
-        System.out.println(map.containsValue(null));*/
+        System.out.println(map.get(null));
+        System.out.println(map.containsValue(null));
 
-        System.out.println(tableSizeFor(18));
+//        System.out.println(tableSizeFor(18));
+
+        //HashTable K V不能为null
+       /* Hashtable<String, String> ht = new Hashtable<>();
+        ht.put("123", null);*/
+
 
     }
 

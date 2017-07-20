@@ -2,41 +2,51 @@ package Sword2Offer;
 
 import java.util.ArrayList;
 
+/**
+ * 顺时针打印矩阵
+ */
 public class P20_printMatrix {
     public ArrayList<Integer> printMatrix(int [][] matrix) {
         ArrayList<Integer> result = new ArrayList<Integer>();
         if(matrix == null) return result;
+        int cols = matrix.length, rows = matrix[0].length;
+        if(cols <= 0 || rows <= 0) return result;
 
-        int m = matrix.length-1, n = matrix[0].length-1;
-        int x=0;
+        int start=0;
 
-        while(x < m/2 && x < n/2){
-            print(result, matrix, x, m, n);
-            x ++;
+        while(2*start < cols && 2*start < rows){  //退出条件
+            print(result, matrix, start, cols, rows);
+            start ++;
         }
 
         return result;
     }
 
-    private void print(ArrayList<Integer> result, int[][] matrix, int x, int m, int n){
-        if(x <= n-x){
-            for (int i = x; i <= n-x; i++) {
-                result.add(matrix[x][i]);
+    private void print(ArrayList<Integer> result, int[][] matrix, int start, int cols, int rows){
+        int endX = cols - 1 - start;
+        int endY = rows - 1 -start;
+        //从左至右
+        if(start <= endX){
+            for (int i = start; i <= endX; i++) {
+                result.add(matrix[start][i]);
             }
         }
-        if(m-x > x && n-x >=x){
-            for (int i = x+1; i <= n-x; i++) {
-                result.add(matrix[i][n-x]);
+        //从上到下
+        if(endY > start){
+            for (int i = start+1; i <= endY; i++) {
+                result.add(matrix[i][endX]);
             }
         }
-        if(x < n-x && m-x >= x) {
-            for (int i = n-x-1; i >= x; i--) {
-                result.add(matrix[m-x][i]);
+        //从右到左
+        if(endY > start && start < endX) {
+            for (int i = endX-1; i >= start; i--) {
+                result.add(matrix[endY][i]);
             }
         }
-        if(x < m-x){
-            for (int i = m-x-1; i >= x; i++) {
-                result.add(matrix[i][x]);
+        //从下至上
+        if(start < endX && start < endY-1){
+            for (int i = endY-1; i >= start+1; i--) {
+                result.add(matrix[i][start]);
             }
         }
     }

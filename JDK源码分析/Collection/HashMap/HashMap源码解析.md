@@ -15,7 +15,8 @@
 ## 一、存储结构———字段 ##
 从结构实现来讲，`HashMap`是**数组+链表+红黑树**（JDK1.8增加了红黑树部分）实现的，如下如所示。
 ![](http://onh97xzo0.bkt.clouddn.com/hashMap%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E5%9B%BE.png)
-**(1)数据底层存储的数据结构**————Node[] table，即哈希桶数组，它是一个Node的数组. 
+**(1)数据底层存储的数据结构**————Node[] table，即哈希桶数组，它是一个Node的数组.
+ 
     static class Node<K,V> implements Map.Entry<K,V> {
         final int hash;   //用来定位数组索引位置
         final K key;

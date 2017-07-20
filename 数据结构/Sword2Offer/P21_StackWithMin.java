@@ -2,6 +2,9 @@ package Sword2Offer;
 
 import java.util.Stack;
 
+/**
+ * 包含min函数的栈
+ */
 public class P21_StackWithMin {
     Stack<Integer> data = new Stack<Integer>();
     Stack<Integer> min = new Stack<Integer>();
@@ -18,6 +21,12 @@ public class P21_StackWithMin {
         }else {
             min.push(node);
         }
+
+        /*if(min.size() == 0 || node < min.peek()){
+            min.push(node);
+        }else {
+            min.push(min.peek());
+        }*/
     }
 
     public void pop() {
@@ -25,6 +34,7 @@ public class P21_StackWithMin {
             data.pop();
             min.pop();
         }
+        throw new RuntimeException("no elements");
     }
 
     public int top() {
