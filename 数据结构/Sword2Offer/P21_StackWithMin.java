@@ -22,7 +22,8 @@ public class P21_StackWithMin {
             min.push(node);
         }
 
-        /*if(min.size() == 0 || node < min.peek()){
+        /*data.push(node);
+        if(min.size() == 0 || node < min.peek()){
             min.push(node);
         }else {
             min.push(min.peek());
