@@ -6,8 +6,8 @@ import java.util.Stack;
  * 包含min函数的栈
  */
 public class P21_StackWithMin {
-    Stack<Integer> data = new Stack<Integer>();
-    Stack<Integer> min = new Stack<Integer>();
+    Stack<Integer> data = new Stack<Integer>();  //存放数据
+    Stack<Integer> min = new Stack<Integer>();   //存放最小值
 
     public void push(int node) {
         data.push(node);
