@@ -6,10 +6,10 @@ import java.util.*;
  * 最小的k个数
  */
 public class P30_KLeastNumbers {
-    //快排O(nlgn)
+    //快排O(NlgN)
     public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
         ArrayList<Integer> result = new ArrayList<Integer>();
-        if(input == null || input.length == 0 || input.length < k) return result;
+        if(input == null || input.length == 0 || input.length < k || k == 0) return result;
 
         Arrays.sort(input);
 
@@ -20,11 +20,10 @@ public class P30_KLeastNumbers {
         return result;
     }
 
-    //优先队列 O(nlgk) O(k)
+    //优先队列 O(Nlgk) O(k)
     public ArrayList<Integer> GetLeastNumbers_Solution2(int [] input, int k) {
         ArrayList<Integer> result = new ArrayList<Integer>();
-        if(input == null || input.length == 0 || input.length < k) return result;
-        if(k == 0) return result;
+        if(input == null || input.length == 0 || input.length < k || k == 0) return result;
 
         PriorityQueue<Integer> pq = new PriorityQueue<>(k, new Comparator<Integer>() {
             @Override
@@ -35,12 +34,12 @@ public class P30_KLeastNumbers {
 
         for (int i = 0; i < input.length; i++) {
             if(pq.size() < k){
-                pq.add(input[i]);
+                pq.add(input[i]); //未满，加入
             }else {
                 if(pq.peek() > input[i]){
-                    pq.poll();
-                    pq.add(input[i]);
-                }
+                    pq.poll();  //删除最大元素
+                    pq.add(input[i]); //加入新元素
+                }//否则不变
             }
         }
         result.addAll(pq);
@@ -48,24 +47,23 @@ public class P30_KLeastNumbers {
         return result;
     }
 
-    //快排切分 O(n)
+    //快排切分 O(N)
     public ArrayList<Integer> GetLeastNumbers_Solution3(int [] input, int k) {
         ArrayList<Integer> result = new ArrayList<Integer>();
-        if(input == null || input.length == 0 || input.length < k) return result;
-        if(k == 0) return result;
+        if(input == null || input.length == 0 || input.length < k || k == 0) return result;
 
         int start = 0, end = input.length-1;
         int index = partition(input, start, end);
         while(index != k-1){
             if(index > k-1){
                 end = index-1;
-                index = partition(input, start, end);
+                index = partition(input, start, end); //缩小范围
             }else {
                 start = index+1;
                 index = partition(input, start, end);
             }
         }
-        for (int i = 0; i < k; i++) {
+        for (int i = 0; i < k; i++) { //乱序
             result.add(input[i]);
         }
         return result;
