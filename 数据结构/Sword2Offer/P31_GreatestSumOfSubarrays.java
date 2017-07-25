@@ -7,20 +7,20 @@ public class P31_GreatestSumOfSubarrays {
     public int FindGreatestSumOfSubArray(int[] array) {
         if(array == null || array.length <= 0) return 0;
 
-        int sum = 0; //一轮中的和
-        int cur = Integer.MIN_VALUE; //遍历中总的连续子数组最大和
+        int cur = 0; //一轮中的和
+        int total = Integer.MIN_VALUE; //遍历中总的连续子数组最大和
 
         for(int i =0;i < array.length; i++){
-            if(sum < 0){
-                sum = array[i]; //新一轮
+            if(cur < 0){
+                cur = array[i]; //新一轮
             }else{
-                sum += array[i];
+                cur += array[i];
             }
-            if(sum > cur){
-                cur = sum;
+            if(cur > total){
+                total = cur;
             }
         }
-        return cur;
+        return total;
     }
 
     public static void main(String[] args) {
