@@ -12,7 +12,7 @@ public class Problem_02_LongestSumSubArrayLengthInPositiveArray {
 		int left = 0; //左指针(包含)
 		int right = 0; //右指针(包含)
 		int sum = arr[0]; //left到right的和
-		int len = 0; //最大长度
+		int len = 0; //和为k的最长子数组最大长度
 		while (right < arr.length) {
 			if (sum == k) {
 				len = Math.max(len, right - left + 1);

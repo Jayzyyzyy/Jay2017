@@ -26,20 +26,29 @@ public class Problem_02_LongestSubarrayLessSumAwesomeSolution {
 				ends.put(i, i);
 			}
 		}
-		int end = 0;
-		int sum = 0;
-		int res = 0;
-		for (int i = 0; i < arr.length; i++) { //从某个位置开始的累加和<=k的最长子数组
+
+		int end = 0; //下一坨起点
+		int sum = 0; //一轮累加和
+		int res = 0; //符合条件的最长子数组长度
+		for (int i = 0; i < arr.length; i++) { //从某个位置开始的累加和<=k的最长子数组计算
 			//这里直接判断减去头元素之后再加1坨后的sum是否小于k,
 			// 这里先判断减去头元素之后的sum<k无意义(长度)
 			while (end < arr.length && sum + sums[end] <= k) {
 				sum += sums[end];
-				end = ends.get(end) + 1;
+				end = ends.get(end) + 1; //下一坨的起点
 			}
+			res = Math.max(res, end - i); //更新res
 			//从0开始每次可能出现检查不符合，出现 end == i，sum不用变换
+			/*if(end > i){
+				sum -= arr[i];
+			}else if(end == i){
+				sum -= 0;
+			}*/
 			sum -= (end > i ? arr[i] : 0);
-			res = Math.max(res, end - i);
 			//从0开始每次可能出现检查不符合，出现  end == i，end变为i+1
+			/*if(end == i){
+				end = i+1; //下一坨起点
+			}*/
 			end = Math.max(end, i + 1);
 		}
 		return res;
@@ -47,20 +56,21 @@ public class Problem_02_LongestSubarrayLessSumAwesomeSolution {
 
 	//O(NlgN) O(N)
 	public static int maxLength(int[] arr, int k) {
-		int[] h = new int[arr.length + 1];
+		int[] h = new int[arr.length + 1]; //help数组
 		int sum = 0;
 		h[0] = sum;
 		for (int i = 0; i != arr.length; i++) {
 			sum += arr[i];
-			h[i + 1] = Math.max(sum, h[i]);
+			h[i + 1] = Math.max(sum, h[i]); //计算help数组，递增
 		}
+
 		sum = 0;
-		int res = 0;
-		int pre = 0;
-		int len = 0;
+		int res = 0; //符合条件的子数组最长长度
+		int pre = 0; //help数组中搜索到的>=k位置的搜索结果
+		int len = 0; //本轮长度
 		for (int i = 0; i != arr.length; i++) {
 			sum += arr[i];
-			pre = getLessIndex(h, sum - k);
+			pre = getLessIndex(h, sum - k); //>=k的位置， O(lgN)
 			len = pre == -1 ? 0 : i - pre + 1;
 			res = Math.max(res, len);
 		}
