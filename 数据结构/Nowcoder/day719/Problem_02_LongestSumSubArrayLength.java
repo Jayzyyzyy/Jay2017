@@ -2,22 +2,25 @@ package Nowcoder.day719;
 
 import java.util.HashMap;
 
+/**
+ * 给定一个数组，值可以为正、负和0，请返回累加和为给定值k的最长子数组长度。
+ */
 public class Problem_02_LongestSumSubArrayLength {
-
+	//O(N) O(N)
 	public static int maxLength(int[] arr, int k) {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		map.put(0, -1); // important
-		int len = 0;
-		int sum = 0;
+		int len = 0; //最长长度
+		int sum = 0; //一轮的和
 		for (int i = 0; i < arr.length; i++) {
 			sum += arr[i];
 			if (map.containsKey(sum - k)) {
-				len = Math.max(i - map.get(sum - k), len);
+				len = Math.max(i - map.get(sum - k), len); //找到，长度更新
 			}
-			if (!map.containsKey(sum)) {
+			if (!map.containsKey(sum)) {  //sum第一次加入map
 				map.put(sum, i);
 			}
 		}

@@ -2,18 +2,22 @@ package Nowcoder.day719;
 
 import java.util.HashMap;
 
+/**
+ * 给定一个数组，值可以为正、负和0，请返回累加和小于等于k的最长子数组长度。
+ */
 public class Problem_02_LongestSubarrayLessSumAwesomeSolution {
-
+	//O(N) O(N)
 	// So great, first time, my book need modify, add this solution into book
 	public static int maxLengthAwesome(int[] arr, int k) {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
-		int[] sums = new int[arr.length];
-		HashMap<Integer, Integer> ends = new HashMap<Integer, Integer>();
-		sums[arr.length - 1] = arr[arr.length - 1];
+		int[] sums = new int[arr.length]; //最小和
+		//key 元素index, value最小和右边界
+		HashMap<Integer, Integer> ends = new HashMap<Integer, Integer>(); //最小和右边界
+		sums[arr.length - 1] = arr[arr.length - 1]; //从末尾开始
 		ends.put(arr.length - 1, arr.length - 1);
-		for (int i = arr.length - 2; i >= 0; i--) {
+		for (int i = arr.length - 2; i >= 0; i--) { //更新策略
 			if (sums[i + 1] < 0) {
 				sums[i] = arr[i] + sums[i + 1];
 				ends.put(i, ends.get(i + 1));
@@ -25,18 +29,23 @@ public class Problem_02_LongestSubarrayLessSumAwesomeSolution {
 		int end = 0;
 		int sum = 0;
 		int res = 0;
-		for (int i = 0; i < arr.length; i++) {
+		for (int i = 0; i < arr.length; i++) { //从某个位置开始的累加和<=k的最长子数组
+			//这里直接判断减去头元素之后再加1坨后的sum是否小于k,
+			// 这里先判断减去头元素之后的sum<k无意义(长度)
 			while (end < arr.length && sum + sums[end] <= k) {
 				sum += sums[end];
 				end = ends.get(end) + 1;
 			}
-			sum -= end > i ? arr[i] : 0;
+			//从0开始每次可能出现检查不符合，出现 end == i，sum不用变换
+			sum -= (end > i ? arr[i] : 0);
 			res = Math.max(res, end - i);
+			//从0开始每次可能出现检查不符合，出现  end == i，end变为i+1
 			end = Math.max(end, i + 1);
 		}
 		return res;
 	}
 
+	//O(NlgN) O(N)
 	public static int maxLength(int[] arr, int k) {
 		int[] h = new int[arr.length + 1];
 		int sum = 0;
