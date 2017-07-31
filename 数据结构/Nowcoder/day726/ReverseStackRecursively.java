@@ -13,9 +13,10 @@ public class ReverseStackRecursively {
     数来实现，而不能用另外的数据结构。
     给定一个栈Stack以及栈的大小top，请返回逆序后的栈。
     测试样例：
-    [1,2,3,4,5],5
+    [1,2,3,4,5],5  左底右顶
     返回：[5,4,3,2,1]
      */
+    //stack栈，top大小
     public static int[] reverseStackRecursively(int[] stack, int top) {
         if(stack == null || stack.length == 0 || top <= 0) return stack;
         int num = last(stack, top);
@@ -26,8 +27,8 @@ public class ReverseStackRecursively {
 
     /**
      * 拿到并移除栈底元素
-     * @param stack
-     * @param top
+     * @param stack 栈
+     * @param top 栈大小
      * @return
      */
     public static int last(int[] stack, int top){
@@ -46,13 +47,14 @@ public class ReverseStackRecursively {
     转置后，从栈顶到栈底为1、2、3、4、5，也就是实现栈中元素的逆序，但是只能用递
     归函数来实现，不能用其他数据结构。
      */
+    //逆序一个栈
     public static void reverse(Stack<Integer> stack){
         if(stack == null || stack.isEmpty()) return ;
         int num = getLastElement(stack);
         reverse(stack);
         stack.push(num);
     }
-
+    //获得并移除栈底元素
     public static int getLastElement(Stack<Integer> stack){
         int num = stack.pop();
         if(stack.isEmpty()){

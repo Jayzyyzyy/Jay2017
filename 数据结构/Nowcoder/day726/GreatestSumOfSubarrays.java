@@ -22,12 +22,12 @@ public class GreatestSumOfSubarrays {
         }
         return total;
     }
-
+    //dp
     public int FindGreatestSumOfSubArray2(int[] array){
         if(array == null || array.length <= 0) return 0;
 
-        int max = Integer.MIN_VALUE;
-        int[] dp = new int[array.length];
+        int max = array[0]; //连续子数组的最大累加和
+        int[] dp = new int[array.length]; //以每个位置结尾的最大和
         dp[0] = array[0];
         for (int i = 1; i < array.length; i++) {
             if(dp[i-1] < 0){

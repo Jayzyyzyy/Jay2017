@@ -10,8 +10,8 @@ public class Problem_03_SubArrayMaxSum {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
-		int max = Integer.MIN_VALUE;
-		int cur = 0;
+		int max = Integer.MIN_VALUE; //数组全是负数的情况
+		int cur = 0; //当前一轮的累加和
 		for (int i = 0; i != arr.length; i++) {
 			cur += arr[i];
 			max = Math.max(max, cur);

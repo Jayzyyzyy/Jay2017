@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 /**
- * 保卫方案
+ * 保卫方案(单调栈)
  */
 public class Problem_04_MountainsAndFlames {
 
@@ -19,7 +19,7 @@ public class Problem_04_MountainsAndFlames {
 			System.out.println(communications(arr));
 		}
 	}
-	//index的下一个索引(循环)
+	//index的下一个索引(循环链表)
 	public static int nextIndex(int size, int i) {
 		return i < (size - 1) ? (i + 1) : 0;
 	}
@@ -27,46 +27,47 @@ public class Problem_04_MountainsAndFlames {
 	public static long getInternalSum(int n) {
 		return n == 1L ? 0L : (long) n * (long) (n - 1) / 2L;
 	}
-
+	//对
 	public static class Pair {
-		public int value;
-		public int times;
+		public int value; //高度
+		public int times; //次数
 
 		public Pair(int value) {
 			this.value = value;
-			this.times = 1;
+			this.times = 1; //初始化次数为1
 		}
 	}
-
+	//计算能看见的对数
 	public static long communications(int[] arr) {
-		if (arr == null || arr.length < 2) {
+		if (arr == null || arr.length < 2) { // 0 1个
 			return 0;
 		}
-		int size = arr.length;
-		int maxIndex = 0; //最大值位置
+		int size = arr.length; //数组大小
+		int maxIndex = 0; //找个某个最大值位置，最大值可能有多个
 		for (int i = 0; i < size; i++) {
+			//记住第一次获得找到某个最大值的位置,以此为靠山
 			maxIndex = arr[maxIndex] < arr[i] ? i : maxIndex;
 		}
 		int value = arr[maxIndex];
 		int index = nextIndex(size, maxIndex);
-		long res = 0L;
-		Stack<Pair> stack = new Stack<>();
+		long res = 0L; //总对数 long
+		Stack<Pair> stack = new Stack<>(); //单调栈
 		stack.push(new Pair(value));
-		while (index != maxIndex) { //环形链表
+
+		while (index != maxIndex) { //环形链表遍历
 			value = arr[index];
-			while (!stack.isEmpty() && stack.peek().value < value) {
+			while (!stack.isEmpty() && stack.peek().value < value) { //小于弹出
 				int times = stack.pop().times;
-//				res += getInternalSum(times) + times;
-//				res += stack.isEmpty() ? 0 : times;
-				res += getInternalSum(times) + times*2; //结算，栈顶有最大值
+				res += getInternalSum(times) + times*2; //结算，栈底有最大值
 			}
-			if (!stack.isEmpty() && stack.peek().value == value) { //合并
+			if (!stack.isEmpty() && stack.peek().value == value) { //相等合并
 				stack.peek().times++;
 			} else {
-				stack.push(new Pair(value)); //新建记录
+				stack.push(new Pair(value)); //新建记录，大于压入
 			}
 			index = nextIndex(size, index); //求取循环链表下一个位置
 		}
+
 		//遍历完毕，栈中还有元素
 		while (!stack.isEmpty()) {
 			int times = stack.pop().times;

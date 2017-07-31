@@ -23,6 +23,23 @@ public class P31_GreatestSumOfSubarrays {
         return total;
     }
 
+    public int FindGreatestSumOfSubArray2(int[] array){
+        if(array == null || array.length <= 0) return 0;
+
+        int max = array[0];
+        int[] dp = new int[array.length];
+        dp[0] = array[0];
+        for (int i = 1; i < array.length; i++) {
+            if(dp[i-1] < 0){
+                dp[i] = array[i];
+            }else {
+                dp[i] = dp[i-1] + array[i];
+            }
+            max = Math.max(max, dp[i]);
+        }
+        return max;
+    }
+
     public static void main(String[] args) {
 //        int[] a = new int[]{1,-2,3,10,-4,7,2,-5};
 //        int[] a = new int[]{1,-2,3,5,-2,6,-1};

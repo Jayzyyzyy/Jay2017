@@ -17,7 +17,7 @@ public class Problem_01_ReverseStackUsingRecursive {
 		reverse(stack);
 		stack.push(i);
 	}
-	//获取栈底元素
+	//获取并移除栈底元素
 	public static int getAndRemoveLastElement(Stack<Integer> stack) {
 		int result = stack.pop(); //一次弹出
 		if (stack.isEmpty()) { //栈底，返回
