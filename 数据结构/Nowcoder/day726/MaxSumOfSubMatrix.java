@@ -29,11 +29,11 @@ public class MaxSumOfSubMatrix {
         int N = m[0].length; //列
         int maxSum = Integer.MIN_VALUE; //最大和
         int cur = 0; //记录局部最大
-        int[] sums = null; //累加和
+        int[] sums = null; //累加和数组
 
-        for (int i = 0; i < M; i++) {
+        for (int i = 0; i < M; i++) { //行
             sums = new int[N];
-            for (int j = i; j < M; j++) {
+            for (int j = i; j < M; j++) { //行
                 cur = 0;
                 for (int k = 0; k < N; k++) {
                     sums[k] += m[j][k];
