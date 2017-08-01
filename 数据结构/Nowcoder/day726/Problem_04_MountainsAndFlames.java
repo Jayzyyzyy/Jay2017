@@ -68,7 +68,7 @@ public class Problem_04_MountainsAndFlames {
 			index = nextIndex(size, index); //求取循环链表下一个位置
 		}
 
-		//遍历完毕，栈中还有元素
+		//遍历完毕，栈中还有元素(四种情况，只剩0个元素、1个元素、2个元素、3个以上元素)
 		while (!stack.isEmpty()) {
 			int times = stack.pop().times;
 			res += getInternalSum(times); //内部对数
