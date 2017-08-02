@@ -17,11 +17,11 @@ public class Poj2533 {
             System.out.println(maxLength(arr));
         }
     }
-
+    //dp[i]以每个位置结尾的情况下能达到的最长子序列长度
     public static int maxLength(int[] arr){
         if(arr == null || arr.length == 0) return 0;
 
-        int maxLength = 1;
+        int maxLength = 1; //最大长度
         int[] dp = new int[arr.length];
         for (int i = 0; i < dp.length; i++) {
             dp[i] = 1;
@@ -30,7 +30,7 @@ public class Poj2533 {
         for (int i = 1; i < arr.length; i++) {
             int temp = 0;
             for (int j = 0; j < i; j++) {
-                if(arr[i] >= arr[j]){
+                if(arr[i] > arr[j]){
                     temp = dp[j] + 1;
                     dp[i] = Math.max(dp[i], temp);
                 }
@@ -40,6 +40,12 @@ public class Poj2533 {
         return maxLength;
     }
 
+    /**
+     * 最长递增子序列的长度
+     * @param A 数组
+     * @param n 数组大小
+     * @return
+     */
     public int findLongest(int[] A, int n) {
         if(A == null || A.length == 0 || n <= 0) return 0;
 
