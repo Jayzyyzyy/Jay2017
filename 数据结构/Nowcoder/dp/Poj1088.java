@@ -37,7 +37,7 @@ public class Poj1088 {
         if(height == null || height.length == 0 || height[0].length == 0){
             return 0;
         }
-        if(i < 1 || j < 1 || i > M || j > N){
+        if(i < 1 || j < 1 || i > M || j > N){ //边界条件
             return 0;
         }
 

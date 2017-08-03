@@ -9,6 +9,19 @@ public class LIS {
     public static void main(String[] args) {
         int[] arr = {2,1,5,3,6,4,8,9,7};
         System.out.println(Arrays.toString(lis1(arr)));
+        System.out.println(Arrays.toString(lis2(arr)));
+    }
+
+    public static int[] lis2(int[] arr){
+        if(arr == null || arr.length == 0) return null;
+
+        int[] dp = getdp2(arr);
+        return generateLIS(arr,  dp);
+    }
+    //O(NlgN)
+    public static int[] getdp2(int[] arr){
+
+        return null;
     }
 
     public static int[] lis1(int[] arr){
@@ -17,7 +30,7 @@ public class LIS {
         int[] dp = getdp1(arr);
         return generateLIS(arr,  dp);
     }
-    //dp数组，每个元素表示以每个位置结束的最长递增子序列长度
+    //dp数组，每个元素表示以每个位置结束的最长递增子序列长度 O(N²)
     public static int[] getdp1(int[] arr){
         int[] dp = new int[arr.length];
 
