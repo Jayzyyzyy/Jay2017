@@ -2,7 +2,7 @@ package Nowcoder.dp;
 
 import java.util.Scanner;
 
-public class LCS {
+public class LCSequence {
     public static int findLCS(String A, int n, String B, int m) {
         if(A == null || n <= 0 || B == null || m <= 0) return 0;
 
