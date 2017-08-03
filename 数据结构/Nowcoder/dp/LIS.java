@@ -3,7 +3,7 @@ package Nowcoder.dp;
 import java.util.Arrays;
 
 /**
- * 求出最长递增子序列LIS   O(N²)或者O(NlgN)
+ * 求出最长递增子序列LIS 数组  O(N²)或者O(NlgN)
  */
 public class LIS {
     public static void main(String[] args) {
@@ -18,12 +18,36 @@ public class LIS {
         int[] dp = getdp2(arr);
         return generateLIS(arr,  dp);
     }
-    //O(NlgN)
+    //计算dp数组，时间复杂度O(NlgN) 二分查找
     public static int[] getdp2(int[] arr){
+        int[] dp = new int[arr.length]; //每个元素表示以每个位置结束的最长递增子序列长度
+        int[] ends = new int[arr.length];
+        //ends[b]=c表示所有长度为b+1的递增序列中，最小的结尾数为c，递增
+        dp[0] = 1; //初始化
+        ends[0] = arr[0];
+        int right = 0; //有效区
 
-        return null;
+        int l = 0, r = 0, m = 0; //二分查找
+
+        for (int i = 1; i < arr.length; i++) { //遍历
+            l = 0; //不变
+            r = right; //变化
+            while(l <= r){
+                m = (l+r)/2;
+                if(arr[i] > ends[m]){
+                    l = m + 1;
+                }else {
+                    r = m -1;
+                }
+            }
+            right = Math.max(right, l); //S1可能更新边界
+            ends[l] = arr[i]; //S2替换或者新增
+            dp[i] = l + 1; //S3更新dp[i]
+        }
+        return dp;
     }
-
+    //-----------------------------------------------------
+    //-----------------------------------------------------
     public static int[] lis1(int[] arr){
         if(arr == null || arr.length == 0) return null;
 
