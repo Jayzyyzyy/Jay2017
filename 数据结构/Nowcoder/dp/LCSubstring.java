@@ -32,38 +32,38 @@ public class LCSubstring {
         return maxLength;
     }
 
-    //返回公共子串 dp S  O(1)
+    //返回公共子串  空间复杂度O(1)
     public static String lcst2(String A, String B){
         if(A == null || A.equals("") || B == null || B.equals("")) return "";
 
         char[] a = A.toCharArray();
         char[] b = B.toCharArray();
 
-        int row = 0;
-        int col = b.length - 1;
-        int max = 0;
-        int end = 0;
+        int row = 0;  //斜线开始的行
+        int col = b.length - 1; //斜线开始的列
+        int max = 0;  //LCSu最大值
+        int end = 0; //LCSu字符串末尾位置
 
-        while(row < a.length){
-            int i = row;
-            int j = col;
-            int len = 0;
-            while(i < a.length && j < b.length){
-                if(a[i] == b[j]){
+        while(row < a.length){ //斜线还没遍历完
+            int i = row; //一条斜线开始行
+            int j = col; //一条斜线开始列
+            int len = 0; //一条斜线中的目前长度
+            while(i < a.length && j < b.length){ //一条斜线还没遍历到右边界
+                if(a[i] == b[j]){ //相等
                     len ++;
                 }else {
-                    len = 0;
+                    len = 0; //不相等，为0
                 }
-                if(len > max){
+                if(len > max){ //每次更新
                     max = len;
                     end = i;
                 }
-                i ++;
+                i ++; //当前点往右下移动
                 j ++;
             }
-            if(col > 0){
+            if(col > 0){ //斜线开始位置的列先向左移动
                 col --;
-            }else {
+            }else { //列移动到最左之后，行往下移动
                 row ++;
             }
         }

@@ -15,44 +15,44 @@ public class LIS {
     public static int[] lis2(int[] arr){
         if(arr == null || arr.length == 0) return null;
 
-        int[] dp = getdp2(arr);
-        return generateLIS(arr,  dp);
+        int[] dp = getdp2(arr); //得到dp数组 O(NlgN)
+        return generateLIS(arr,  dp); //还原生成LIS
     }
     //计算dp数组，时间复杂度O(NlgN) 二分查找
     public static int[] getdp2(int[] arr){
-            int[] dp = new int[arr.length]; //每个元素表示以每个位置结束的最长递增子序列长度
-            int[] ends = new int[arr.length];
-            //ends[b]=c表示所有长度为b+1的递增序列中，最小的结尾数为c，递增
-            dp[0] = 1; //初始化
-            ends[0] = arr[0];
-            int right = 0; //有效区
+        int[] dp = new int[arr.length]; //每个元素表示以每个位置结束的最长递增子序列长度
+        dp[0] = 1; //初始化
+        //ends[b]=c表示所有长度为b+1的递增序列中，最小的结尾数为c，递增
+        int[] ends = new int[arr.length];
+        ends[0] = arr[0];
+        int right = 0; //有效区右边界
 
-            int l = 0, r = 0, m = 0; //二分查找
+        int l = 0, r = 0, m = 0; //二分查找 l左，r右，m=(l+r)/2
 
-            for (int i = 1; i < arr.length; i++) { //遍历
-                l = 0; //不变
-                r = right; //变化
-                while(l <= r){
-                    m = (l+r)/2;
-                    if(arr[i] > ends[m]){
-                        l = m + 1;
-                    }else {
-                        r = m -1;
-                    }
+        for (int i = 1; i < arr.length; i++) { //遍历
+            l = 0; //不变
+            r = right; //变化
+            while(l <= r){ //二分查找
+                m = (l+r)/2;
+                if(arr[i] > ends[m]){
+                    l = m + 1;
+                }else {
+                    r = m -1;
                 }
-                right = Math.max(right, l); //S1可能更新边界
-                ends[l] = arr[i]; //S2替换或者新增
-                dp[i] = l + 1; //S3更新dp[i]
             }
-            return dp;
+            right = Math.max(right, l); //S1可能更新边界
+            ends[l] = arr[i]; //S2替换或者新增
+            dp[i] = l + 1; //S3更新dp[i]
+        }
+        return dp;
     }
     //-----------------------------------------------------
     //-----------------------------------------------------
     public static int[] lis1(int[] arr){
         if(arr == null || arr.length == 0) return null;
 
-        int[] dp = getdp1(arr);
-        return generateLIS(arr,  dp);
+        int[] dp = getdp1(arr); //得到dp数组
+        return generateLIS(arr,  dp); //还原生成LIS
     }
     //dp数组，每个元素表示以每个位置结束的最长递增子序列长度 O(N²)
     public static int[] getdp1(int[] arr){

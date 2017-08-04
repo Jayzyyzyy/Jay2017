@@ -54,11 +54,11 @@ public class LCSequence {
         char[] res = new char[dp[n][m]]; //最长公共子序列字符数组
         int index = res.length-1; //插入位置
         while(index >= 0){
-            if(n >= 1 && dp[n][m] == dp[n-1][m]){ //向左或者左上都可以的情况
+            if(n >= 1 && dp[n][m] == dp[n-1][m]){ //向左  左/上都可以的情况
                 n --;
             }else if(m >= 1 && dp[n][m] == dp[n][m-1]){ //向上
                 m --;
-            }else if(dp[n][m] == dp[n-1][m-1] + 1){ //斜向左上, a[n-1]=b[m-1]
+            }else if(n >= 1 && m >= 1 && dp[n][m] == dp[n-1][m-1] + 1){ //斜向左上, a[n-1]=b[m-1]
                 res[index--] = a[n-1];
                 n --;
                 m --;
@@ -73,10 +73,10 @@ public class LCSequence {
         int[][] dp = new int[n+1][m+1]; //第一行，第一列为空，分别表示字符串长度为0
 
         for(int i=1; i<n+1; i++){
-            for(int j = 1;j<m+1; j++) {
+            for(int j = 1;j<m+1; j++) { //三者取最大值
                 //分别去掉其中一个字符的可能性
                 dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
-                if (a[i - 1] == b[j - 1]){ //a前i个字符，b前j个字符
+                if (a[i - 1] == b[j - 1]){ //a、b最后一个字符相等
                     dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - 1] + 1);
                 }
             }
