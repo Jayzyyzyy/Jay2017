@@ -32,7 +32,46 @@ public class LCSubstring {
         return maxLength;
     }
 
-    //返回公共子串
+    //返回公共子串 dp S  O(1)
+    public static String lcst2(String A, String B){
+        if(A == null || A.equals("") || B == null || B.equals("")) return "";
+
+        char[] a = A.toCharArray();
+        char[] b = B.toCharArray();
+
+        int row = 0;
+        int col = b.length - 1;
+        int max = 0;
+        int end = 0;
+
+        while(row < a.length){
+            int i = row;
+            int j = col;
+            int len = 0;
+            while(i < a.length && j < b.length){
+                if(a[i] == b[j]){
+                    len ++;
+                }else {
+                    len = 0;
+                }
+                if(len > max){
+                    max = len;
+                    end = i;
+                }
+                i ++;
+                j ++;
+            }
+            if(col > 0){
+                col --;
+            }else {
+                row ++;
+            }
+        }
+
+        return A.substring(end - max + 1, end + 1);
+    }
+
+    //返回公共子串 dp S  O(MxN)
     public static String lcst(String A, String B){
         if(A == null || A.equals("") || B == null || B.equals("")) return "";
 
@@ -84,5 +123,6 @@ public class LCSubstring {
             System.out.println();
         }*/
         System.out.println(lcst("1AB2345CD","12345EF"));
+        System.out.println(lcst2("1AB2345CD","12345EF"));
     }
 }

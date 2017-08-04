@@ -3,7 +3,7 @@ package Nowcoder.dp;
 import java.util.Scanner;
 
 /**
- * 滑雪
+ * 滑雪(动态规划)
  */
 public class Poj1088 {
     public static void main(String[] args) {

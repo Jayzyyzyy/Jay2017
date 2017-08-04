@@ -1,7 +1,7 @@
 package Nowcoder.dp;
 
 import java.util.Scanner;
-
+//  http://songlee24.github.io/2014/11/27/dynamic-programming/
 /**
  * 最长递增子序列长度求解
  *
@@ -74,20 +74,15 @@ public class LCSequence {
 
         for(int i=1; i<n+1; i++){
             for(int j = 1;j<m+1; j++) {
+                //分别去掉其中一个字符的可能性
+                dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                 if (a[i - 1] == b[j - 1]){ //a前i个字符，b前j个字符
-                    dp[i][j] = dp[i - 1][j - 1] + 1;
-                }else {
-                    //分别去掉其中一个字符的可能性
-                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                    dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - 1] + 1);
                 }
             }
         }
         return dp; //返回最大值
     }
-
-    /*public static void main(String[] args) {
-        System.out.println(findLCS("1A2C3D4B56",10,"B1D23CA45B6A",12));
-    }*/
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
