@@ -43,6 +43,11 @@ public class JosephusProblem {
 
         int pos = getLive(sum, m); //原链表中最后剩下节点的位置
 
+        /*int p = 1;
+        for (int i = 2; i <= sum; i++) {
+            p = (p + m -1) % i + 1;
+        }*/
+
         while(--pos != 0){
             head = head.next;
         }
