@@ -1,7 +1,10 @@
 package NowcoderZuo.day731;
 
+/**
+ * 找到无序数组中最小的k个数
+ */
 public class Problem_01_FindMinKNums {
-
+	//最大堆
 	// O(N*logK)
 	public static int[] getMinKNumsByHeap(int[] arr, int k) {
 		if (k < 1 || k > arr.length) {
@@ -55,7 +58,7 @@ public class Problem_01_FindMinKNums {
 		}
 	}
 
-	// O(N)
+	// O(N) BFPRT算法
 	public static int[] getMinKNumsByBFPRT(int[] arr, int k) {
 		if (k < 1 || k > arr.length) {
 			return arr;
@@ -76,7 +79,7 @@ public class Problem_01_FindMinKNums {
 
 	public static int getMinKthByBFPRT(int[] arr, int K) {
 		int[] copyArr = copyArray(arr);
-		return select(copyArr, 0, copyArr.length - 1, K - 1);
+		return select(copyArr, 0, copyArr.length - 1, K - 1); //K-1下标
 	}
 
 	public static int[] copyArray(int[] arr) {
@@ -92,7 +95,7 @@ public class Problem_01_FindMinKNums {
 			return arr[begin];
 		}
 		int pivot = medianOfMedians(arr, begin, end);
-		int[] pivotRange = partition(arr, begin, end, pivot);
+		int[] pivotRange = partition(arr, begin, end, pivot); //=p的左右索引
 		if (i >= pivotRange[0] && i <= pivotRange[1]) {
 			return arr[i];
 		} else if (i < pivotRange[0]) {

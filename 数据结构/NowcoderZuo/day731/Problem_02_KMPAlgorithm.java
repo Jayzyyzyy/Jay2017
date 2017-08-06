@@ -1,5 +1,8 @@
 package NowcoderZuo.day731;
 
+/**
+ * KMP查找子串
+ */
 public class Problem_02_KMPAlgorithm {
 
 	public static int getIndexOf(String s, String m) {
@@ -32,12 +35,12 @@ public class Problem_02_KMPAlgorithm {
 		next[0] = -1;
 		next[1] = 0;
 		int pos = 2;
-		int cn = 0;
-		while (pos < next.length) {
+		int cn = 0; //跳到的位置
+		while (pos < next.length) { //O(M)
 			if (ms[pos - 1] == ms[cn]) {
 				next[pos++] = ++cn;
 			} else if (cn > 0) {
-				cn = next[cn];
+				cn = next[cn]; //
 			} else {
 				next[pos++] = 0;
 			}
