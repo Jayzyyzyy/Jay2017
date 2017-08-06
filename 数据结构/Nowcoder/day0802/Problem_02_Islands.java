@@ -27,7 +27,7 @@ public class Problem_02_Islands {
 		if (i < 0 || i >= N || j < 0 || j >= M || m[i][j] != 1) { // m[i][j] == 0或2，返回
 			return;
 		}
-		m[i][j] = 2;
+		m[i][j] = 2; //表示已标记
 		infect(m, i + 1, j, N, M); //下
 		infect(m, i - 1, j, N, M); //上
 		infect(m, i, j + 1, N, M); //右

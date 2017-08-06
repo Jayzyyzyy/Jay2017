@@ -103,8 +103,8 @@ sizeCtl默认为0，如果ConcurrentHashMap实例化时有传参数，sizeCtl会
 假设table已经初始化完成，put操作采用CAS+synchronized实现并发插入或更新操作。
 
 	//put方法，返回旧值v
-	final V putVal(K key, V value, boolean onlyIfAbsent) {
-        if (key == null || value == null) throw new NullPointerException();
+	final V putVal(K key, V data, boolean onlyIfAbsent) {
+        if (key == null || data == null) throw new NullPointerException();
         int hash = spread(key.hashCode()); //hashCode高低16位异或，减少碰撞，计算出hash
         int binCount = 0; //桶的节点计数？？
         for (Node<K,V>[] tab = table;;) {  //循环
@@ -115,7 +115,7 @@ sizeCtl默认为0，如果ConcurrentHashMap实例化时有传参数，sizeCtl会
 			//tabAt采用CAS获取对象元素
             else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) { //这个桶位置为空null
                 if (casTabAt(tab, i, null,   //使用CAS插入新节点
-                             new Node<K,V>(hash, key, value, null)))
+                             new Node<K,V>(hash, key, data, null)))
                     break;   // no lock when adding to empty bin，成功就退出，不成功等自旋下次循环再重试
             }
             else if ((fh = f.hash) == MOVED)  //ForwardingNode节点，表示这个位置其他线程正在扩容，则本线程帮助其他线程一起扩容。
@@ -133,13 +133,13 @@ sizeCtl默认为0，如果ConcurrentHashMap实例化时有传参数，sizeCtl会
                                      (ek != null && key.equals(ek)))) {
                                     oldVal = e.val;
                                     if (!onlyIfAbsent) 
-                                        e.val = value;
+                                        e.val = data;
                                     break;
                                 }
                                 Node<K,V> pred = e;  
                                 if ((e = e.next) == null) { //找不到，则插入
                                     pred.next = new Node<K,V>(hash, key,
-                                                              value, null);
+                                                              data, null);
                                     break;
                                 }
                             }
@@ -148,10 +148,10 @@ sizeCtl默认为0，如果ConcurrentHashMap实例化时有传参数，sizeCtl会
                             Node<K,V> p;
                             binCount = 2; 
                             if ((p = ((TreeBin<K,V>)f).putTreeVal(hash, key, //以红黑树方式插入
-                                                           value)) != null) {
+                                                           data)) != null) {
                                 oldVal = p.val;
                                 if (!onlyIfAbsent)
-                                    p.val = value;
+                                    p.val = data;
                             }
                         }
                     }

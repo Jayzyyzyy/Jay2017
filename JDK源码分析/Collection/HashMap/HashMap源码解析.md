@@ -20,19 +20,19 @@
     static class Node<K,V> implements Map.Entry<K,V> {
         final int hash;   //用来定位数组索引位置
         final K key;
-        V value;
+        V data;
         Node<K,V> next;   //链表的下一个Node
 
-        Node(int hash, K key, V value, Node<K,V> next) {
+        Node(int hash, K key, V data, Node<K,V> next) {
             this.hash = hash;
             this.key = key;
-            this.value = value;
+            this.data = data;
             this.next = next;
         }
 
         public final K getKey()        { return key; }
-        public final V getValue()      { return value; }
-        public final String toString() { return key + "=" + value; }
+        public final V getValue()      { return data; }
+        public final String toString() { return key + "=" + data; }
 
         public final int hashCode() {}
 
@@ -92,7 +92,7 @@
 举例如下(n为table长度，n=16):
 ![](http://tech.meituan.com/img/java-hashmap/hashMap%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E4%BE%8B%E5%9B%BE.png)
 
-2.put(K key, V value)方法详解
+2.put(K key, V data)方法详解
 
 操作流程如图：
 ![](http://tech.meituan.com/img/java-hashmap/hashMap%20put%E6%96%B9%E6%B3%95%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
@@ -104,11 +104,11 @@
 第五步: 操作完成后，如果结果是插入成功，则检查实际存在的键值对数量size是否超多了最大容量threshold，如果超过，进行扩容。
 
 
-    public V put(K key, V value) {
+    public V put(K key, V data) {
 		//hash(key) 对key进行hash操作，计算hash值(包括高16位亦或运算)
-        return putVal(hash(key), key, value, false, true);
+        return putVal(hash(key), key, data, false, true);
     }
-	final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+	final V putVal(int hash, K key, V data, boolean onlyIfAbsent,
                    boolean evict) {
         Node<K,V>[] tab; Node<K,V> p; int n, i;
 		//第一步：table为空，则创建初始化，分配内存
@@ -116,7 +116,7 @@
             n = (tab = resize()).length;
 		//第二步:计算出索引i, 若table[i]==null,直接添加新节点，直接进入第五步
         if ((p = tab[i = (n - 1) & hash]) == null)
-            tab[i] = newNode(hash, key, value, null);
+            tab[i] = newNode(hash, key, data, null);
         else {
 			//第三步:否则，判断table[i]的首个元素是否和key一样，如果相同直接覆盖value
             Node<K,V> e; K k;
@@ -125,12 +125,12 @@
                 e = p;
 			//第四步：判断该链表是红黑树
             else if (p instanceof TreeNode)
-                e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, value);
+                e = ((TreeNode<K,V>)p).putTreeVal(this, tab, hash, key, data);
             else {
 			//这一一条普通链表，执行遍历操作
                 for (int binCount = 0; ; ++binCount) {
                     if ((e = p.next) == null) {
-                        p.next = newNode(hash, key, value, null);
+                        p.next = newNode(hash, key, data, null);
 						 //链表长度大于8转换为红黑树进行处理
                         if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for 1st
                             treeifyBin(tab, hash);
@@ -144,9 +144,9 @@
                 }
             }
             if (e != null) { // existing mapping for key
-                V oldValue = e.value;
+                V oldValue = e.data;
                 if (!onlyIfAbsent || oldValue == null)
-                    e.value = value;
+                    e.data = data;
                 afterNodeAccess(e);
                 return oldValue;
             }
@@ -170,7 +170,7 @@
 	public V get(Object key) {
         Node<K,V> e;
 		//首先计算hash值，然后调用getNode()方法
-        return (e = getNode(hash(key), key)) == null ? null : e.value;
+        return (e = getNode(hash(key), key)) == null ? null : e.data;
     }
 	final Node<K,V> getNode(int hash, Object key) {
         Node<K,V>[] tab; Node<K,V> first, e; int n; K k;

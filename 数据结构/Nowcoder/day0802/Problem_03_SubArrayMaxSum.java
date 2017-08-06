@@ -1,5 +1,8 @@
 package Nowcoder.day0802;
 
+/**
+ * 一个数组的最大子数组和
+ */
 public class Problem_03_SubArrayMaxSum {
 
 	public static int maxSum(int[] arr) {

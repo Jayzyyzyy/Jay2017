@@ -1,5 +1,8 @@
 package Nowcoder.day0802;
 
+/**
+ * 给定一个矩阵，其值有正有负， 子矩阵的最大累加和
+ */
 public class Problem_04_SubMatrixMaxSum {
 
 	public static int maxSum(int[][] m) {
@@ -12,7 +15,7 @@ public class Problem_04_SubMatrixMaxSum {
 		for (int i = 0; i != m.length; i++) {
 			s = new int[m[0].length];
 			for (int j = i; j != m.length; j++) {
-				cur = 0;
+				cur = 0; //当前一轮中的和
 				for (int k = 0; k != s.length; k++) {
 					s[k] += m[j][k];
 					cur += s[k];

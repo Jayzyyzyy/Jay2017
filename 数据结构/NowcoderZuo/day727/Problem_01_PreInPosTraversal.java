@@ -19,8 +19,11 @@ public class Problem_01_PreInPosTraversal {
 			return;
 		}
 		System.out.print(head.value + " ");
+		//第一次遇到head
 		preOrderRecur(head.left);
+		//第二次遇到head
 		preOrderRecur(head.right);
+		//第三次遇到head
 	}
 
 	public static void inOrderRecur(Node head) {
@@ -40,7 +43,7 @@ public class Problem_01_PreInPosTraversal {
 		posOrderRecur(head.right);
 		System.out.print(head.value + " ");
 	}
-
+	//非递归前序遍历（根 左 右 ）
 	public static void preOrderUnRecur(Node head) {
 		System.out.print("pre-order: ");
 		if (head != null) {
@@ -48,54 +51,56 @@ public class Problem_01_PreInPosTraversal {
 			stack.add(head);
 			while (!stack.isEmpty()) {
 				head = stack.pop();
-				System.out.print(head.value + " ");
+				System.out.print(head.value + " "); //弹出打印
 				if (head.right != null) {
-					stack.push(head.right);
+					stack.push(head.right); //压入右子树
 				}
 				if (head.left != null) {
-					stack.push(head.left);
+					stack.push(head.left); //压入左子树
 				}
 			}
 		}
 		System.out.println();
 	}
 
+	//非递归中序遍历 左 根 右
 	public static void inOrderUnRecur(Node head) {
 		System.out.print("in-order: ");
 		if (head != null) {
 			Stack<Node> stack = new Stack<Node>();
 			while (!stack.isEmpty() || head != null) {
-				if (head != null) {
+				if (head != null) { //1.先压入node树左边界
 					stack.push(head);
 					head = head.left;
 				} else {
 					head = stack.pop();
-					System.out.print(head.value + " ");
-					head = head.right;
+					System.out.print(head.value + " "); //3.依次弹出打印
+					head = head.right; //2.再次压入node右子树左边界
 				}
 			}
 		}
 		System.out.println();
 	}
 
+	//非递归后序遍历 左  右  根
 	public static void posOrderUnRecur1(Node head) {
 		System.out.print("pos-order: ");
 		if (head != null) {
 			Stack<Node> s1 = new Stack<Node>();
-			Stack<Node> s2 = new Stack<Node>();
+			Stack<Node> s2 = new Stack<Node>(); //收集s1的弹出元素
 			s1.push(head);
 			while (!s1.isEmpty()) {
-				head = s1.pop();
+				head = s1.pop(); //中
 				s2.push(head);
-				if (head.left != null) {
+				if (head.left != null) { //先压入左，等于 后弹出左
 					s1.push(head.left);
 				}
-				if (head.right != null) {
+				if (head.right != null) { //后压入右，等于 先弹出右
 					s1.push(head.right);
 				}
 			}
 			while (!s2.isEmpty()) {
-				System.out.print(s2.pop().value + " ");
+				System.out.print(s2.pop().value + " "); //左右中
 			}
 		}
 		System.out.println();
