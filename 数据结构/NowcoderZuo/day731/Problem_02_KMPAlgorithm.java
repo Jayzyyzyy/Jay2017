@@ -14,7 +14,7 @@ public class Problem_02_KMPAlgorithm {
 		int si = 0;
 		int mi = 0;
 		int[] next = getNextArray(ms);
-		while (si < ss.length && mi < ms.length) {
+		while (si < ss.length && mi < ms.length) { //匹配过程
 			if (ss[si] == ms[mi]) {
 				si++;
 				mi++;
@@ -27,22 +27,23 @@ public class Problem_02_KMPAlgorithm {
 		return mi == ms.length ? si - mi : -1;
 	}
 
+	//获取每个位置之前的子串前后缀最大匹配长度
 	public static int[] getNextArray(char[] ms) {
 		if (ms.length == 1) {
 			return new int[] { -1 };
 		}
 		int[] next = new int[ms.length];
-		next[0] = -1;
-		next[1] = 0;
+		next[0] = -1; //0位置规定长度为-1
+		next[1] = 0;  //1位置规定长度为0
 		int pos = 2;
 		int cn = 0; //跳到的位置
 		while (pos < next.length) { //O(M)
-			if (ms[pos - 1] == ms[cn]) {
+			if (ms[pos - 1] == ms[cn]) { //找到匹配，长度为cn+1，cn移动到cn+1位置，pos移动到pos+1位置
 				next[pos++] = ++cn;
-			} else if (cn > 0) {
+			} else if (cn > 0) { //未找到且未跳到最左边，继续往左跳
 				cn = next[cn]; //
 			} else {
-				next[pos++] = 0;
+				next[pos++] = 0; //跳转到最左边，没找到
 			}
 		}
 		return next;
