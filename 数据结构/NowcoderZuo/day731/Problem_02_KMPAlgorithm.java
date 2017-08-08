@@ -39,9 +39,9 @@ public class Problem_02_KMPAlgorithm {
 		int cn = 0; //跳到的位置=next[1]
 		while (pos < next.length) { //O(M)
 			if (ms[pos - 1] == ms[cn]) { //找到匹配，长度为cn+1，cn移动到cn+1位置，pos移动到pos+1位置
-				next[pos++] = ++cn;
+				next[pos++] = ++cn; //继续计算
 			} else if (cn > 0) { //未找到且未跳到最左边，继续往左跳
-				cn = next[cn]; //
+				cn = next[cn];
 			} else {
 				next[pos++] = 0; //跳转到最左边，没找到
 			}
