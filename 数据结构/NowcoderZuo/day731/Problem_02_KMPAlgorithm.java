@@ -13,12 +13,12 @@ public class Problem_02_KMPAlgorithm {
 		char[] ms = m.toCharArray();
 		int si = 0;
 		int mi = 0;
-		int[] next = getNextArray(ms);
+		int[] next = getNextArray(ms); //next数组，长度m.length()
 		while (si < ss.length && mi < ms.length) { //匹配过程
 			if (ss[si] == ms[mi]) {
 				si++;
 				mi++;
-			} else if (next[mi] == -1) {
+			} else if (next[mi] == -1) { //m匹配到最左边，还未匹配到
 				si++;
 			} else {
 				mi = next[mi];
@@ -36,7 +36,7 @@ public class Problem_02_KMPAlgorithm {
 		next[0] = -1; //0位置规定长度为-1
 		next[1] = 0;  //1位置规定长度为0
 		int pos = 2;
-		int cn = 0; //跳到的位置
+		int cn = 0; //跳到的位置=next[1]
 		while (pos < next.length) { //O(M)
 			if (ms[pos - 1] == ms[cn]) { //找到匹配，长度为cn+1，cn移动到cn+1位置，pos移动到pos+1位置
 				next[pos++] = ++cn;
