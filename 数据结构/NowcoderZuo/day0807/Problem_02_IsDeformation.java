@@ -19,7 +19,7 @@ public class Problem_02_IsDeformation {
 			map[chas1[i]]++;
 		}
 		for (int i = 0; i < chas2.length; i++) {
-			if (map[chas2[i]]-- == 0) { //减1之前已经等于0，表明次数不相等
+			if (map[chas2[i]]-- == 0) { //减1之前已经等于0，表明某个字符次数不相等
 				return false;
 			}
 		}
@@ -47,6 +47,8 @@ public class Problem_02_IsDeformation {
 				}else {
 					map.put(chas2[i], map.get(chas2[i])-1);
 				}
+			}else {
+				return false;
 			}
 		}
 		return true;

@@ -4,7 +4,7 @@ package NowcoderZuo.day0807;
  * 判断两个字符串是否互为旋转词
  */
 public class Problem_03_IsRotation {
-
+	//
 	public static boolean isRotation(String a, String b) {
 		if (a == null || b == null || a.length() != b.length()) {
 			return false;
