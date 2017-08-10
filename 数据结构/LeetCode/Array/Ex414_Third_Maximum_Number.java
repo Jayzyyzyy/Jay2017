@@ -46,7 +46,7 @@ public class Ex414_Third_Maximum_Number {
         return max3 == null? max1 : max3;
     }
 
-    //O(n)时间复杂度，O(n)空间复杂度
+    //O(nlgn)时间复杂度，O(n)空间复杂度
     /*public int thirdMax(int[] nums) {
 
         ArrayList<Integer> list = new ArrayList<Integer>();

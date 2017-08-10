@@ -29,7 +29,7 @@ public class Ex189_Rotate_Array {
     //O(n)时间  O(n)空间
     public void rotate(int[] nums, int k) {
         if(k > nums.length)
-            k=k%nums.length;
+            k = k % nums.length;
 
         int[] result = new int[nums.length];
 
