@@ -15,6 +15,7 @@ public class Problem_04_CompleteTreeNodeNumber {
 		}
 	}
 
+	//求完全二叉树节点个数
 	public static int nodeNum(Node head) {
 		if (head == null) {
 			return 0;
@@ -22,17 +23,30 @@ public class Problem_04_CompleteTreeNodeNumber {
 		return bs(head, 1, mostLeftLevel(head, 1));
 	}
 
+	/**
+	 * 共有多少节点
+	 * @param node
+	 * @param l node在l层
+	 * @param h 总共h层
+	 * @return
+	 */
 	public static int bs(Node node, int l, int h) {
 		if (l == h) {
-			return 1;
+			return 1; //叶结点
 		}
 		if (mostLeftLevel(node.right, l + 1) == h) {
-			return (1 << (h - l)) + bs(node.right, l + 1, h);
+			return (1 << (h - l)) + bs(node.right, l + 1, h); //左子树和根节点清算，递归求右子树
 		} else {
-			return (1 << (h - l - 1)) + bs(node.left, l + 1, h);
+			return (1 << (h - l - 1)) + bs(node.left, l + 1, h);//右子树和根节点清算，递归求左子树
 		}
 	}
 
+	/**
+	 * node在level层，一共有几层
+	 * @param node
+	 * @param level
+	 * @return
+	 */
 	public static int mostLeftLevel(Node node, int level) {
 		while (node != null) {
 			level++;
