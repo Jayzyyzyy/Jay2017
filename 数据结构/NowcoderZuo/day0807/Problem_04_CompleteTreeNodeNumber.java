@@ -62,6 +62,7 @@ public class Problem_04_CompleteTreeNodeNumber {
 		head.left.left = new Node(4);
 		head.left.right = new Node(5);
 		head.right.left = new Node(6);
+		//head.right.right = new Node(7);
 		System.out.println(nodeNum(head));
 
 	}

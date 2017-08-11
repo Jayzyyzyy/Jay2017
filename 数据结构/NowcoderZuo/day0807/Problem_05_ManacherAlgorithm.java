@@ -1,5 +1,8 @@
 package NowcoderZuo.day0807;
 
+/**
+ * 给定一个字符串str，返回str中最长回文子串的长度
+ */
 public class Problem_05_ManacherAlgorithm {
 
 	public static char[] manacherString(String str) {
