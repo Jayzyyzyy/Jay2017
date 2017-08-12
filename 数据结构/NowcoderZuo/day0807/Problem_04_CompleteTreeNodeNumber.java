@@ -15,7 +15,9 @@ public class Problem_04_CompleteTreeNodeNumber {
 		}
 	}
 
-	//求完全二叉树节点个数
+	/**
+	 * 求完全二叉树的节点个数
+	 */
 	public static int nodeNum(Node head) {
 		if (head == null) {
 			return 0;
@@ -24,10 +26,10 @@ public class Problem_04_CompleteTreeNodeNumber {
 	}
 
 	/**
-	 * 共有多少节点
-	 * @param node
+	 * 以node为头结点的完全二叉胡共有多少节点
+	 * @param node 头结点
 	 * @param l node在l层
-	 * @param h 总共h层
+	 * @param h 整个二叉树总共h层
 	 * @return
 	 */
 	public static int bs(Node node, int l, int h) {
@@ -42,7 +44,7 @@ public class Problem_04_CompleteTreeNodeNumber {
 	}
 
 	/**
-	 * node在level层，一共有几层
+	 * 以node为头节点的完全二叉树在level层，一共有几层
 	 * @param node
 	 * @param level
 	 * @return
