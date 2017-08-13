@@ -2,32 +2,35 @@ package NowcoderZuo.day0807;
 
 import java.util.Arrays;
 
+/**
+ * 两个排序数组中找到第k小的数 1<=k<=l1+l2
+ */
 public class Problem_01_FindKthMinNumber {
 
 	public static int findKthNum(int[] arr1, int[] arr2, int kth) {
 		if (arr1 == null || arr2 == null) {
 			throw new RuntimeException("Your arr is invalid!");
 		}
-		if (kth < 1 || kth > arr1.length + arr2.length) {
+		if (kth < 1 || kth > arr1.length + arr2.length) { //第一种情况无效
 			throw new RuntimeException("K is invalid!");
 		}
 		int[] longs = arr1.length >= arr2.length ? arr1 : arr2;
 		int[] shorts = arr1.length < arr2.length ? arr1 : arr2;
 		int l = longs.length;
 		int s = shorts.length;
-		if (kth <= s) {
+		if (kth <= s) { //第二种情况
 			return getUpMedian(shorts, 0, kth - 1, longs, 0, kth - 1);
 		}
-		if (kth > l) {
-			if (shorts[kth - l - 1] >= longs[l - 1]) {
+		if (kth > l) { //第三种情况
+			if (shorts[kth - l - 1] >= longs[l - 1]) { //验证s的倒数s+l-k+1个数
 				return shorts[kth - l - 1];
 			}
-			if (longs[kth - s - 1] >= shorts[s - 1]) {
+			if (longs[kth - s - 1] >= shorts[s - 1]) { //验证l的倒数s+l-k+1个数
 				return longs[kth - s - 1];
 			}
 			return getUpMedian(shorts, kth - l, s - 1, longs, kth - s, l - 1);
 		}
-		if (longs[kth - s - 1] >= shorts[s - 1]) {
+		if (longs[kth - s - 1] >= shorts[s - 1]) { //验证l的第k-s个数
 			return longs[kth - s - 1];
 		}
 		return getUpMedian(shorts, 0, s - 1, longs, kth - s, kth - 1);
