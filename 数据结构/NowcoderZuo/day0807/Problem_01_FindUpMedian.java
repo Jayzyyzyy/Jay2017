@@ -18,7 +18,7 @@ public class Problem_01_FindUpMedian {
 		while (start1 < end1) {
 			mid1 = (start1 + end1) / 2;
 			mid2 = (start2 + end2) / 2;
-			// Ԫ�ظ���Ϊ������offsetΪ0��Ԫ�ظ���Ϊż����offsetΪ1��
+			// 元素个数为奇数，offset为0，元素个数为偶数，offset为1。
 			offset = ((end1 - start1 + 1) & 1) ^ 1;
 			if (arr1[mid1] > arr2[mid2]) {
 				end1 = mid1;
