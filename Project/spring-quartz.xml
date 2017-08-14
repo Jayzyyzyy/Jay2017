@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+   <!-- 工作的bean -->
+    <bean id="statTask" class="com.hikvision.cloud.iep.stat.task.IepStatTask" />
+    <!-- job的配置开始 -->
+    <bean id="allStatement"
+        class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass">
+                <value>com.hikvision.cloud.iep.stat.task.MyDetailQuartzJobBean </value>
+        </property>
+        <property name="jobDataAsMap">
+        	<map>
+        		<entry key="targetObject" value="statTask"/>
+        		<entry key="targetMethod" value="allStatement"/>
+        	</map>
+        </property>
+    </bean>
+    
+    <!-- 调度的配置开始 -->
+    <bean id="allStatementTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="allStatement" />
+        </property>
+        <property name="cronExpression">
+            <value>0 20 1 * * ?</value>
+        </property>
+    </bean>
+    
+    
+       <!-- 工作的bean -->
+    <bean id="carFlowTask" class="com.hikvision.cloud.iep.statistics.carflow.task.IepCarFlowTask" />
+    <!-- job的配置开始 -->
+    <bean id="allCarFlow"
+        class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass">
+                <value>com.hikvision.cloud.iep.statistics.carflow.task.IepCarFlowQuartzJobBean</value>
+        </property>
+        <property name="jobDataAsMap">
+        	<map>
+        		<entry key="targetObject" value="carFlowTask"/>
+        		<entry key="targetMethod" value="allCarFlow"/>
+        	</map>
+        </property>
+    </bean>
+    
+    <!-- 调度的配置开始 -->
+    <bean id="allCarFlowTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="allCarFlow" />
+        </property>
+        <property name="cronExpression">
+            <value>0 20 0 * * ?</value>
+        </property>
+    </bean>
+   
+
+    <!-- 车位使用率统计bean -->
+    <bean id="parkplaceTask" class="com.hikvision.cloud.iep.statistics.parkplace.task.IepParkplaceTask" />
+    <!-- job的配置开始 -->
+    <bean id="callParkplace"
+        class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass">
+                <value>com.hikvision.cloud.iep.statistics.parkplace.task.IepParkplaceQuartzJobBean</value>
+        </property>
+        <property name="jobDataAsMap">
+        	<map>
+        		<entry key="targetObject" value="parkplaceTask"/>
+        		<entry key="targetMethod" value="callParkplace"/>
+        	</map>
+        </property>
+    </bean>
+    
+    
+    <!-- 调度的配置开始 -->
+    <bean id="parkplaceTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="callParkplace" />
+        </property>
+        <property name="cronExpression">
+            <value>0 8 0 * * ?</value>
+        </property>
+    </bean>
+    
+    
+    <!-- 品质管控统计bean -->
+    <bean id="qualityPatrolStatTask" class="com.hikvision.cloud.iep.statistics.quality.task.IepQualityPatrolStatTask" />
+    <!-- job的配置开始 -->
+    <bean id="callQualityPatrolStat"
+        class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass">
+                <value>com.hikvision.cloud.iep.statistics.quality.task.IepQualityPatrolQuartzJobBean</value>
+        </property>
+        <property name="jobDataAsMap">
+        	<map>
+        		<entry key="targetObject" value="qualityPatrolStatTask"/>
+        		<entry key="targetMethod" value="callQualityPatrolStat"/>
+        	</map>
+        </property>
+    </bean>
+    
+    <!-- 调度的配置开始 -->
+    <bean id="qualityPatrolTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="callQualityPatrolStat" />
+        </property>
+        <property name="cronExpression">
+            <value>0 5 0 * * ?</value>
+        </property>
+    </bean>
+    
+    
+    <!-- 实时数据清理bean -->
+    <bean id="realtimeTask" class="com.hikvision.cloud.iep.statistics.realtime.task.IepRealtimeStatTask" />
+    <!-- job的配置开始 -->
+    <bean id="deleteRealTimeStat"
+        class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass">
+                <value>com.hikvision.cloud.iep.statistics.realtime.task.IepRealtimeQuartzJobBean</value>
+        </property>
+        <property name="jobDataAsMap">
+        	<map>
+        		<entry key="targetObject" value="realtimeTask"/>
+        		<entry key="targetMethod" value="deleteRealTimeStat"/>
+        	</map>
+        </property>
+    </bean>
+    
+    <!-- 调度的配置开始 -->
+    <bean id="realtimeTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="deleteRealTimeStat" />
+        </property>
+        <property name="cronExpression">
+            <value>0 0 12 * * ?</value>
+        </property>
+    </bean>
+    
+    <!-- 图片定时删除任务 -->
+    <bean id="imgDeleteTask" class="com.hikvision.cloud.iep.img.task.IepImgDelTask" />
+    <!-- job的配置开始 -->
+    <bean id="imgDeleteQuartzJobBean"
+        class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass">
+                <value>com.hikvision.cloud.iep.img.task.IepImgDelQuartzJobBean</value>
+        </property>
+        <property name="jobDataAsMap">
+        	<map>
+        		<entry key="targetObject" value="imgDeleteTask"/>
+        		<entry key="targetMethod" value="deleteExpireImg"/>
+        	</map>
+        </property>
+    </bean>
+    <!-- 调度的配置开始 -->
+	<bean id="imgDeleteTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="imgDeleteQuartzJobBean" />
+        </property>
+        <property name="cronExpression">
+            <value>0 0/59 * * * ?</value>
+        </property>
+	</bean>
+    
+    <!-- 创建计划品控任务开始 -->
+    <bean id="qcPlanTask" class="com.hikvision.cloud.iep.system.plan.task.QCPlanTask" />
+    <!-- job的配置开始 -->
+    <bean id="qcPlanQuartzJobBean"
+        class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass">
+                <value>com.hikvision.cloud.iep.system.plan.task.QCPlanQuartzJobBean</value>
+        </property>
+        <property name="jobDataAsMap">
+        	<map>
+        		<entry key="targetObject" value="qcPlanTask"/>
+        		<entry key="targetMethod" value="createQCPlan"/>
+        	</map>
+        </property>
+    </bean>
+    
+     <!-- 调度的配置开始 -->
+	<bean id="createQCPlanTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="qcPlanQuartzJobBean" />
+        </property>
+        <property name="cronExpression">
+            <value>0 45 23 * * ?</value>
+        </property>
+	</bean>
+    
+    <!-- 执行计划品控任务开始 -->
+    <bean id="executionQCPlanTask" class="com.hikvision.cloud.iep.system.plan.task.ExecutionQCPlanTask" />
+    <!-- job的配置开始 -->
+    <bean id="executionQCPlanQuartzJobBean"
+        class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass">
+                <value>com.hikvision.cloud.iep.system.plan.task.ExecutionQCPlanQuartzJobBean</value>
+        </property>
+        <property name="jobDataAsMap">
+        	<map>
+        		<entry key="targetObject" value="executionQCPlanTask"/>
+        		<entry key="targetMethod" value="executionQCPlan"/>
+        	</map>
+        </property>
+    </bean>
+    
+     <!-- 调度的配置开始 -->
+	<bean id="executionQCPlanTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="executionQCPlanQuartzJobBean" />
+        </property>
+        <property name="cronExpression">
+            <value>0 0/30 * * * ?</value>
+        </property>
+	</bean>
+	
+	
+    <!-- 启动触发器的配置开始 -->
+    <bean name="startQuertz" lazy-init="false" autowire="no"
+        class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="configLocation" value="classpath:quartz.properties"/> 
+        <property name="triggers">
+            <list>
+              <ref bean="allStatementTrigger" />
+              <ref bean="allCarFlowTrigger" />
+              <ref bean="parkplaceTrigger" />
+              <ref bean="realtimeTrigger" />
+              <ref bean="qualityPatrolTrigger" />
+              <ref bean="imgDeleteTrigger"/>
+              <ref bean="createQCPlanTaskTrigger"/>
+              <ref bean="executionQCPlanTaskTrigger"/>
+            </list>
+        </property>
+        <property name="taskExecutor" ref="quartzTaskExecutor"></property>
+        <property name="applicationContextSchedulerContextKey" value="applicationContext"></property>
+<!--         <property name="dataSource">   -->
+<!--             <ref bean="dataSource" />   -->
+<!--         </property> -->
+    </bean>
+    <!-- 启动触发器的配置结束 -->
+
+	<!-- 配置线程池 自动识别业务日志-->
+	<bean id ="quartzTaskExecutor"  class ="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor" >
+		<!-- 线程池维护线程的最少数量 -->
+		<property name ="corePoolSize" value ="2" />
+		<!-- 线程池维护线程所允许的空闲时间 -->
+		<property name ="keepAliveSeconds" value ="180" />
+		<!-- 线程池维护线程的最大数量 -->
+		<property name ="maxPoolSize" value ="5" />
+		<!-- 线程池所使用的缓冲队列 -->
+		<property name ="queueCapacity" value ="10" />
+		<property name="threadNamePrefix" value="quartzTaskExecutor-"/> 
+	</bean>
+</beans>
