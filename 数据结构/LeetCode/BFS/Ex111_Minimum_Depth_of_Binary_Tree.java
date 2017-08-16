@@ -18,19 +18,14 @@ public class Ex111_Minimum_Depth_of_Binary_Tree {
         int minH = 1;
         stack.push(root);
 
-
         while(!stack.isEmpty()){
             cur = stack.pop();
 
             if(cur.left != null){
                 stack.push(cur.left);
-            }else {
-                return minH;
             }
             if(cur.right != null){
                 stack.push(cur.right);
-            }else {
-                return minH;
             }
         }
         return minH;
