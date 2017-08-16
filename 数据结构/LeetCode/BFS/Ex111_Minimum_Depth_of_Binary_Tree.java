@@ -21,6 +21,7 @@ public class Ex111_Minimum_Depth_of_Binary_Tree {
 
         while(!stack.isEmpty()){
             cur = stack.pop();
+
             if(cur.left != null){
                 stack.push(cur.left);
             }else {
