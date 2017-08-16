@@ -9,6 +9,13 @@ package LeetCode.greedy;
  */
 public class Ex122_Best_Time_to_Buy_and_Sell_Stock_II {
     public int maxProfit(int[] prices) {
-
+        if(prices == null || prices.length <= 1) return 0;
+        int sum = 0;
+        for(int i=1;i<prices.length; i++){
+            if(prices[i] > prices[i-1]){
+                sum += (prices[i]-prices[i-1]); //这道题股票 支持一天内，符合条件的情况下先抛出再买入。
+            }
+        }
+        return sum;
     }
 }
