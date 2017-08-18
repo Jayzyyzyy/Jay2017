@@ -1,6 +1,7 @@
 package LeetCode.BFS;
 
-import java.util.Stack;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  Given a binary tree, find its minimum depth.
@@ -12,20 +13,25 @@ import java.util.Stack;
 public class Ex111_Minimum_Depth_of_Binary_Tree {
     public int minDepth(TreeNode root) {
         if(root == null) return 0;
-        Stack<TreeNode> stack  = new Stack<TreeNode>();
 
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
         TreeNode cur = null;
-        int minH = 1;
-        stack.push(root);
-
-        while(!stack.isEmpty()){
-            cur = stack.pop();
-
-            if(cur.left != null){
-                stack.push(cur.left);
-            }
-            if(cur.right != null){
-                stack.push(cur.right);
+        int minH = 0;
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            minH ++;
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {  //一层一层的检查
+                cur = queue.poll();
+                if(cur.left == null && cur.right == null){
+                    return minH;
+                }
+                if(cur.left != null){
+                    queue.offer(cur.left);
+                }
+                if(cur.right != null){
+                    queue.offer(cur.right);
+                }
             }
         }
         return minH;
