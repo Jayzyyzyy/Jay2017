@@ -34,10 +34,6 @@ package LeetCode.greedy;
  Answers will be in the range of 32-bit signed integer.
  */
 public class Ex651_4_Keys_Keyboard {
-    /*
-    1.spend 1 step, +1 （just type A）
-    2.spend n+1 (n>=1) steps, *n （CtrlA, CtrlC, then CtrlV for n-1 times）
-     */
     public int maxA(int N) {
         int[] dp = new int[N+1]; //从1开始，dp[i]表示到i位置为止得到的最大A数量
 
@@ -48,7 +44,7 @@ public class Ex651_4_Keys_Keyboard {
         for (int i = 1; i <= N; i++) {
             dp[i] = i; // 只按A键
             for(int j = 3; j< i; j++){
-                dp[i] = Math.max(dp[i], dp[i-j]*(j-1)); //复制策略
+                dp[i] = Math.max(dp[i], dp[i-j]*(j-1)); //从dp[i-j]开始，Ctrl-A,Ctrl-C,Ctrl-V,Ctrl-V...复制策略
             }
         }
         return dp[N];
