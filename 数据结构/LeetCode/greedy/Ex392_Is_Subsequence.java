@@ -29,6 +29,6 @@ package LeetCode.greedy;
  */
 public class Ex392_Is_Subsequence {
     public boolean isSubsequence(String s, String t) {
-
+        return false;
     }
 }
