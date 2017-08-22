@@ -25,6 +25,6 @@ public class FieldResolution {
     }
 
     public static void main(String[] args) {
-//        System.out.println(Sub.A);
+//        System.out.println(Sub.Demo.A);
     }
 }

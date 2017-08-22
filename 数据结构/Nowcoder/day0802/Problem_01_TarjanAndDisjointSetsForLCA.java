@@ -111,7 +111,7 @@ public class Problem_01_TarjanAndDisjointSetsForLCA {
 		public HashMap<Node, Integer> rankMap;
 
 		public DisjointSets() {
-			fatherMap = new HashMap<Node, Node>(); // (B,A)
+			fatherMap = new HashMap<Node, Node>(); // (Demo.B,Demo.A)
 			rankMap = new HashMap<Node, Integer>();
 		}
 

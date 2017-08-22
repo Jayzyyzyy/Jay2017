@@ -23,7 +23,7 @@
 		key(b)  //辅助索引，非唯一
 	);
 
-在这种情况下产生了一个**非聚集的且不是唯一的索引**。在进行插入操作时，**数据页的存放还是按照主键a进行顺序存放的**，但是对于非聚集索引叶子结点的插入不再是顺序的，这需要**离散的访问非聚集索引页**，由于随机读取的存在而导致插入性能的下降，这是有**B+树的特性**决定了非聚集索引插入的离散型。
+在这种情况下产生了一个**非聚集的且不是唯一的索引**。在进行插入操作时，**数据页的存放还是按照主键a进行顺序存放的**，但是对于非聚集索引叶子结点的插入不再是顺序的，这需要**离散的访问非聚集索引页**，由于随机读取的存在而导致插入性能的下降，这是有**Demo.B+树的特性**决定了非聚集索引插入的离散型。
 
 ####(b)Insert Buffer工作原理
 
@@ -50,11 +50,11 @@ InnoDB引擎在1.0.x版本引入Change Buffer，是对Insert Buffer的升级。�
 ###3.Insert Buffer实现
 
 ####1.简介
-Insert Buffer的数据结构是B+树，全局只有一颗Insert Buffer B+树,负责对所有的表的辅助索引进行Insert Buffer。B+树存放在共享表空间。
+Insert Buffer的数据结构是B+树，全局只有一颗Insert Buffer Demo.B+树,负责对所有的表的辅助索引进行Insert Buffer。Demo.B+树存放在共享表空间。
 
 
 ####2.实现
-1.B+树由叶子结点和非叶子结点组成。**insert buffer的非叶子节点存放的是查询的search key**（键值）
+1.Demo.B+树由叶子结点和非叶子结点组成。**insert buffer的非叶子节点存放的是查询的search key**（键值）
 
 其构造包括三个字段：space （4 byte）+ marker（1byte） + offset（4byte） = search key （9 byte ）
 
@@ -62,16 +62,16 @@ space表示待插入记录所在的(索引)表空间id，InnoDB中，每个表�
 marker是用来兼容老版本的insert buffer；<br>
 offset表示页所在的偏移量。<br>
 
-2.当一个辅助索引需要插入到页（space， offset）时，如果这个页不在缓冲池中，那么InnoDB首先根据上述规则构造一个search key，接下来查询insert buffer这棵B+树，然后再将这条记录插入到insert buffer B+树的叶子节点中.
+2.当一个辅助索引需要插入到页（space， offset）时，如果这个页不在缓冲池中，那么InnoDB首先根据上述规则构造一个search key，接下来查询insert buffer这棵B+树，然后再将这条记录插入到insert buffer Demo.B+树的叶子节点中.
 
-3.对于插入到insert buffer B+树叶子节点的记录，需要根据如下规则进行构造：
+3.对于插入到insert buffer Demo.B+树叶子节点的记录，需要根据如下规则进行构造：
 
 space | marker | offset | metadata | secondary index record
 
 
 ####3.Insert Buffer Bitmap
 
-启用insert buffer索引后，辅助索引页（space、page_no）中的记录可能被插入到insert buffer B+树中，所以为了保证每次merge insert buffer页必须成功，还需要有一个特殊的页来标记每个辅助索引页（space、page_no）的可用空间，这个页的类型为insert buffer bitmap。
+启用insert buffer索引后，辅助索引页（space、page_no）中的记录可能被插入到insert buffer Demo.B+树中，所以为了保证每次merge insert buffer页必须成功，还需要有一个特殊的页来标记每个辅助索引页（space、page_no）的可用空间，这个页的类型为insert buffer bitmap。
 
 ####4.Merge Insert Buffer
 
@@ -100,7 +100,7 @@ space | marker | offset | metadata | secondary index record
 
 ## 三、自适应哈希索引(Adaptive Hash Index，索引页查询优化) ##
 
-B+树的查找时间取决于B+树的高度，在生产环境中B+树的高度一般为3-4层，需要查询3-4次。
+Demo.B+树的查找时间取决于B+树的高度，在生产环境中B+树的高度一般为3-4层，需要查询3-4次。
 
 InnoDB存储引擎会监控对表上各索引页的查询。如果观察到建立哈希索引可以带来速度提升，则建立哈希索引，称之为自适应哈希索引(Adaptive Hash Index, AHI)。AHI是通过缓冲池的B+树页构造而来，因此建立的速度很快，而且不需要对整张表构建哈希索引。InnoDB存储引擎会自动根据访问的频率和模式来自动地为某些热点页建立哈希索引。
 

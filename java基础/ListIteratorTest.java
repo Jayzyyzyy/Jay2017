@@ -7,7 +7,7 @@ import java.util.List;
 public class ListIteratorTest {
 
     public static void main(String[] args) {
-        //LouShanTest();
+        LouShanTest();
         BuWanQuanShanChu();
 
     }

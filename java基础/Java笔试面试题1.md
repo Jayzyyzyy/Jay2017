@@ -7,7 +7,7 @@
 
 ###2.枚举
 ```java
-enum CatEnum{
+enum Demo.CatEnum{
     /**
      * 1、带有构造方法的枚举，构造方法为只能为private(默认可不写private)；
      * 2、含带参构造方法的枚举，枚举值必须赋值；
@@ -20,7 +20,7 @@ enum CatEnum{
     private String name;
     private int price;
 
-    CatEnum(String name, int price) {
+    Demo.CatEnum(String name, int price) {
         this.name = name;
         this.price = price;
     }

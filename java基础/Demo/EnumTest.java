@@ -1,9 +1,16 @@
+package Demo;
+
+import java.io.UnsupportedEncodingException;
+
 /**
  * 枚举类
  */
 public class EnumTest {
+    public static void main(String[] args) throws UnsupportedEncodingException {
 
-
+        String name = CatEnum.BMW.getName();
+        System.out.println(new String(name.getBytes("GBK"), "utf-8"));
+    }
 }
 
 /**

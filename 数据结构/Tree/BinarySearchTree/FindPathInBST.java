@@ -20,7 +20,7 @@ public class FindPathInBST {
         //功能
         boolean isLeafNode = (node.left == null) && (node.right == null);
         if(currentSum == expectedSum && isLeafNode){ //找到
-            System.out.println("A path is found: ");
+            System.out.println("Demo.A path is found: ");
             for (Integer integer : path) {
                 System.out.print(integer + " ");
             }

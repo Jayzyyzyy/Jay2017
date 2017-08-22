@@ -37,7 +37,7 @@ public class MIGongXunLu {
          Queue<Node> queue = new LinkedList<>(); // bfs队列
          queue.add(start);
          isVisited[start.x][start.y][0] = true; // 用比特位来表示对应为门是否有钥匙
-                                                 // 'A'表示标号为0位的门是否有钥匙
+                                                 // 'Demo.A'表示标号为0位的门是否有钥匙
          int[][] dirs = new int[][] { { 0, -1 }, { 0, 1 }, { 1, 0 }, { -1, 0 } };
          Node now, next; // now 表示当前结点，next表示要进入队列的结点
          int M = maze.length;
@@ -55,8 +55,8 @@ public class MIGongXunLu {
                          || maze[next.x][next.y] == '0') { //不能走就不进入队列
                      continue;
                  }
-                 if (maze[next.x][next.y] <= 'Z' && maze[next.x][next.y] >= 'A'
-                     &&(now.keys&(1<<(maze[next.x][next.y]-'A')))==0) {
+                 if (maze[next.x][next.y] <= 'Z' && maze[next.x][next.y] >= 'Demo.A'
+                     &&(now.keys&(1<<(maze[next.x][next.y]-'Demo.A')))==0) {
                      continue;   //next结点为门，now没有对应钥匙就不走（next 不进队列）             
                  }
                  if (maze[next.x][next.y] <= 'z' && maze[next.x][next.y] >= 'a') {
@@ -92,7 +92,7 @@ public class MIGongXunLu {
                          start.y = j;
                      }
                      //统计一共多少门
-                     if (maze[i][j] <= 'Z'&&maze[i][j] >= 'A') {
+                     if (maze[i][j] <= 'Z'&&maze[i][j] >= 'Demo.A') {
                          gate++;
                      }
                  }
