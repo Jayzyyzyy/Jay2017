@@ -27,7 +27,7 @@ class Producer{
         this.depot = depot;
     }
 
-    public void produce(final int val){
+    public void produce(final int val){ //每次开一个线程去生产
         new Thread(){
             @Override
             public void run() {
@@ -48,7 +48,7 @@ class Consumer{
         this.depot = depot;
     }
 
-    public void consume(final int val){
+    public void consume(final int val){ //每次开一个线程取消费
         new Thread(){
             @Override
             public void run() {
