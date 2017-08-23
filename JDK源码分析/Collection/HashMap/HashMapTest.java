@@ -9,19 +9,19 @@ import java.util.Map;
  */
 public class HashMapTest {
     public static void main(String[] args) {
-        /*Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         map.put(null, "123");
         map.put("123", null);
 
         System.out.println(map.get(null));
-        System.out.println(map.containsValue(null));*/
+        System.out.println(map.containsValue(null));
 
-        System.out.println(tableSizeFor(14));
+//        System.out.println(tableSizeFor(14));
 
         //HashTable K V不能为null
-       /* Hashtable<String, String> ht = new Hashtable<>();
-        ht.put("123", null);*/
-
+        Hashtable<String, String> ht = new Hashtable<>();
+        ht.put("123", null);
+        ht.put(null, "123");
 
     }
 
