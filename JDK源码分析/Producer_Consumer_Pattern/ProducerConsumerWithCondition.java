@@ -1,4 +1,4 @@
-package JUCLocks.ReentrantLock;
+package Producer_Consumer_Pattern;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  *  Lock与Condition联合使用实现生产者与消费者模式
  */
-public class ReentrantLockTest3 {
+public class ProducerConsumerWithCondition {
     // 仓库
     private  static class Depot {
         private int capacity;    // 仓库的容量

@@ -96,7 +96,7 @@ public class ConditionTest3 {
         }
         public void run() {
             try {
-                Thread.sleep(10);                    // 线程休眠1ms
+                Thread.sleep(10);                    // 线程休眠10ms
                 bb.take();    // 从BoundedBuffer中取出数据
             } catch (InterruptedException e) {
             }

@@ -81,7 +81,7 @@ class Depot{
             size += inc;
             left -= inc;
 
-            System.out.printf("%s produce(%3d) --> left=%3d, inc=%3d, size=%3d\n",
+            System.out.printf("%s produce(%3d) --> left = %3d, inc = %3d, size = %3d\n",
                     Thread.currentThread().getName(), val, left, inc, size);
 
             this.notifyAll(); //消费者可以消费了
@@ -98,11 +98,18 @@ class Depot{
             size -= des;
             left -= des;
 
-            System.out.printf("%s consume(%3d) <-- left=%3d, dec=%3d, size=%3d\n",
+            System.out.printf("%s consume(%3d) <-- left = %3d, dec = %3d, size = %3d\n",
                      Thread.currentThread().getName(), val, left, des, size);
 
             this.notifyAll(); //通知生产者可以生产了
         }
     }
 
+    @Override
+    public String toString() {
+        return "Depot{" +
+                "capacity=" + capacity +
+                ", size=" + size +
+                '}';
+    }
 }

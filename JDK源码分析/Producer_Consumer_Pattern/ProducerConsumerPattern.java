@@ -8,20 +8,22 @@ import java.util.logging.Logger;
 public class ProducerConsumerPattern {
     public static void main(String args[]){
 
-        //Creating shared object
+        //阻塞队列
         BlockingQueue sharedQueue = new LinkedBlockingQueue();
 
         //Creating Producer and Consumer Thread
-        Thread prodThread = new Thread(new ProducerDemo(sharedQueue));
+        Thread prodThread1 = new Thread(new ProducerDemo(sharedQueue), "生产者1");
+        Thread prodThread2 = new Thread(new ProducerDemo(sharedQueue), "生产者2");
         Thread consThread = new Thread(new ConsumerDemo(sharedQueue));
 
         //Starting producer and Consumer thread
-        prodThread.start();
+        prodThread1.start();
+        prodThread2.start();
         consThread.start();
     }
 }
 
-//Producer Class in java
+//生产者
 class ProducerDemo implements Runnable {
 
     private final BlockingQueue sharedQueue;
@@ -34,9 +36,9 @@ class ProducerDemo implements Runnable {
     public void run() {
         for(int i=0; i<10; i++){
             try {
-                System.out.println("Produced: " + i);
+                System.out.println(Thread.currentThread().getName() + "Produced: " + i);
                 sharedQueue.put(i);
-                Thread.sleep(1000);  //每隔1s放一个
+                Thread.sleep(1000);  //每隔1s放一个 put
             } catch (InterruptedException ex) {
                 Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -45,7 +47,7 @@ class ProducerDemo implements Runnable {
 
 }
 
-//Consumer Class in Java
+//消费者
 class ConsumerDemo implements Runnable{
 
     private final BlockingQueue sharedQueue;
@@ -58,7 +60,7 @@ class ConsumerDemo implements Runnable{
     public void run() {
         while(true){
             try {
-                System.out.println("Consumed: "+ sharedQueue.take());
+                System.out.println("Consumed: "+ sharedQueue.take()); //take
             } catch (InterruptedException ex) {
                 Logger.getLogger(Consumer.class.getName()).log(Level.SEVERE, null, ex);
             }

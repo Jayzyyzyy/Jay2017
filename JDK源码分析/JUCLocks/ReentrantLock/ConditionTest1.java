@@ -37,7 +37,7 @@ public class ConditionTest1 {
                     e.printStackTrace();
                 }
                 System.out.println(Thread.currentThread().getName()+" wakeup others");
-                notify();    // 唤醒“当前对象上的等待线程”
+                this.notifyAll();    // 唤醒“当前对象上的等待线程”
             }
         }
     }
