@@ -13,7 +13,7 @@ class BoundedBuffer {
     private final Condition notEmpty = lock.newCondition(); //非空条件
 
     final Object[] items = new Object[5];  //缓冲区
-    int putPos, takePos, count; //put位置, take位置m, count缓冲区目前有多少
+    int putPos, takePos, count; //put位置, take位置, count缓冲区目前有多少
 
     public void put(Object x) throws InterruptedException {
         lock.lock();    //获取锁

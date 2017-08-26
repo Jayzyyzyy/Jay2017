@@ -1,7 +1,7 @@
 package Producer_Consumer_Pattern;
 
 /**
- * 生产者消费者模式
+ * wait() notifyAll()实现生产者消费者模式
  */
 public class Producer_Consumer_Pattern {
     public static void main(String[] args) {

@@ -5,6 +5,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * BlockingQueue实现生产者消费者模式
+ */
 public class ProducerConsumerPattern {
     public static void main(String args[]){
 

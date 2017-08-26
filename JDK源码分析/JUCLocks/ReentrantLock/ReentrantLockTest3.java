@@ -31,7 +31,7 @@ public class ReentrantLockTest3 {
                 int left = val;
                 while (left > 0) {
                     // 库存已满时，等待“消费者”消费产品。
-                    while (size >= capacity)
+                    while (size == capacity)
                         notFull.await();
                     // 获取“实际生产的数量”(即库存中新增的数量)
                     // 如果“库存”+“想要生产的数量”>“总的容量”，则“实际增量”=“总的容量”-“当前容量”。(此时填满仓库)
@@ -58,7 +58,7 @@ public class ReentrantLockTest3 {
                 int left = val;
                 while (left > 0) {
                     // 库存为0时，等待“生产者”生产产品。
-                    while (size <= 0)
+                    while (size == 0)
                         notEmpty.await();
                     // 获取“实际消费的数量”(即库存中实际减少的数量)
                     // 如果“库存”<“客户要消费的数量”，则“实际消费量”=“库存”；
