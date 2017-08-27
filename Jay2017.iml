@@ -40,7 +40,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" exported="" name="Tomcat 7.0.72" level="application_server_libraries" />
-    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -50,6 +49,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Java EE 6-Java EE 6 (2)" level="project" />
   </component>
 </module>
