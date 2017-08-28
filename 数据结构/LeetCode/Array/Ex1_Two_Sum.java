@@ -35,7 +35,7 @@ public class Ex1_Two_Sum {
     /*int[] index = new int[2];
 
     int size = nums.length;
-        for(int i=0 ;i < size; i++){
+    for(int i=0 ;i < size; i++){
         for(int j=i+1; j< size; j++){
             if(nums[i] + nums[j] == target){
                 index[0] = i;

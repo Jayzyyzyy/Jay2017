@@ -21,15 +21,14 @@ package LeetCode.Array;
  Special thanks to @Freezen for adding this problem and creating all test cases.
 
 三次反转数组：
- 第一次反转整个数组；
- 第二次反转数组的前K个数；
- 第三次反转数组剩下的数
+     第一次反转整个数组；
+     第二次反转数组的前K个数；
+     第三次反转数组剩下的数
  */
 public class Ex189_Rotate_Array {
     //O(n)时间  O(n)空间
     public void rotate(int[] nums, int k) {
-        if(k > nums.length)
-            k = k % nums.length;
+        k = k % nums.length; //取余
 
         int[] result = new int[nums.length];
 
