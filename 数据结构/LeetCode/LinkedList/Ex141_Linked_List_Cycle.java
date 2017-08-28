@@ -11,22 +11,22 @@ O(n)时间复杂度 O(1)空间复杂度
  */
 public class Ex141_Linked_List_Cycle {
     public boolean hasCycle(ListNode head) {
-        if(head == null || head.next == null ) return false;
+        if(head == null || head.next == null ) return false; //0或1，返回false
 
-        ListNode slow = head;
-        ListNode fast = head;
+        ListNode slow = head; //慢指针
+        ListNode fast = head; //快指针
 
         while(fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
-            if(slow == fast ){
+            if(slow == fast ){ //相遇说明有环
                 return true;
             }
 
         }
-        return false;
+        return false; //退出条件，说明不存在环
     }
-    private static class ListNode {
+    public static class ListNode {
         int val;
         ListNode next;
         ListNode(int x) {

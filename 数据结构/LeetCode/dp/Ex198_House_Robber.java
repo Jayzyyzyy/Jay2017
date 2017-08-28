@@ -12,7 +12,7 @@ package LeetCode.dp;
 
  */
 
-public class Ex198_house_Robber {
+public class Ex198_House_Robber {
     public int rob(int[] nums) {
         if(nums == null || nums.length == 0) return 0;
 

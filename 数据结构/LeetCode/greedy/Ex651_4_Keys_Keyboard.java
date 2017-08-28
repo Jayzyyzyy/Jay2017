@@ -44,7 +44,8 @@ public class Ex651_4_Keys_Keyboard {
         for (int i = 1; i <= N; i++) {
             dp[i] = i; // 只按A键
             for(int j = 3; j< i; j++){
-                dp[i] = Math.max(dp[i], dp[i-j]*(j-1)); //从dp[i-j]开始，Ctrl-Demo.A,Ctrl-C,Ctrl-V,Ctrl-V...复制策略
+                //从dp[i-j]开始，Ctrl-A,Ctrl-C,Ctrl-V,Ctrl-V...复制策略
+                dp[i] = Math.max(dp[i], dp[i-j]*(j-1));
             }
         }
         return dp[N];
