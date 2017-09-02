@@ -60,6 +60,11 @@
 
 ![](http://onh97xzo0.bkt.clouddn.com/3-7.PNG)
 
+###4.UDP与TCP各自适用的协议
+
+(1)TCP: FTP HTTP SMTP Telnet
+
+(2)UDP: DNS
 
 ## 三、TCP流量控制原理(滑动窗口)
 
