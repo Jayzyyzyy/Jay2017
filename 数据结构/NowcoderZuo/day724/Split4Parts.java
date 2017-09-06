@@ -17,14 +17,15 @@ public class Split4Parts {
 		}
 		int leftSum = arr[0]; //左边的和
 		for (int i = 1; i < arr.length - 1; i++) { //1---n-2 , 0 n-1位置不会被作为划分点
-			set.add(String.valueOf(leftSum) + "_" + String.valueOf(allSum - leftSum - arr[i])); //左和_右和（_防止歧义）
+			//左和_右和（_防止歧义）
+			set.add(String.valueOf(leftSum) + "_" + String.valueOf(allSum - leftSum - arr[i]));
 			leftSum += arr[i];
 		}
 		int l = 1; //分1
 		int lsum = arr[0]; //左边部分的累加和(不包括l)
 		int r = arr.length - 2; //分2
 		int rsum = arr[arr.length - 1];//右边部分的累加和(不包括r)
-		while (l < r - 3) { //l = r-3退出循环
+		while (l < r - 3) { //l == r-3退出循环
 			if (lsum == rsum) { //确认可能情况
 				String lkey = String.valueOf(lsum * 2 + arr[l]);
 				String rkey = String.valueOf(rsum * 2 + arr[r]);

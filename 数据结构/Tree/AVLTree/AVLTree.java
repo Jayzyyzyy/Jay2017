@@ -348,7 +348,7 @@ public class AVLTree<T extends Comparable<? super T>> {
                    采用这种方式的好处是：删除"tree的左子树中最大节点"之后，AVL树仍然是平衡的。
                  */
                 if(height(tree.left) > height(tree.right)){
-                    AVLNode<T> leftMax = maximum(tree.right); //左子树最右边
+                    AVLNode<T> leftMax = maximum(tree.left); //左子树最右边
                     tree.key = leftMax.key;
                     tree.left = delete(tree.left, leftMax);
                 }else {

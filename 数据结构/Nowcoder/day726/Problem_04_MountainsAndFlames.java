@@ -19,7 +19,7 @@ public class Problem_04_MountainsAndFlames {
 			System.out.println(communications(arr));
 		}
 	}
-	//index的下一个索引(循环链表)
+	//i的下一个索引(循环链表)
 	public static int nextIndex(int size, int i) {
 		return i < (size - 1) ? (i + 1) : 0;
 	}

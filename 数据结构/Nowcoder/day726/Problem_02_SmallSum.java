@@ -22,7 +22,7 @@ public class Problem_02_SmallSum {
 	}
 
 	/**
-	 * 归并排序
+	 * 归并排序(总的小和)
 	 * @param s
 	 * @param l
 	 * @param r

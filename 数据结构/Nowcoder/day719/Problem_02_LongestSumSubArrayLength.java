@@ -11,9 +11,11 @@ public class Problem_02_LongestSumSubArrayLength {
 		if (arr == null || arr.length == 0) {
 			return 0;
 		}
-		//key为累加和第一次出现的位置，value为index索引
+		//key为累加和第一次出现的和，value为index索引位置
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-		map.put(0, -1); // important 保持从0位置开始的累加和为k的子数组的计算逻辑，表示什么都不加sum=0，出现在-1位置
+		// important 保持从0位置开始的累加和为k的子数组的计算逻辑，
+		// 表示什么都不加sum=0，出现在-1位置
+		map.put(0, -1);
 		int len = 0; //最长长度
 		int sum = 0; //一轮的和(累加和)
 		for (int i = 0; i < arr.length; i++) {
