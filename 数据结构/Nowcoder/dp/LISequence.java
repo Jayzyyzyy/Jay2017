@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * 求出最长递增子序列LIS 数组  O(N²)或者O(NlgN)
  */
-public class LIS {
+public class LISequence {
     public static void main(String[] args) {
         int[] arr = {2,1,5,3,6,4,8,9,7};
         System.out.println(Arrays.toString(lis1(arr)));
