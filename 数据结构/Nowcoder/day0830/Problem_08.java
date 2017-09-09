@@ -56,7 +56,7 @@ public class Problem_08 {
 		}
 		return res;
 	}
-	//空间压缩版动态规划 sum减去某些值
+	//动态规划改进2 sum减去某些值
 	public static long number3(int n, int k) {
 		long[][] dp = new long[k + 1][n];
 		for (int i = 0; i < k + 1; i++) {

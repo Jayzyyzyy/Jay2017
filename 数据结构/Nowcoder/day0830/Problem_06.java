@@ -3,6 +3,9 @@ package Nowcoder.day0830;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
+/**
+ * 堆棋子(优先队列)
+ */
 public class Problem_06 {
 
 	public static void main(String[] args) {

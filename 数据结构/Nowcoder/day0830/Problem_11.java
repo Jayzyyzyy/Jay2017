@@ -49,7 +49,7 @@ public class Problem_11 {
 			while (!minCostQ.isEmpty() && minCostQ.peek().c <= W) { //小于w的放入大根堆
 				maxProfitQ.add(minCostQ.poll());
 			}
-			if (maxProfitQ.isEmpty()) {
+			if (maxProfitQ.isEmpty()) { //直接没法做了，返回W值
 				return W;
 			}
 			W += maxProfitQ.poll().p; //选目前最大的

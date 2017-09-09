@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 /**
- * 疯狂队列 (贪心)
+ * 疯狂队列 (贪心) 先排序
  */
 public class Problem_07 {
 
