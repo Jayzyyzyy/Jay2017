@@ -11,6 +11,13 @@ public class Problem_08 {
 		return process(1, n, k);
 	}
 
+	/**
+	 *
+	 * @param pre 之前的数是pre
+	 * @param n 还有n个格子需要去填
+	 * @param k 填的数在1到k之间
+	 * @return 从这个位置开始，一共有几种方法
+	 */
 	public static long process(int pre, int n, int k) {
 		if (n == 0) {
 			return 1L;
@@ -24,9 +31,9 @@ public class Problem_08 {
 		}
 		return sum % 1000000007L;
 	}
-
+	//number1()动态规划版
 	public static long number2(int n, int k) {
-		long[][] dp = new long[k + 1][n];
+		long[][] dp = new long[k + 1][n]; //k+1行，n列
 		for (int i = 0; i < k + 1; i++) {
 			dp[i][0] = 1L;
 		}
@@ -49,7 +56,7 @@ public class Problem_08 {
 		}
 		return res;
 	}
-
+	//空间压缩版动态规划 sum减去某些值
 	public static long number3(int n, int k) {
 		long[][] dp = new long[k + 1][n];
 		for (int i = 0; i < k + 1; i++) {
@@ -58,7 +65,7 @@ public class Problem_08 {
 		for (int col = 1; col < n; col++) {
 			long sum = 0;
 			for (int row = 1; row < k + 1; row++) {
-				sum += dp[row][col - 1];
+				sum += dp[row][col - 1]; //先计算前一列的种类和
 				sum %= 1000000007L;
 			}
 			for (int row = 1; row < k + 1; row++) {

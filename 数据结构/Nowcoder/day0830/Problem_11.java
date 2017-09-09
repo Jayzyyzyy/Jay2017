@@ -46,13 +46,13 @@ public class Problem_11 {
 			minCostQ.add(nodes[i]);
 		}
 		for (int i = 0; i < k; i++) {
-			while (!minCostQ.isEmpty() && minCostQ.peek().c <= W) {
+			while (!minCostQ.isEmpty() && minCostQ.peek().c <= W) { //小于w的放入大根堆
 				maxProfitQ.add(minCostQ.poll());
 			}
 			if (maxProfitQ.isEmpty()) {
 				return W;
 			}
-			W += maxProfitQ.poll().p;
+			W += maxProfitQ.poll().p; //选目前最大的
 		}
 		return W;
 	}
