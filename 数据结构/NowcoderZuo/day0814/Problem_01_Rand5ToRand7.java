@@ -50,7 +50,7 @@ public class Problem_01_Rand5ToRand7 {
 		return getNumFromMSysNum(randNum, m) + 1;
 	}
 
-	// ��valueת��m���Ƶ���
+	// 把value转成m进制的数
 	public static int[] getMSysNum(int value, int m) {
 		int[] res = new int[32];
 		int index = res.length - 1;
@@ -61,7 +61,7 @@ public class Problem_01_Rand5ToRand7 {
 		return res;
 	}
 
-	// �ȸ����������һ��0~nMsys��Χ�ϵ�����ֻ������m���Ʊ��ġ�
+	// 等概率随机产生一个0~nMsys范围上的数，只不过是m进制表达的。
 	public static int[] getRanMSysNumLessN(int[] nMSys, int m) {
 		int[] res = new int[nMSys.length];
 		int start = 0;
@@ -86,7 +86,7 @@ public class Problem_01_Rand5ToRand7 {
 		return res;
 	}
 
-	// ��m���Ƶ���ת��10����
+	//  把m进制的数转成10进制
 	public static int getNumFromMSysNum(int[] mSysNum, int m) {
 		int res = 0;
 		for (int i = 0; i != mSysNum.length; i++) {

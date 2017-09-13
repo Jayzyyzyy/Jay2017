@@ -2,9 +2,9 @@ package NowcoderZuo.day0814;
 
 public class Problem_07_ReservoirSampling {
 
-	// һ���򵥵��������������һ�����������ǲ���
+	// 一个简单的随机函数，决定一个事情做还是不做
 	public static int rand(int max) {
-		// �ȸ��ʷ���1~max�е�һ��   -> 0~max-1 +1 -> 1~max
+		// 等概率返回1~max中的一个   -> 0~max-1 +1 -> 1~max
 		return (int) (Math.random() * max) + 1;
 	}
 
@@ -14,11 +14,11 @@ public class Problem_07_ReservoirSampling {
 		}
 		int[] res = new int[Math.min(k, max)];
 		for (int i = 0; i != res.length; i++) {
-			res[i] = i + 1; // ǰk����ֱ�ӽ�����
+			res[i] = i + 1; // 前k个数直接进袋子
 		}
 		for (int i = k + 1; i < max + 1; i++) {
-			if (rand(i) <= k) { // ����i����������
-				res[rand(k) - 1] = i; // i�����������е�һ��
+			if (rand(i) <= k) {  // 决定i进不进袋子
+				res[rand(k) - 1] = i; // i随机替掉袋子中的一个
 			}
 		}
 		return res;
