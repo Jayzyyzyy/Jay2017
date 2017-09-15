@@ -15,8 +15,8 @@ public class ObjectSTreamTest {
     public static String TMP_FILE = "box.bmp";
 
     public static void main(String[] args) {
-        testWrite();
-        //testRead();
+        //testWrite();
+        testRead();
     }
 
     /**

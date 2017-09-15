@@ -1,7 +1,7 @@
 package Graph.UndirectedGraphs;
 
 /**
- * 深度优先搜索 DFS
+ * 深度优先搜索 DFSWithPath
  * 注意：算法遍历边和访问顶点的顺序与图的表示(邻接表)有关，而不只是与图的结构或是算法有关
  */
 public class DepthFirstSearch implements Search{

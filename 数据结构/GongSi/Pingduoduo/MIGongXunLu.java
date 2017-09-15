@@ -33,7 +33,7 @@ public class MIGongXunLu {
  }
  public class Main1 {
      // maze迷宫，isVisited表示状态是否有过，有过就是true start开始结点
-     public static int BFS(char[][] maze, boolean[][][] isVisited, Node start) {
+     public static int BFSWithPath(char[][] maze, boolean[][][] isVisited, Node start) {
          Queue<Node> queue = new LinkedList<>(); // bfs队列
          queue.add(start);
          isVisited[start.x][start.y][0] = true; // 用比特位来表示对应为门是否有钥匙
@@ -100,7 +100,7 @@ public class MIGongXunLu {
              //所有状态的 访问情况
              boolean[][][]isVisited=new boolean[M][N][2<<gate];
              //只输出路径的步数（不包括起点）
-             System.out.println(BFS(maze, isVisited, start));
+             System.out.println(BFSWithPath(maze, isVisited, start));
          }
          sc.close();
      }
