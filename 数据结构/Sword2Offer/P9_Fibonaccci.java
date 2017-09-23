@@ -1,7 +1,7 @@
 package Sword2Offer;
 
 /**
- *  斐波那契数列
+ *  斐波那契数列(动态规划)
  */
 public class P9_Fibonaccci {
     public int Fibonacci(int n) {
@@ -17,6 +17,5 @@ public class P9_Fibonaccci {
             f[i] = f[i-1]+f[i-2];
         }
         return f[n];
-
     }
 }

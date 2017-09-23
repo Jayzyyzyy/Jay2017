@@ -12,7 +12,7 @@ package Sword2Offer;
 
  */
 public class P3_Two_dimensional_array_of_search {
-    //O(n)的时间复杂度，O(1)的空间复杂度
+    //O(m+n)的时间复杂度，O(1)的空间复杂度
     /**
      *  返回结果
      * @param array Array

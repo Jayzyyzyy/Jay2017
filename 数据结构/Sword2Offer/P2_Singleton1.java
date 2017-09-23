@@ -1,7 +1,7 @@
 package Sword2Offer;
 
 /**
- * Created by Jay on 2017/4/21.
+ * 只适用于单线程
  */
 public class P2_Singleton1 {
 
@@ -15,7 +15,4 @@ public class P2_Singleton1 {
         }
         return instance;
     }
-
-
-
 }

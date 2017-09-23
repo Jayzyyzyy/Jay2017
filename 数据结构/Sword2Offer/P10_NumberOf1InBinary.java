@@ -5,7 +5,7 @@ package Sword2Offer;
  */
 public class P10_NumberOf1InBinary {
     //n二进制整数中有多少个1就只需循环几次
-    public int NumberOf1_3(int n){
+    public static int NumberOf1_3(int n){
         int count = 0;
         while(n != 0){ //二进制中还有位为1
             count ++;
@@ -16,7 +16,7 @@ public class P10_NumberOf1InBinary {
 
 
     //位运算，n二进制有几位flag就移动几次
-    public int NumberOf1_2(int n){
+    public static int NumberOf1_2(int n){
         int count = 0;
         int flag = 1;
         while(flag != 0){  //从最左边高位移除，变为0
@@ -29,7 +29,7 @@ public class P10_NumberOf1InBinary {
     }
 
     //O(n) O(n)时间、空间复杂度
-    public int NumberOf1(int n) {
+    public  static int NumberOf1(int n) {
         String s = Integer.toBinaryString( n );
 
         char[] c = s.toCharArray();
@@ -42,4 +42,21 @@ public class P10_NumberOf1InBinary {
         }
         return cnt;
     }
+
+    public static void main(String[] args) {
+        boolean flag = false;
+        for (int i = 0; i < 1000000; i++) {
+            int n = (int)(Math.random()*1000000);
+            if(NumberOf1(n) != NumberOf1_2(n) || NumberOf1(n) != NumberOf1_3(n)){
+                flag = true;
+                break;
+            }
+        }
+        if(flag){
+            System.out.println("2333333");
+        }else {
+            System.out.println("6666666");
+        }
+    }
+
 }

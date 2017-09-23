@@ -1,7 +1,7 @@
 package Sword2Offer;
 
 /**
- * Created by Jay on 2017/4/21.
+ * 比较适用多线程
  */
 public class P2_Singleton3 {
     private volatile static P2_Singleton3 instance = null;
@@ -19,7 +19,5 @@ public class P2_Singleton3 {
 
         return instance;
     }
-
-
 
 }

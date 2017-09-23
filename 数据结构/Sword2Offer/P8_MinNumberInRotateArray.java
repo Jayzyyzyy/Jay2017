@@ -17,8 +17,8 @@ public class P8_MinNumberInRotateArray {
         return array[0]; //一种情况 未旋转 1 2 3 4 5
     }
 
-    //O(NlgN)
-    public static int minNumberInRotateArray2(int [] array) {
+    //O(lgN)
+    public static int minNumberInRotateArray2(int[] array) {
         if (array == null || array.length == 0) {
             return 0;
         }
@@ -34,15 +34,15 @@ public class P8_MinNumberInRotateArray {
             }
 
             mid = (left + right) / 2;
-
+            //1 0 1 1 1 // 1 1 1 0 1 顺序查找
             if (array[right] == array[left] && array[mid] == array[right]) {
                 return min(array, left, right);
 
             }
-
+            //二分
             if (array[mid] >= array[left]) {
                 left = mid;
-            } else if (array[mid] < array[right]) {
+            } else if (array[mid] <= array[right]) {
                 right = mid;
             }
 
@@ -61,6 +61,8 @@ public class P8_MinNumberInRotateArray {
     }
 
     public static void main(String[] args) {
+        System.out.println(minNumberInRotateArray1(new int[]{3,4,5,1,2}));
+        System.out.println(minNumberInRotateArray1(new int[]{1,0,1,1,1}));
         System.out.println(minNumberInRotateArray2(new int[]{3,4,5,1,2}));
         System.out.println(minNumberInRotateArray2(new int[]{1,0,1,1,1}));
     }

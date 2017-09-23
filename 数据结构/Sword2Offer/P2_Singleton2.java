@@ -1,7 +1,7 @@
 package Sword2Offer;
 
 /**
- * Created by Jay on 2017/4/21.
+ * 能在多线程下工作，但是效率不高
  */
 public class P2_Singleton2 {
     private static P2_Singleton2 instance = null;
