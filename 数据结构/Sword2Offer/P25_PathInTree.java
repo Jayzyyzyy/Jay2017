@@ -27,7 +27,8 @@ public class P25_PathInTree {
      * @param target 目标数值
      * @param node 本次节点
      */
-    public void find(ArrayList<ArrayList<Integer>> result, Stack<Integer> path, int sum, int target, TreeNode node){
+    public void find(ArrayList<ArrayList<Integer>> result, Stack<Integer> path,
+                     int sum, int target, TreeNode node){
         path.push(node.val); //计算路径、和
         sum += node.val; //int sum1 = sum + node.val;后面改为sum1
         //找到

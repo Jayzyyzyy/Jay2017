@@ -13,7 +13,7 @@ public class P13_DeleteNode {
         if(head == null || toBeDelete == null){
             return;
         }
-        if(head == toBeDelete){ //只有一个节点
+        if(head.next == null && head == toBeDelete){ //只有一个节点
             head = null;
             toBeDelete = null;
         }else if(toBeDelete.next == null){ //删除的是尾节点，遍历O(n)

@@ -9,7 +9,7 @@ public class P20_printMatrix {
     public ArrayList<Integer> printMatrix(int [][] matrix) {
         ArrayList<Integer> result = new ArrayList<Integer>();
         if(matrix == null) return result;
-        int cols = matrix.length, rows = matrix[0].length;
+        int rows = matrix.length, cols = matrix[0].length;
         if(cols <= 0 || rows <= 0) return result;
 
         int start=0;
@@ -22,7 +22,8 @@ public class P20_printMatrix {
         return result;
     }
 
-    private void print(ArrayList<Integer> result, int[][] matrix, int start, int cols, int rows){
+    private void print(ArrayList<Integer> result, int[][] matrix,
+                       int start, int cols, int rows){
         int endX = cols - 1 - start;
         int endY = rows - 1 -start;
         //从左至右

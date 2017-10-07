@@ -7,7 +7,7 @@ import java.util.Stack;
  */
 public class P22_StackPushPopOrder {
     public boolean isPopOrder(int [] pushA,int [] popA) {
-        if(pushA == null) return false;
+        if(pushA == null || popA == null) return false;
         if(pushA.length == 0 || popA.length == 0) return false;
         if(pushA.length == 1 && popA.length == 1) return pushA[0] == popA[0];
         if(pushA.length == 2 && popA.length == 2){
@@ -19,7 +19,7 @@ public class P22_StackPushPopOrder {
             }
         }
 
-        //顺序中出现c a b的情况 c>b and b>c
+        //顺序中出现c a b的情况 c>b and b>a
         for (int i = 0; i < popA.length -2; i++) {
             if(popA[i] > popA[i+2] && popA[i+2] > popA[i+1]){
                 return false;
@@ -29,7 +29,7 @@ public class P22_StackPushPopOrder {
     }
 
     public boolean isPopOrder2(int[] pushA, int[] popA){
-        if(pushA == null) return false;
+        if(pushA == null || popA == null) return false;
         if(pushA.length == 0 || popA.length == 0) return false;
 
         Stack<Integer> s = new Stack<>(); //辅助栈

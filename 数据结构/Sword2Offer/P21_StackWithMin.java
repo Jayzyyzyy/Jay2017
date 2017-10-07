@@ -34,6 +34,7 @@ public class P21_StackWithMin {
         if(!data.isEmpty()){
             data.pop();
             min.pop();
+            return;
         }
         throw new RuntimeException("no elements");
     }

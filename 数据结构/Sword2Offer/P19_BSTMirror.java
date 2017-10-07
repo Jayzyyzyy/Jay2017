@@ -14,6 +14,18 @@ public class P19_BSTMirror {
 
         Mirror(root.left);
         Mirror(root.right);
+
+        /*
+        if(root == null) return ;
+        if(root.left != null || root.right!=null){
+            TreeNode tmp = root.left;
+            root.left = root.right;
+            root.right = tmp;
+        }
+        if(root.left != null) Mirror(root.left);
+        if(root.right != null) Mirror(root.right);
+        * */
+
     }
 
     static class TreeNode {
