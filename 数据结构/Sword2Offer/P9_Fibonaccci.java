@@ -5,8 +5,8 @@ package Sword2Offer;
  */
 public class P9_Fibonaccci {
     public int Fibonacci(int n) {
-        if(n==0) return 0;
-        if(n ==1 ||n==2){
+        if(n == 0) return 0;
+        if(n == 1 || n == 2){
             return 1;
         }
 

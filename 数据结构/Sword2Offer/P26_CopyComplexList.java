@@ -69,5 +69,6 @@ public class P26_CopyComplexList {
         }
     }
 
-    /*也可以使用HashMap将原始节点与新节点作为key value映射存在map中，方便设置random指针，空间换时间O(1)*/
+    /*也可以使用HashMap将原始节点与新节点作为key value映射存在map中，
+    方便设置random指针，空间换时间O(1)*/
 }

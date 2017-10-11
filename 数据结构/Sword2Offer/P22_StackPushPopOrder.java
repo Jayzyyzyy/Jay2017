@@ -13,13 +13,14 @@ public class P22_StackPushPopOrder {
         if(pushA.length == 2 && popA.length == 2){
             if(pushA[0] == popA[0] && pushA[1]==popA[1]){
                 return true;
-            }
-            if(pushA[0] == popA[1] && pushA[1]==popA[0]){
+            }else if(pushA[0] == popA[1] && pushA[1]==popA[0]){
                 return true;
+            }else {
+                return false;
             }
         }
 
-        //顺序中出现c a b的情况 c>b and b>a
+        //popA顺序中出现c a b的情况 c>b and b>a
         for (int i = 0; i < popA.length -2; i++) {
             if(popA[i] > popA[i+2] && popA[i+2] > popA[i+1]){
                 return false;

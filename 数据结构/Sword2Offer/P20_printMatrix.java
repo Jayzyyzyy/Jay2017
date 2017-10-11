@@ -12,7 +12,7 @@ public class P20_printMatrix {
         int rows = matrix.length, cols = matrix[0].length;
         if(cols <= 0 || rows <= 0) return result;
 
-        int start=0;
+        int start = 0;
 
         while(2*start < cols && 2*start < rows){  //退出条件
             print(result, matrix, start, cols, rows);

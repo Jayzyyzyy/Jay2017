@@ -9,8 +9,8 @@ public class Demo01 {
         Thread t1 = new MyThread("t1");
         Thread t2 = new MyThread("t2");
 
-        t1.setPriority(10);  //设置优先级
-        t2.setPriority(1);
+        t1.setPriority(1);  //设置优先级
+        t2.setPriority(10);
 
         System.out.println(Thread.currentThread().getName() + " priority: "
                 + Thread.currentThread().getPriority());

@@ -11,7 +11,8 @@ public class AtomicLongFieldUpdaterTest {
         Class<Person> clazz = Person.class;
 
         //创建updater对象，传递参数是“class对象”和“long类型在类中对应的名称”
-        AtomicLongFieldUpdater<Person> updater = AtomicLongFieldUpdater.newUpdater(clazz, "id");
+        AtomicLongFieldUpdater<Person> updater = AtomicLongFieldUpdater
+                .newUpdater(clazz, "id");
 
         Person p = new Person(123456789L);
 

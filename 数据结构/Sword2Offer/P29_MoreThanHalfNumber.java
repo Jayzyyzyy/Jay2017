@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 数组中出险次数超过一般的数字
+ * 数组中出现次数超过一半的数字
  */
 public class P29_MoreThanHalfNumber {
     //1.HashMap O(n) O(n)

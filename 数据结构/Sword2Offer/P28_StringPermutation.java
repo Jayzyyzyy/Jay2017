@@ -32,6 +32,7 @@ public class P28_StringPermutation {
     public void permutation(HashSet<String> set, char[] arr, int start, int end){
         if(start == end){  //排列到最后一个元素，set直接加入字符串（递归头）
             set.add(String.valueOf(arr)); //考虑字符重复
+            return ;
         }
 
         for(int i = start; i <= end; i++){

@@ -34,8 +34,8 @@ public class CountDownLatchTest {
         @Override
         public void run() {
             try {
-                Thread.sleep(1000);
                 System.out.println(Thread.currentThread().getName() + " 1000 ms");
+                Thread.sleep(1000);
 
                 //count -1
                 doneSignal.countDown(); //减到0时，主线程开始继续执行

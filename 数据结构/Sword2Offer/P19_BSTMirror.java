@@ -6,7 +6,7 @@ package Sword2Offer;
 public class P19_BSTMirror {
     public void Mirror(TreeNode root) {
         if(root == null) return;
-        if(root.left == null && root.right == null) return;
+        //if(root.left == null && root.right == null) return;
 
         TreeNode temp = root.left;
         root.left = root.right;
