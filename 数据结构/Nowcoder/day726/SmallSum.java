@@ -1,5 +1,8 @@
 package Nowcoder.day726;
 
+/**
+ * 计算数组的小和
+ */
 public class SmallSum {
     //计算小和
     public int calcMonoSum(int[] A, int n) {
