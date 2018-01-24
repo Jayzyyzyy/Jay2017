@@ -33,4 +33,36 @@
 	3.进程状态实例(ps aux)
 	
 [![pIOeAI.md.png](https://s1.ax1x.com/2018/01/23/pIOeAI.md.png)](https://imgchr.com/i/pIOeAI)
-###(6) top 	
+
+###(6) top 	 动态监视进程活动与系统负载
+
+###(7) pidof 查询进程的pid号
+
+	pidof init ---> 1(pid号)
+
+###(8) kill 终止指定pid号的进程
+
+	pidof  服务进程名 ---> pid号
+	kill   pid号 ---> 终止
+
+	killall 服务进程名 ---> 终止某个服务程序带有的全部进程
+
+##3.系统状态检测命令
+###(1) ifconfig 获取网卡与网络状态等信息
+	
+###(2) uname 查看系统内核与系统版本信息
+
+	Linux Jay 2.6.32-504.el6.x86_64 #1 SMP Wed Oct 15 04:27:16 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+
+###(3) uptime 查看系统负载
+	20:16:17 up 51 min,  2 users,  load average: 0.00, 0.00, 0.00 
+	load average(平均负载): 最近1、5、15分钟内的压力情况，尽量不要长期超过1，生产环境中不能超过5.
+
+###(4) free 内存使用量信息
+	
+###(5) who 查看当前登录主机的用户终端信息
+	用户名   终端设备       登录时间
+	Jay      tty1         2018-01-24 19:26 (:0)
+	Jay      pts/0        2018-01-24 19:27 (192.168.209.1)
+
+###(6) last 
