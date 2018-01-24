@@ -22,9 +22,9 @@ public class Ex19_MirrorTest {
         n2.left = n5;
         n2.right = n6;
 
-        Ex19_Mirror e = new Ex19_Mirror();
+        /*Ex19_Mirror e = new Ex19_Mirror();
         e.Mirror(root);
-        e.preOrder(root);
+        e.preOrder(root);*/
     }
 
 

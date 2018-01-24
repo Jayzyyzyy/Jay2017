@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <excludeFromCompile>
+      <file url="file://$PROJECT_DIR$/算法/String/StringSorts/Count.java" />
+      <file url="file://$PROJECT_DIR$/Java多线程/Chapter3/ThreeStooges.java" />
+      <file url="file://$PROJECT_DIR$/数据结构/StackAndQueue/Ex1_FindMinInStack.java" />
+      <file url="file://$PROJECT_DIR$/数据结构/Sword2Offer/Ex19_Mirror.java" />
+      <file url="file://$PROJECT_DIR$/数据结构/Sword2Offer/P21_StackWithMin.java" />
+      <file url="file://$PROJECT_DIR$/JDK源码分析/JUCLocks/ReentrantLock/ConditionTest3.java" />
+      <file url="file://$PROJECT_DIR$/java基础/ListTest.java" />
+      <file url="file://$PROJECT_DIR$/数据结构/Sword2Offer/P10_NumberOf1InBinary.java" />
+      <file url="file://$PROJECT_DIR$/数据结构/Sword2Offer/P6ReConstructBSTTest.java" />
+      <file url="file://$PROJECT_DIR$/数据结构/Nowcoder/day719/Problem_01_ParenthesesProblem.java" />
+      <file url="file://$PROJECT_DIR$/java基础/MultiThread/thread4/InterruptTest.java" />
+      <file url="file://$PROJECT_DIR$/JVM虚拟机/Chapter3/HandlePromotionFailure.java" />
+      <file url="file://$PROJECT_DIR$/数据结构/Array/Queue.java" />
+      <file url="file://$PROJECT_DIR$/JVM虚拟机/Chapter4/Bar.java" />
+      <file url="file://$PROJECT_DIR$/JVM虚拟机/Chapter8/$83/Dispatch.java" />
+      <file url="file://$PROJECT_DIR$/JVM虚拟机/Chapter2/OOMError/DirectMemoryOOM.java" />
+    </excludeFromCompile>
     <bytecodeTargetLevel target="1.8" />
   </component>
 </project>
