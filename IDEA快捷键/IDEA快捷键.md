@@ -53,19 +53,21 @@
 
 ###2.3 postfix
 
-	for for循环
+    //ctrl+shift+A 查找postfix(不可编辑)
+	fori for循环
 	sout 输出
-	filed 属性
+	field 属性
 	return 返回值
 	name.field——可自动添加this.name = name 以及private String name;
 	user.nn——if(user!=null){}
-	uesr.retuen——return user——个人在尝试的时候，输入一个r就有return 所以我觉得直接写可能更简便
+	uesr.return——return user——个人在尝试的时候，输入一个r就有return 所以我觉得直接写可能更简便
 
 ###2.4 alter+enter
 
 	自动提示创建函数
-	list replace
-	字符串format
+	list replace //list遍历时，普通循环 替换为 增强for循环
+	字符串format //字符串格式化 ||| 字符串连接使用StringBuilder
+	实现接口
 
 ##3.重构
 

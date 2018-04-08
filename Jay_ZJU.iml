@@ -18,6 +18,7 @@
       <sourceFolder url="file://$MODULE_DIR$/Java多线程" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Algorithms" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/IDEA快捷键" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/JavaSE_SXT" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
